@@ -1,0 +1,696 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{48A74B94-F148-43F4-B4AE-800DB43C8B53}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InBoardPro</RootNamespace>
+    <AssemblyName>InBoardPro</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\LinkedinDominator.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\LinkedinDominator.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ChilkatDotNet2">
+      <HintPath>..\LibsTextFile\32BitDll\ChilkatDotNet2.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.SHDocVw">
+      <HintPath>..\LibsTextFile\32BitDll\Interop.SHDocVw.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\LibsTextFile\64BitDll\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenPOP">
+      <HintPath>..\LibsTextFile\32BitDll\OpenPOP.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.65.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LibsTextFile\32BitDll\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WatiN.Core">
+      <HintPath>..\LibsTextFile\32BitDll\WatiN.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CompanyEmployeeScraper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompanyEmployeeScraper.Designer.cs">
+      <DependentUpon>CompanyEmployeeScraper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAddBlackListUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddBlackListUser.Designer.cs">
+      <DependentUpon>FrmAddBlackListUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCampaignJoinGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCampaignJoinGroup.Designer.cs">
+      <DependentUpon>frmCampaignJoinGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCampaignScraper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCampaignScraper.Designer.cs">
+      <DependentUpon>frmCampaignScraper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmGroupsInvitation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGroupsInvitation.Designer.cs">
+      <DependentUpon>frmGroupsInvitation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAccountPasswordUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAccountPasswordUpdate.Designer.cs">
+      <DependentUpon>frmAccountPasswordUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCampaignSearchWithInvite.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCampaignSearchWithInvite.Designer.cs">
+      <DependentUpon>frmCampaignSearchWithInvite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLicensingDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLicensingDetails.Designer.cs">
+      <DependentUpon>frmLicensingDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLinkedInScrapperZipIndustryLastNameWise.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLinkedInScrapperZipIndustryLastNameWise.Designer.cs">
+      <DependentUpon>FrmLinkedInScrapperZipIndustryLastNameWise.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAcceptInvitations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAcceptInvitations.Designer.cs">
+      <DependentUpon>FrmAcceptInvitations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAccountVerification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAccountVerification.Designer.cs">
+      <DependentUpon>FrmAccountVerification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAddExperience.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddExperience.Designer.cs">
+      <DependentUpon>FrmAddExperience.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCampaignAccountCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCampaignAccountCreator.designer.cs">
+      <DependentUpon>frmCampaignAccountCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCaptchaLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCaptchaLogin.Designer.cs">
+      <DependentUpon>FrmCaptchaLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAccounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAccounts.Designer.cs">
+      <DependentUpon>frmAccounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChangeDefaultFolderPath.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChangeDefaultFolderPath.Designer.cs">
+      <DependentUpon>frmChangeDefaultFolderPath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCompanySearchWithFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCompanySearchWithFilter.Designer.cs">
+      <DependentUpon>FrmCompanySearchWithFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmFollowCompany.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFollowCompany.designer.cs">
+      <DependentUpon>frmFollowCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmFreeTrial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmFreeTrial.Designer.cs">
+      <DependentUpon>FrmFreeTrial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmFriendsGroupScraper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFriendsGroupScraper.Designer.cs">
+      <DependentUpon>frmFriendsGroupScraper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmGroupUpdateLiker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGroupUpdateLiker.Designer.cs">
+      <DependentUpon>frmGroupUpdateLiker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHelp.Designer.cs">
+      <DependentUpon>frmHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInviteMemberThroughProfileURL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInviteMemberThroughProfileURL.Designer.cs">
+      <DependentUpon>FrmInviteMemberThroughProfileURL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmJoinGroupUsingUrl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmJoinGroupUsingUrl.Designer.cs">
+      <DependentUpon>frmJoinGroupUsingUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLdScraperMultipleExcelInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLdScraperMultipleExcelInput.Designer.cs">
+      <DependentUpon>FrmLdScraperMultipleExcelInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLinkedInImageUploader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLinkedInImageUploader.Designer.cs">
+      <DependentUpon>FrmLinkedInImageUploader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLinkedInScrapperUsingExcelInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLinkedInScrapperUsingExcelInput.Designer.cs">
+      <DependentUpon>FrmLinkedInScrapperUsingExcelInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMsgGroupMemberUsingExcelInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMsgGroupMemberUsingExcelInput.Designer.cs">
+      <DependentUpon>frmMsgGroupMemberUsingExcelInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRemovePendingGroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRemovePendingGroups.Designer.cs">
+      <DependentUpon>frmRemovePendingGroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSalesNavigatorScraper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSalesNavigatorScraper.Designer.cs">
+      <DependentUpon>frmSalesNavigatorScraper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSearchWithInvites.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSearchWithInvites.Designer.cs">
+      <DependentUpon>frmSearchWithInvites.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSheduler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSheduler.Designer.cs">
+      <DependentUpon>frmSheduler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmStatusImageShare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStatusImageShare.Designer.cs">
+      <DependentUpon>frmStatusImageShare.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmVersionInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVersionInfo.Designer.cs">
+      <DependentUpon>frmVersionInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModuleAuthentication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModuleAuthentication.Designer.cs">
+      <DependentUpon>ModuleAuthentication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FrmScrapGroupMember.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmScrapGroupMember.Designer.cs">
+      <DependentUpon>FrmScrapGroupMember.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CompanyEmployeeScraper.resx">
+      <DependentUpon>CompanyEmployeeScraper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAddBlackListUser.resx">
+      <DependentUpon>FrmAddBlackListUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCampaignJoinGroup.resx">
+      <DependentUpon>frmCampaignJoinGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCampaignScraper.resx">
+      <DependentUpon>frmCampaignScraper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGroupsInvitation.resx">
+      <DependentUpon>frmGroupsInvitation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAccountPasswordUpdate.resx">
+      <DependentUpon>frmAccountPasswordUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCampaignSearchWithInvite.resx">
+      <DependentUpon>frmCampaignSearchWithInvite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLicensingDetails.resx">
+      <DependentUpon>frmLicensingDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLinkedInScrapperZipIndustryLastNameWise.resx">
+      <DependentUpon>FrmLinkedInScrapperZipIndustryLastNameWise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAcceptInvitations.resx">
+      <DependentUpon>FrmAcceptInvitations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAccountVerification.resx">
+      <DependentUpon>FrmAccountVerification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAddExperience.resx">
+      <DependentUpon>FrmAddExperience.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCampaignAccountCreator.resx">
+      <DependentUpon>frmCampaignAccountCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCaptchaLogin.resx">
+      <DependentUpon>FrmCaptchaLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAccounts.resx">
+      <DependentUpon>frmAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChangeDefaultFolderPath.resx">
+      <DependentUpon>frmChangeDefaultFolderPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCompanySearchWithFilter.resx">
+      <DependentUpon>FrmCompanySearchWithFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFollowCompany.resx">
+      <DependentUpon>frmFollowCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmFreeTrial.resx">
+      <DependentUpon>FrmFreeTrial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFriendsGroupScraper.resx">
+      <DependentUpon>frmFriendsGroupScraper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGroupUpdateLiker.resx">
+      <DependentUpon>frmGroupUpdateLiker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHelp.resx">
+      <DependentUpon>frmHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInviteMemberThroughProfileURL.resx">
+      <DependentUpon>FrmInviteMemberThroughProfileURL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmJoinGroupUsingUrl.resx">
+      <DependentUpon>frmJoinGroupUsingUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLdScraperMultipleExcelInput.resx">
+      <DependentUpon>FrmLdScraperMultipleExcelInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLinkedInImageUploader.resx">
+      <DependentUpon>FrmLinkedInImageUploader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLinkedInScrapperUsingExcelInput.resx">
+      <DependentUpon>FrmLinkedInScrapperUsingExcelInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMsgGroupMemberUsingExcelInput.resx">
+      <DependentUpon>frmMsgGroupMemberUsingExcelInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRemovePendingGroups.resx">
+      <DependentUpon>frmRemovePendingGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSalesNavigatorScraper.resx">
+      <DependentUpon>frmSalesNavigatorScraper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSearchWithInvites.resx">
+      <DependentUpon>frmSearchWithInvites.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSheduler.resx">
+      <DependentUpon>frmSheduler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStatusImageShare.resx">
+      <DependentUpon>frmStatusImageShare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVersionInfo.resx">
+      <DependentUpon>frmVersionInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModuleAuthentication.resx">
+      <DependentUpon>ModuleAuthentication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="FrmScrapGroupMember.resx">
+      <DependentUpon>FrmScrapGroupMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AccountInfo\AccountInfo.csproj">
+      <Project>{EDA06108-9D78-44D2-BBBE-8BD4F1153FB7}</Project>
+      <Name>AccountInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseLib\BaseLib.csproj">
+      <Project>{85977246-DE21-44CC-B798-EE7CACEF001F}</Project>
+      <Name>BaseLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Campaign\Campaign.csproj">
+      <Project>{1206D493-6BE6-4D39-87BA-F00FED46E6B5}</Project>
+      <Name>Campaign</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ComposeMessage\ComposeMessage.csproj">
+      <Project>{A8757BA8-1DA5-42D9-BD96-1CB28E418842}</Project>
+      <Name>ComposeMessage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Groups\Groups.csproj">
+      <Project>{1B89BAAB-B36A-4635-8F94-786D806D1EF1}</Project>
+      <Name>Groups</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InBoardProGetData\InBoardProGetData.csproj">
+      <Project>{7F188A05-3B53-40FB-9999-B0E9D2211697}</Project>
+      <Name>InBoardProGetData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManageConnections\ManageConnections.csproj">
+      <Project>{7EFB9F4F-FB83-4CAB-A8DB-70E498A9EDFE}</Project>
+      <Name>ManageConnections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Others\Others.csproj">
+      <Project>{4ABC2E9B-5A1C-441E-BB16-6F7CA74295CE}</Project>
+      <Name>Others</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProfileManager\ProfileManager.csproj">
+      <Project>{58ADBE1A-6234-47DE-95E6-3B8306320F75}</Project>
+      <Name>ProfileManager</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
+    <None Include="Images\Account_creator.png" />
+    <Content Include="Images\off.png" />
+    <Content Include="Images\on.png" />
+    <Content Include="Resources\AcceptInvitation.png" />
+    <Content Include="Resources\Account Verification.png" />
+    <Content Include="Resources\account_creation_using_ie.png" />
+    <Content Include="Resources\Account_creator.png" />
+    <Content Include="Resources\account_verfication.png" />
+    <Content Include="Resources\AddPendingGroups.png" />
+    <Content Include="Resources\add_connection.png" />
+    <Content Include="Resources\Add_friend.png" />
+    <Content Include="Resources\add_groups.png" />
+    <Content Include="Resources\add_group_member.png" />
+    <Content Include="Resources\add_profilepicture.png" />
+    <Content Include="Resources\assignproxytoaccount.png" />
+    <Content Include="Resources\Assign_proxy.png" />
+    <Content Include="Resources\assign_proxy_to_account.png" />
+    <Content Include="Resources\background.png" />
+    <Content Include="Resources\background_New.png" />
+    <Content Include="Resources\Banner-728x90_3.gif" />
+    <Content Include="Resources\browse_btn.png" />
+    <Content Include="Resources\btBuyNow.png" />
+    <Content Include="Resources\Campaign.png" />
+    <Content Include="Resources\captacha_submit.png" />
+    <Content Include="Resources\center_bg.png" />
+    <Content Include="Resources\check-proxy.png" />
+    <Content Include="Resources\check_accounts.png" />
+    <Content Include="Resources\check_premium account.png" />
+    <Content Include="Resources\clear_accounts.png" />
+    <Content Include="Resources\clear_private_proxiex_from_database.png" />
+    <Content Include="Resources\clear_proxies.png" />
+    <Content Include="Resources\clear_proxy_setting.png" />
+    <Content Include="Resources\clear_public_proxiex_from_database.png" />
+    <Content Include="Resources\comment_liker.png" />
+    <Content Include="Resources\compose_message.png" />
+    <Content Include="Resources\create_an_open_group.png" />
+    <Content Include="Resources\create_a_member_onlygroup.png" />
+    <Content Include="Resources\create_group.png" />
+    <None Include="Resources\create_group_New.png" />
+    <Content Include="Resources\creat_account.png" />
+    <Content Include="Resources\email_compose.png" />
+    <Content Include="Resources\emp.jpg" />
+    <Content Include="Resources\Endorsepeople.png" />
+    <Content Include="Resources\EndorseYourProfile.png" />
+    <Content Include="Resources\evite_icon.png" />
+    <Content Include="Resources\export_accounts.PNG" />
+    <Content Include="Resources\fb_header.jpg" />
+    <Content Include="Resources\fb_headerb.jpg" />
+    <Content Include="Resources\follow_company.png" />
+    <Content Include="Resources\follow_company1.png" />
+    <Content Include="Resources\friend_request.jpg" />
+    <Content Include="Resources\get_comment.png" />
+    <Content Include="Resources\get_group.png" />
+    <Content Include="Resources\get_member.png" />
+    <Content Include="Resources\green_sign.png" />
+    <Content Include="Resources\Group creation.png" />
+    <Content Include="Resources\group update.jpg" />
+    <Content Include="Resources\group-sms-iphone.png" />
+    <Content Include="Resources\Group.png" />
+    <Content Include="Resources\group_update.png" />
+    <Content Include="Resources\header.png" />
+    <Content Include="Resources\help.png" />
+    <Content Include="Resources\icon.ico" />
+    <Content Include="Resources\icon_desktop.ico" />
+    <Content Include="Resources\id_extract.png" />
+    <None Include="Resources\InBoard logo.png" />
+    <None Include="Resources\inboard-logo-1.png" />
+    <Content Include="Resources\InBoardPro_Logo.png" />
+    <Content Include="Resources\InviteGroups.png" />
+    <Content Include="Resources\join_friend_group.png" />
+    <Content Include="Resources\join_group.png" />
+    <Content Include="Resources\join_search_group.png" />
+    <Content Include="Resources\ld header ver.bmp" />
+    <Content Include="Resources\ld header ver1.bmp" />
+    <Content Include="Resources\LD1.png" />
+    <Content Include="Resources\LDominator_WSetup.bmp" />
+    <Content Include="Resources\ld_img.png" />
+    <Content Include="Resources\like.png" />
+    <Content Include="Resources\likeonly.png" />
+    <Content Include="Resources\linked In Scrape.jpg" />
+    <Content Include="Resources\linkedin_prescraper.png" />
+    <Content Include="Resources\linkedin_search.png" />
+    <Content Include="Resources\load_accounts.png" />
+    <Content Include="Resources\logo.png" />
+    <Content Include="Resources\logo1.png" />
+    <Content Include="Resources\logo_new.png" />
+    <Content Include="Resources\Manage Groups.png" />
+    <Content Include="Resources\Manage Pages.png" />
+    <Content Include="Resources\Menu_Accept_Invitation.png" />
+    <Content Include="Resources\menu_Account_Verification.jpg" />
+    <Content Include="Resources\menu_campaign.jpg" />
+    <Content Include="Resources\menu_captcha_setting.jpg" />
+    <Content Include="Resources\menu_company_search.jpg" />
+    <Content Include="Resources\menu_download.jpg" />
+    <Content Include="Resources\menu_excel_input.png" />
+    <Content Include="Resources\menu_exprerince.jpg" />
+    <Content Include="Resources\menu_features.png" />
+    <Content Include="Resources\menu_Folder.png" />
+    <Content Include="Resources\menu_follow_company.jpg" />
+    <Content Include="Resources\menu_group_member.jpg" />
+    <Content Include="Resources\menu_help_book-icon.png" />
+    <Content Include="Resources\menu_invite_member.jpg" />
+    <Content Include="Resources\menu_join_group.jpg" />
+    <Content Include="Resources\menu_liker.jpg" />
+    <Content Include="Resources\menu_my_accounts.png" />
+    <Content Include="Resources\menu_profile_manager.jpg" />
+    <Content Include="Resources\menu_settings.png" />
+    <Content Include="Resources\message_from.png" />
+    <Content Include="Resources\message_sending.png" />
+    <Content Include="Resources\msg_group_member.png" />
+    <Content Include="Resources\new_search.png" />
+    <Content Include="Resources\pause.png" />
+    <Content Include="Resources\Photos Tagging.png" />
+    <Content Include="Resources\play.png" />
+    <Content Include="Resources\post.png" />
+    <Content Include="Resources\post_on_wall.png" />
+    <Content Include="Resources\process_complete.png" />
+    <Content Include="Resources\process_runing.gif" />
+    <Content Include="Resources\Profile Manager.png" />
+    <Content Include="Resources\Profile_Ranking.png" />
+    <Content Include="Resources\proxy setting.jpg" />
+    <Content Include="Resources\proxy_setting.png" />
+    <Content Include="Resources\red_sign.png" />
+    <Content Include="Resources\Remove.png" />
+    <Content Include="Resources\RemovePendingGroups.png" />
+    <Content Include="Resources\resend_verification.png" />
+    <Content Include="Resources\resume.png" />
+    <Content Include="Resources\SAVE CAMPAIGN.png" />
+    <Content Include="Resources\Scheduler.png" />
+    <Content Include="Resources\scrape.jpg" />
+    <Content Include="Resources\search.png" />
+    <Content Include="Resources\SearchGrp.png" />
+    <Content Include="Resources\search_connection.png" />
+    <Content Include="Resources\search_groups.png" />
+    <Content Include="Resources\send_email_invite.png" />
+    <None Include="Resources\send_email_invite1.png" />
+    <Content Include="Resources\send_invitation.png" />
+    <Content Include="Resources\send_message.png" />
+    <Content Include="Resources\send_update.png" />
+    <Content Include="Resources\setting.png" />
+    <Content Include="Resources\Shedule For Later.png" />
+    <Content Include="Resources\SHOW-CAMPAIGN.png" />
+    <Content Include="Resources\start.png" />
+    <Content Include="Resources\starts_account_creation.png" />
+    <Content Include="Resources\status update %282%29.jpg" />
+    <Content Include="Resources\status update.jpg" />
+    <Content Include="Resources\Status_Update.png" />
+    <Content Include="Resources\stop.png" />
+    <Content Include="Resources\submit.png" />
+    <Content Include="Resources\test.png" />
+    <Content Include="Resources\UPDATE CAMPAIGN.png" />
+    <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

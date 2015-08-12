@@ -10,6 +10,7 @@ namespace BaseLib
     public class Globals
     {
         public static bool IsFreeVersion = false;
+           public static bool is_Searched_Compose_msg = false;
 
         public static List<string> listAccounts = new List<string>();
         public static AccountMode accountMode;
@@ -29,8 +30,8 @@ namespace BaseLib
         public static bool scrapeWithoutLoggingIn = false;
         public static bool btnSaveClickedCampaignSearchWithInvite = false;
 
-       
 
+        public static int no_of_accounts_to_be_checked = 0;
         public static string DesktopFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\InBoardPro";
 
         public static string path_AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\InBoardPro";

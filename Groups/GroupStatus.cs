@@ -13,17 +13,17 @@ using BaseLib;
 
 namespace Groups
 {
-  public class GroupStatus
+    public class GroupStatus
     {
         #region Variable Declaration
 
-       // public Events loggergrpupdate = new Events();
+        // public Events loggergrpupdate = new Events();
         public Events loggergrpupdate = new Events();
         public Events loggerGroupMem = new Events();
         public Events loggerRemPendingGroup = new Events();
         public Events loggerInviteGroups = new Events();
         public static Events loggerEndorseCampaign = new Events();
-        
+
         GlobusHttpHelper HttpHelper = new GlobusHttpHelper();
         string _Data = string.Empty;
         public string str = string.Empty;
@@ -49,8 +49,8 @@ namespace Groups
         /// <summary>
         /// Contains Group Name, Id and the id of Contact/Friend linked with this group
         /// </summary>
-        public static Dictionary<string, Dictionary<string,string>> GrpAdd = new Dictionary<string, Dictionary<string,string>>();
-        
+        public static Dictionary<string, Dictionary<string, string>> GrpAdd = new Dictionary<string, Dictionary<string, string>>();
+
         public static List<string> GroupUrl = new List<string>();
         public static List<string> GroupMemUrl = new List<string>();
         public static List<string> MemId = new List<string>();
@@ -88,6 +88,9 @@ namespace Groups
 
         public static readonly object Locked_ComposeSub_Post = new object();
         public static readonly object Locked_ComposeBody_Post = new object();
+        public static bool checkKeywordSearch = false;
+        public static string searchKeyword = string.Empty;
+
 
         public static int minDelay = 20;
         public static int maxDelay = 25;
@@ -96,48 +99,48 @@ namespace Groups
         #region GroupStatus
         public GroupStatus()
         {
-        } 
+        }
         #endregion
 
         #region GroupStatus
-         public GroupStatus(string UserName, string Password, string ProxyAddress, string ProxyPort, string ProxyUserName, string ProxyPassword)
-         {
-             this.accountUser = UserName;
-             this.accountPass = Password;
-             this.proxyAddress = ProxyAddress;
-             this.proxyPort = ProxyPort;
-             this.proxyUserName = ProxyUserName;
-             this.proxyPassword = ProxyPassword;
+        public GroupStatus(string UserName, string Password, string ProxyAddress, string ProxyPort, string ProxyUserName, string ProxyPassword)
+        {
+            this.accountUser = UserName;
+            this.accountPass = Password;
+            this.proxyAddress = ProxyAddress;
+            this.proxyPort = ProxyPort;
+            this.proxyUserName = ProxyUserName;
+            this.proxyPassword = ProxyPassword;
 
-         } 
-         #endregion
+        }
+        #endregion
 
         #region StartPage
-         public static int StartPage
-         {
-             get;
-             set;
-         } 
-         #endregion
+        public static int StartPage
+        {
+            get;
+            set;
+        }
+        #endregion
 
         #region EndPage
-         public static int EndPage
-         {
-             get;
-             set;
-         } 
-         #endregion
-     
+        public static int EndPage
+        {
+            get;
+            set;
+        }
+        #endregion
+
         #region PostCreateGroupNames
-        
+
         public Dictionary<string, string> PostCreateGroupNames(ref GlobusHttpHelper HttpHelper, string user)
         {
-           
+
             try
             {
-                 string pageSource = HttpHelper.getHtmlfromUrl(new Uri("http://www.linkedin.com/grp/"));
+                string pageSource = HttpHelper.getHtmlfromUrl(new Uri("http://www.linkedin.com/grp/"));
 
-                 
+
                 if (pageSource == "" || pageSource.Contains("Make sure you have cookies and Javascript enabled in your browser before signing in") || pageSource.Contains("manual_redirect_link"))
                 {
                     Thread.Sleep(2000);
@@ -439,11 +442,11 @@ namespace Groups
                                     try
                                     {
                                         int startindex = GrpName.IndexOf("class=\"title\"");
-                                        string start = GrpName.Substring(startindex).Replace("class=\"title\"",string.Empty);
+                                        string start = GrpName.Substring(startindex).Replace("class=\"title\"", string.Empty);
                                         int endIndex = start.IndexOf("<span");
-                                        endName = start.Substring(0, endIndex).Replace("title", string.Empty).Replace("=", string.Empty).Replace(">", string.Empty).Replace("groups", string.Empty).Replace("/", string.Empty).Replace("\"", string.Empty).Replace("&amp;", "&").Replace("classpublic", string.Empty).Replace("&quot;", "'").Replace(":", ";").Replace("This is an open group", string.Empty).Replace("class", "").Replace("&#39;","'");
+                                        endName = start.Substring(0, endIndex).Replace("title", string.Empty).Replace("=", string.Empty).Replace(">", string.Empty).Replace("groups", string.Empty).Replace("/", string.Empty).Replace("\"", string.Empty).Replace("&amp;", "&").Replace("classpublic", string.Empty).Replace("&quot;", "'").Replace(":", ";").Replace("This is an open group", string.Empty).Replace("class", "").Replace("&#39;", "'");
                                         if (endName.Contains("<div group-activity"))
-                                        { 
+                                        {
                                             endIndex = endName.IndexOf("<h3");
                                             endName = endName.Substring(0, endIndex).Replace("<h3", "").Replace("<div group-activity", "");
                                         }
@@ -617,7 +620,7 @@ namespace Groups
                         int startindexName = ItemData.IndexOf("<span>");
                         string startName = ItemData.Substring(startindexName);
                         int endIndexName = startName.IndexOf("</span>");
-                        string page = startName.Substring(0, endIndexName).Replace("\"", string.Empty).Replace("<span>", string.Empty).Replace("class=member-count identified", string.Empty).Replace(",", string.Empty).Replace("(",string.Empty).Replace(")",string.Empty).Trim();
+                        string page = startName.Substring(0, endIndexName).Replace("\"", string.Empty).Replace("<span>", string.Empty).Replace("class=member-count identified", string.Empty).Replace(",", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Trim();
                         PageNo = int.Parse(page);
                         PageNo = (PageNo / 20) + 1;
                     }
@@ -630,7 +633,7 @@ namespace Groups
             }
 
             return Convert.ToString(PageNo);
-        } 
+        }
         #endregion
 
         #region AddSpecificGroupUser
@@ -718,7 +721,13 @@ namespace Groups
             string sikvalue = string.Empty;
             int pageno = 25;
             int counter = 0;
+
+
+            string group_Url = string.Empty;
+
             #endregion
+
+
 
             try
             {
@@ -736,7 +745,7 @@ namespace Groups
                     csrfToken = csrfToken.Trim();
                 }
 
-              
+
 
                 for (int i = 1; i <= pageno; i++)
                 {
@@ -783,7 +792,7 @@ namespace Groups
                             }
                             else
                             {
-                                pageSource = HttpHelper.getHtmlfromUrl(new Uri("https://www.linkedin.com/grp/members?csrfToken="+csrfToken+"&search="+SearchKeyword.Replace(" ","+")+"&gid=" + gid.Split(':')[2]));
+                                pageSource = HttpHelper.getHtmlfromUrl(new Uri("https://www.linkedin.com/grp/members?csrfToken=" + csrfToken + "&search=" + SearchKeyword.Replace(" ", "+") + "&gid=" + gid.Split(':')[2]));
                             }
                         }
 
@@ -819,11 +828,11 @@ namespace Groups
                         }
                         else
                         {
-                           // RgxGroupData = System.Text.RegularExpressions.Regex.Split(pageSource, "<li class=\"member\">");
+                            // RgxGroupData = System.Text.RegularExpressions.Regex.Split(pageSource, "<li class=\"member\">");
                             if (counter > 1)
                             {
 
-                                string getdata = "https://www.linkedin.com/grp/members?csrfToken=" + csrfToken + "&search=" + SearchKeyword.Replace(" ", "+") + "&gid=" + gid.Split(':')[2] + "&page="+i;
+                                string getdata = "https://www.linkedin.com/grp/members?csrfToken=" + csrfToken + "&search=" + SearchKeyword.Replace(" ", "+") + "&gid=" + gid.Split(':')[2] + "&page=" + i;
                                 pageSource = HttpHelper.getHtmlfromUrl(new Uri(getdata));
                             }
 
@@ -851,7 +860,9 @@ namespace Groups
                         //pageSource = HttpHelper.getHtmlfromUrl(new Uri("http://www.linkedin.com/groups?viewMembers=&gid=" + gid.Split(':')[2] + "&split_page=" + i + ""));
                         pageSource = HttpHelper.getHtmlfromUrl(new Uri("https://www.linkedin.com/grp/members?gid=" + gid.Split(':')[2] + "&page=" + i));
 
-                        
+                        group_Url = "https://www.linkedin.com/grp/members?gid=" + gid.Split(':')[2];
+
+
                         RgxGroupData = System.Text.RegularExpressions.Regex.Split(pageSource, "<li class=\"member\" id=\"");
                         if (RgxGroupData.Length == 1)
                         {
@@ -1645,7 +1656,7 @@ namespace Groups
 
                     foreach (var GrpUser in RgxGroupData)
                     {
-                       try
+                        try
                         {
                             if (GrpUser.Contains("member"))
                             {
@@ -1657,7 +1668,14 @@ namespace Groups
                                     }
                                     continue;
                                 }
-
+                                string profileUrl = string.Empty;
+                                try
+                                {
+                                    profileUrl = Utils.getBetween(GrpUser, "<a href=\"", "\">");
+                                }
+                                catch
+                                {
+                                }
                                 try
                                 {
                                     //data-li-fullName="Kashish Arora">Send message</a>
@@ -1672,7 +1690,7 @@ namespace Groups
                                         {
                                             endIndex = start.IndexOf(">");
                                         }
-                                        endName = start.Substring(0, endIndex).Replace("fullName=", string.Empty).Replace("'", string.Empty).Replace(",", string.Empty).Replace("/", string.Empty).Replace("\"", string.Empty).Replace("&amp;", "&").Replace("&quot;", "'").Replace("tracking=anetppl_sendmsg", string.Empty).Replace("tracking=anetppl_invite", string.Empty).Replace("\\u00e9","é").Trim();
+                                        endName = start.Substring(0, endIndex).Replace("fullName=", string.Empty).Replace("'", string.Empty).Replace(",", string.Empty).Replace("/", string.Empty).Replace("\"", string.Empty).Replace("&amp;", "&").Replace("&quot;", "'").Replace("tracking=anetppl_sendmsg", string.Empty).Replace("tracking=anetppl_invite", string.Empty).Replace("\\u00e9", "é").Trim();
                                     }
                                     else
                                     {
@@ -1777,7 +1795,7 @@ namespace Groups
                                 try
                                 {
                                     GroupSpecMem.Add(endKey, " [" + GroupName.Replace(",", string.Empty) + " ] " + endName + " (" + DeegreeConn.Replace(",", string.Empty) + ")");
-                                    string item = UserID + "," + GroupName.Replace(",", string.Empty) + "," + endName + "," + DeegreeConn.Replace(",", string.Empty);
+                                    string item = UserID + "," + GroupName.Replace(",", string.Empty) + "," + group_Url.Replace("'", "").Replace("\r", "").Replace(" ", "").Replace("\n", " ") + "," + endName + "," + profileUrl.Replace("'", "").Replace("\r", "").Replace(" ", "").Replace("\n", " ") + "," + DeegreeConn.Replace(",", string.Empty);
                                     AddingLinkedInDataToCSVFile1(item);
                                     if (WithGroupSearch == true)
                                     {
@@ -1806,7 +1824,7 @@ namespace Groups
         }
         #endregion
 
-        
+
         public static long UnixTimestampFromDateTime(DateTime date)
         {
             long unixTimestamp = date.Ticks - new DateTime(1970, 1, 1).Ticks;
@@ -1819,7 +1837,7 @@ namespace Groups
         {
             try
             {
-                //string LinkedInAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "InBoardProGetData\\" + SearchCriteria.FileName + ".csv");
+                //string LinkedInAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LinkedInScraper\\" + SearchCriteria.FileName + ".csv");
                 string LinkedInDeskTop = Globals.DesktopFolder + "\\GroupMemberList.csv";
 
                 #region LinkedIn Writer
@@ -1827,7 +1845,7 @@ namespace Groups
                 //Checking File Exixtance
                 if (!File.Exists(LinkedInDeskTop))
                 {
-                    string Header = "Account" + "," + "GroupName" + "," + "ContactPerson" + "," + "Degree of Connection";
+                    string Header = "Account" + "," + "GroupName" + "," + "GroupUrl" + "," + "ContactPerson" + "," + "ProfileUrl" + "," + "Degree of Connection";
                     GlobusFileHelper.AppendStringToTextfileNewLine(Header, LinkedInDeskTop);
                 }
 
@@ -1889,37 +1907,77 @@ namespace Groups
                     csrfToken = csrfToken.Trim();
                 }
 
-           
-                    string[] RgxGroupData = new string[] { };
-             
-                    foreach (string[] itemArr in msgGroupMem_excelData)
+
+                string[] RgxGroupData = new string[] { };
+
+                foreach (string[] itemArr in msgGroupMem_excelData)
+                {
+                    try
                     {
+                        pageSource = HttpHelper.getHtmlfromUrl(new Uri("http://www.linkedin.com/groups?viewMembers=&gid=" + gid));
+                    }
+                    catch { }
+
+                    string group = string.Empty;
+                    string mem = string.Empty;
+
+                    try
+                    {
+                        group = itemArr[0].ToString();
+                        mem = itemArr[1].ToString();
+                        endKey = itemArr[1].ToString();
+                    }
+                    catch { }
+
+                    if (!string.IsNullOrEmpty(group) || !string.IsNullOrEmpty(mem))
+                    {
+
                         try
                         {
-                            pageSource = HttpHelper.getHtmlfromUrl(new Uri("http://www.linkedin.com/groups?viewMembers=&gid=" + gid));
+                            RgxSikValue = System.Text.RegularExpressions.Regex.Split(pageSource, "sik");
                         }
                         catch { }
 
-                        string group = string.Empty;
-                        string mem = string.Empty;
-
                         try
                         {
-                            group = itemArr[0].ToString();
-                            mem = itemArr[1].ToString();
-                            endKey = itemArr[1].ToString();
+                            sikvalue = RgxSikValue[1].Split('&')[0].Replace("=", string.Empty);
                         }
                         catch { }
 
-                        if (!string.IsNullOrEmpty(group) || !string.IsNullOrEmpty(mem))
+                        try
                         {
-
-                            try
+                            if (NumberHelper.ValidateNumber(sikvalue))
                             {
-                                RgxSikValue = System.Text.RegularExpressions.Regex.Split(pageSource, "sik");
+                                sikvalue = sikvalue.Split('\"')[0];
                             }
-                            catch { }
+                            else
+                            {
+                                sikvalue = sikvalue.Split('\"')[0];
+                            }
+                        }
+                        catch
+                        {
+                            sikvalue = sikvalue.Split('\"')[0];
+                        }
 
+                        string postdata = "csrfToken=" + csrfToken + "&searchField=" + Uri.EscapeDataString(mem) + "&searchMembers=submit&searchMembers=Search&gid=" + gid + "&goback=.gna_" + gid + "";
+
+                        #region Commented old code
+                        try
+                        {
+                            pageSource = HttpHelper.postFormDataRef(new Uri("http://www.linkedin.com/groups"), postdata, "http://www.linkedin.com/groups?viewMembers=&gid=" + gid + "&sik=" + sikvalue + "&split_page=1&goback=%2Egna_" + gid + "", "", "");
+                        }
+                        catch { }
+
+                        if (pageSource.Contains("Sorry, we found 0 members matching your search."))
+                        {
+                            Loggergrppmem("[ " + DateTime.Now + " ] => [ Sorry, we found 0 members matching your search : " + mem + " ]");
+                            continue;
+                        }
+
+                        if (counter > 1)
+                        {
+                            RgxSikValue = System.Text.RegularExpressions.Regex.Split(pageSource, "sik");
                             try
                             {
                                 sikvalue = RgxSikValue[1].Split('&')[0].Replace("=", string.Empty);
@@ -1942,246 +2000,206 @@ namespace Groups
                                 sikvalue = sikvalue.Split('\"')[0];
                             }
 
-                            string postdata = "csrfToken=" + csrfToken + "&searchField=" + Uri.EscapeDataString(mem) + "&searchMembers=submit&searchMembers=Search&gid=" + gid + "&goback=.gna_" + gid + "";
+                            string getdata = "http://www.linkedin.com/groups?viewMembers=&gid=" + gid + "&sik=" + sikvalue + "&split_page=1&goback=%2Egna_" + gid + "";
 
-                            #region Commented old code
                             try
                             {
-                                pageSource = HttpHelper.postFormDataRef(new Uri("http://www.linkedin.com/groups"), postdata, "http://www.linkedin.com/groups?viewMembers=&gid=" + gid + "&sik=" + sikvalue + "&split_page=1&goback=%2Egna_" + gid + "", "", "");
+                                pageSource = HttpHelper.getHtmlfromUrl(new Uri(getdata));
                             }
                             catch { }
-
-                            if (pageSource.Contains("Sorry, we found 0 members matching your search."))
-                            {
-                                Loggergrppmem("[ " + DateTime.Now + " ] => [ Sorry, we found 0 members matching your search : " + mem + " ]");
-                                continue;
-                            }
-
-                            if (counter > 1)
-                            {
-                                RgxSikValue = System.Text.RegularExpressions.Regex.Split(pageSource, "sik");
-                                try
-                                {
-                                    sikvalue = RgxSikValue[1].Split('&')[0].Replace("=", string.Empty);
-                                }
-                                catch { }
-
-                                try
-                                {
-                                    if (NumberHelper.ValidateNumber(sikvalue))
-                                    {
-                                        sikvalue = sikvalue.Split('\"')[0];
-                                    }
-                                    else
-                                    {
-                                        sikvalue = sikvalue.Split('\"')[0];
-                                    }
-                                }
-                                catch
-                                {
-                                    sikvalue = sikvalue.Split('\"')[0];
-                                }
-
-                                string getdata = "http://www.linkedin.com/groups?viewMembers=&gid=" + gid + "&sik=" + sikvalue + "&split_page=1&goback=%2Egna_" + gid + "";
-
-                                try
-                                {
-                                    pageSource = HttpHelper.getHtmlfromUrl(new Uri(getdata));
-                                }
-                                catch { }
-                            }
+                        }
 
 
+                        try
+                        {
+                            RgxGroupData = System.Text.RegularExpressions.Regex.Split(pageSource, "<li class=\"member\" id=\"");
+                        }
+                        catch { }
+                        #endregion
+
+
+                        string Url = endKey;
+                        //var GrpUser = HttpHelper.getHtmlfromUrl(new Uri(Url));
+                        foreach (var GrpUser in RgxGroupData)
+                        {
                             try
                             {
-                                RgxGroupData = System.Text.RegularExpressions.Regex.Split(pageSource, "<li class=\"member\" id=\"");
-                            }
-                            catch { } 
-                            #endregion
-
-
-                            string Url = endKey;
-                            //var GrpUser = HttpHelper.getHtmlfromUrl(new Uri(Url));
-                            foreach (var GrpUser in RgxGroupData)
-                            {
-                                try
+                                if (GrpUser.Contains("member"))
                                 {
-                                    if (GrpUser.Contains("member"))
+                                    if (GrpUser.Contains("title=\"YOU") || GrpUser.Contains("<!DOCTYPE html>"))
                                     {
-                                        if (GrpUser.Contains("title=\"YOU") || GrpUser.Contains("<!DOCTYPE html>"))
+                                        if (GrpUser.Contains("title=\"YOU"))
                                         {
-                                            if (GrpUser.Contains("title=\"YOU"))
-                                            {
 
-                                            }
-                                            continue;
                                         }
+                                        continue;
+                                    }
 
+                                    try
+                                    {
+                                        #region Name
                                         try
                                         {
-                                            #region Name
                                             try
+                                            {
+                                                endName = GrpUser.Substring(GrpUser.IndexOf("\"See Full Name\",\"i18n_Edit\":\"Edit\",\"fmt__full_name\":\""), (GrpUser.IndexOf("i18n__expand_your_network_to_see_more", GrpUser.IndexOf("\"See Full Name\",\"i18n_Edit\":\"Edit\",\"fmt__full_name\":\"")) - GrpUser.IndexOf("\"See Full Name\",\"i18n_Edit\":\"Edit\",\"fmt__full_name\":\""))).Replace("\"See Full Name\",\"i18n_Edit\":\"Edit\",\"fmt__full_name\":\"", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Trim();
+                                            }
+                                            catch
                                             {
                                                 try
                                                 {
-                                                    endName = GrpUser.Substring(GrpUser.IndexOf("\"See Full Name\",\"i18n_Edit\":\"Edit\",\"fmt__full_name\":\""), (GrpUser.IndexOf("i18n__expand_your_network_to_see_more", GrpUser.IndexOf("\"See Full Name\",\"i18n_Edit\":\"Edit\",\"fmt__full_name\":\"")) - GrpUser.IndexOf("\"See Full Name\",\"i18n_Edit\":\"Edit\",\"fmt__full_name\":\""))).Replace("\"See Full Name\",\"i18n_Edit\":\"Edit\",\"fmt__full_name\":\"", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Trim();
+                                                    endName = GrpUser.Substring(GrpUser.IndexOf("fmt__full_name\":"), (GrpUser.IndexOf(",", GrpUser.IndexOf("fmt__full_name\":")) - GrpUser.IndexOf("fmt__full_name\":"))).Replace("fmt__full_name\":", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Trim();
+
+                                                }
+                                                catch { }
+                                            }
+
+                                            if (string.IsNullOrEmpty(endName))
+                                            {
+                                                try
+                                                {
+                                                    //endName = Utils.getBetween(GrpUser, "<span class=\"full-name\">", "</span>");
+                                                    endName = GrpUser.Substring(GrpUser.IndexOf("<span class=\"full-name\">"), (GrpUser.IndexOf("</span><span></span></span></h1></div></div><div id=\"headline-container\" data-li-template=\"headline\">", GrpUser.IndexOf("</span><span></span></span></h1></div></div><div id=\"headline-container\" data-li-template=\"headline\">")) - GrpUser.IndexOf("<span class=\"full-name\">"))).Replace("<span class=\"full-name\">", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Trim();
                                                 }
                                                 catch
-                                                {
-                                                    try
-                                                    {
-                                                        endName = GrpUser.Substring(GrpUser.IndexOf("fmt__full_name\":"), (GrpUser.IndexOf(",", GrpUser.IndexOf("fmt__full_name\":")) - GrpUser.IndexOf("fmt__full_name\":"))).Replace("fmt__full_name\":", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Trim();
-
-                                                    }
-                                                    catch { }
-                                                }
-
-                                                if (string.IsNullOrEmpty(endName))
-                                                {
-                                                    try
-                                                    {
-                                                        //endName = Utils.getBetween(GrpUser, "<span class=\"full-name\">", "</span>");
-                                                        endName = GrpUser.Substring(GrpUser.IndexOf("<span class=\"full-name\">"), (GrpUser.IndexOf("</span><span></span></span></h1></div></div><div id=\"headline-container\" data-li-template=\"headline\">", GrpUser.IndexOf("</span><span></span></span></h1></div></div><div id=\"headline-container\" data-li-template=\"headline\">")) - GrpUser.IndexOf("<span class=\"full-name\">"))).Replace("<span class=\"full-name\">", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Trim();
-                                                    }
-                                                    catch
-                                                    { }
-                                                }
-
-                                                if (string.IsNullOrEmpty(endName))
-                                                {
-                                                    try
-                                                    {
-                                                        //endName = Utils.getBetween(GrpUser, "<span class=\"full-name\">", "</span>");
-                                                        endName = GrpUser.Substring(GrpUser.IndexOf("data-li-fullName="), (GrpUser.IndexOf(">Send message</a>", GrpUser.IndexOf(">Send message</a>")) - GrpUser.IndexOf("data-li-fullName="))).Replace("data-li-fullName=", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace("\n", string.Empty).Trim();
-                                                    }
-                                                    catch
-                                                    { }
-                                                }
-                                                //anetppl_profile">Christian A. Kenyeres</a>
+                                                { }
                                             }
-                                            catch { }
 
-                                            #endregion
+                                            if (string.IsNullOrEmpty(endName))
+                                            {
+                                                try
+                                                {
+                                                    //endName = Utils.getBetween(GrpUser, "<span class=\"full-name\">", "</span>");
+                                                    endName = GrpUser.Substring(GrpUser.IndexOf("data-li-fullName="), (GrpUser.IndexOf(">Send message</a>", GrpUser.IndexOf(">Send message</a>")) - GrpUser.IndexOf("data-li-fullName="))).Replace("data-li-fullName=", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace("\n", string.Empty).Trim();
+                                                }
+                                                catch
+                                                { }
+                                            }
+                                            //anetppl_profile">Christian A. Kenyeres</a>
                                         }
-                                        catch
-                                        {
+                                        catch { }
 
+                                        #endregion
+                                    }
+                                    catch
+                                    {
+
+                                    }
+
+                                    //Deegree connection
+                                    try
+                                    {
+                                        int startindex = GrpUser.IndexOf("class=\"degree-icon");
+                                        if (startindex > 0)
+                                        {
+                                            DeegreeConn = string.Empty;
+                                            string start = GrpUser.Substring(startindex);
+                                            int endIndex = start.IndexOf("<sup>");
+                                            DeegreeConn = start.Substring(0, endIndex).Replace("\n", string.Empty).Replace("class=\"degree-icon", string.Empty).Replace("\"", string.Empty).Replace(">", string.Empty).Trim().ToString();
+
+                                            if (DeegreeConn == "1")
+                                            {
+                                                DeegreeConn = DeegreeConn + "st";
+                                            }
+                                            else if (DeegreeConn == "2")
+                                            {
+                                                DeegreeConn = DeegreeConn + "nd";
+                                            }
+                                            else if (DeegreeConn == "3")
+                                            {
+                                                DeegreeConn = DeegreeConn + "rd";
+                                            }
+                                            else if (DeegreeConn == "")
+                                            {
+                                                DeegreeConn = "3rd";
+                                            }
                                         }
-
-                                        //Deegree connection
-                                        try
+                                        else
                                         {
-                                            int startindex = GrpUser.IndexOf("class=\"degree-icon");
+                                            startindex = GrpUser.IndexOf("class=\"degree-icon group\">");
+                                            DeegreeConn = string.Empty;
+
                                             if (startindex > 0)
                                             {
                                                 DeegreeConn = string.Empty;
                                                 string start = GrpUser.Substring(startindex);
-                                                int endIndex = start.IndexOf("<sup>");
-                                                DeegreeConn = start.Substring(0, endIndex).Replace("\n",string.Empty).Replace("class=\"degree-icon", string.Empty).Replace("\"",string.Empty).Replace(">",string.Empty).Trim().ToString();
+                                                int endIndex = start.IndexOf("</span>");
+                                                DeegreeConn = start.Substring(0, endIndex).Replace("span class=\"degree-icon group\">", string.Empty);
 
-                                                if (DeegreeConn == "1")
-                                                {
-                                                    DeegreeConn = DeegreeConn + "st";
-                                                }
-                                                else if (DeegreeConn == "2")
-                                                {
-                                                    DeegreeConn = DeegreeConn + "nd";
-                                                }
-                                                else if (DeegreeConn == "3")
-                                                {
-                                                    DeegreeConn = DeegreeConn + "rd";
-                                                }
-                                                else if (DeegreeConn == "")
-                                                {
-                                                    DeegreeConn = "3rd";
-                                                }
                                             }
                                             else
                                             {
-                                                startindex = GrpUser.IndexOf("class=\"degree-icon group\">");
-                                                DeegreeConn = string.Empty;
-
-                                                if (startindex > 0)
-                                                {
-                                                    DeegreeConn = string.Empty;
-                                                    string start = GrpUser.Substring(startindex);
-                                                    int endIndex = start.IndexOf("</span>");
-                                                    DeegreeConn = start.Substring(0, endIndex).Replace("span class=\"degree-icon group\">", string.Empty);
-
-                                                }
-                                                else 
-                                                {
-                                                    DeegreeConn = "3rd";
-                                                }
-
-                                              
+                                                DeegreeConn = "3rd";
                                             }
+
 
                                         }
 
-                                        catch { }
-
-                                        try
-                                        {
-                                            //endKey = Utils.getBetween(GrpUser, "view?id=", "&").Replace("view?id=", "");
-                                            int startindex2 = GrpUser.IndexOf("memberId=");
-                                            if (startindex2 > 0)
-                                            {
-                                                endKey = string.Empty;
-                                                string start1 = GrpUser.Substring(startindex2);
-                                                int endIndex1 = start1.IndexOf("data-li-fullName=");
-                                                endKey = start1.Substring(0, endIndex1).Replace("memberId=", string.Empty).Replace("'", string.Empty).Replace(",", string.Empty).Replace("/", string.Empty).Replace("\"", string.Empty).Trim();
-                                            }
-                                            else
-                                            {
-                                                endKey = string.Empty;
-                                                int startindex3 = GrpUser.IndexOf("member-");
-                                                string start1 = GrpUser.Substring(startindex3);
-                                                int endIndex1 = start1.IndexOf(">");
-                                                endKey = start1.Substring(0, endIndex1).Replace("member-", string.Empty).Replace("'", string.Empty).Replace(",", string.Empty).Replace(">", string.Empty).Replace("\"", string.Empty).Trim();
-                                            }
-                                        }
-                                        catch
-                                        {
-
-                                        }
-
-                                        try
-                                        {
-                                            string endNamedisp = endName;
-                                            endName = Uri.EscapeDataString(endName);
-                                            GroupSpecMem.Add(endKey, endNamedisp + " (" + DeegreeConn + ")");
-
-                                            if (WithGroupSearch == true)
-                                            {
-                                                Loggergrppmem("[ " + DateTime.Now + " ] => [ Added Group Member : " + endNamedisp + " (" + DeegreeConn + ") with Search keyword : " + SearchKeyword + " ]");
-                                            }
-                                            else
-                                            {
-                                                Loggergrppmem("[ " + DateTime.Now + " ] => [ Added Group Member : " + endNamedisp + " ]");
-                                            }
-                                            endKey = "";
-                                            endName = "";
-                                        }
-                                        catch { }
                                     }
-                                    else
+
+                                    catch { }
+
+                                    try
+                                    {
+                                        //endKey = Utils.getBetween(GrpUser, "view?id=", "&").Replace("view?id=", "");
+                                        int startindex2 = GrpUser.IndexOf("memberId=");
+                                        if (startindex2 > 0)
+                                        {
+                                            endKey = string.Empty;
+                                            string start1 = GrpUser.Substring(startindex2);
+                                            int endIndex1 = start1.IndexOf("data-li-fullName=");
+                                            endKey = start1.Substring(0, endIndex1).Replace("memberId=", string.Empty).Replace("'", string.Empty).Replace(",", string.Empty).Replace("/", string.Empty).Replace("\"", string.Empty).Trim();
+                                        }
+                                        else
+                                        {
+                                            endKey = string.Empty;
+                                            int startindex3 = GrpUser.IndexOf("member-");
+                                            string start1 = GrpUser.Substring(startindex3);
+                                            int endIndex1 = start1.IndexOf(">");
+                                            endKey = start1.Substring(0, endIndex1).Replace("member-", string.Empty).Replace("'", string.Empty).Replace(",", string.Empty).Replace(">", string.Empty).Replace("\"", string.Empty).Trim();
+                                        }
+                                    }
+                                    catch
                                     {
 
                                     }
+
+                                    try
+                                    {
+                                        string endNamedisp = endName;
+                                        endName = Uri.EscapeDataString(endName);
+                                        GroupSpecMem.Add(endKey, endNamedisp + " (" + DeegreeConn + ")");
+
+                                        if (WithGroupSearch == true)
+                                        {
+                                            Loggergrppmem("[ " + DateTime.Now + " ] => [ Added Group Member : " + endNamedisp + " (" + DeegreeConn + ") with Search keyword : " + SearchKeyword + " ]");
+                                        }
+                                        else
+                                        {
+                                            Loggergrppmem("[ " + DateTime.Now + " ] => [ Added Group Member : " + endNamedisp + " ]");
+                                        }
+                                        endKey = "";
+                                        endName = "";
+                                    }
+                                    catch { }
                                 }
-                                catch { }
+                                else
+                                {
+
+                                }
                             }
+                            catch { }
                         }
                     }
-                 
+                }
+
                 return GroupSpecMem;
             }
             catch { }
             return GroupSpecMem;
         }
         #endregion
-      
+
         #region PostAddMembers
         public Dictionary<string, string> PostAddMembers(ref GlobusHttpHelper HttpHelper, string user)
         {
@@ -2210,129 +2228,369 @@ namespace Groups
 
                 this.HttpHelper = HttpHelper;
 
-                #region Commented Universal code
+                //#region Commented Universal code
 
-                string pageSource = HttpHelper.getHtmlfromUrl(new Uri("https://www.linkedin.com/contacts/api/contacts/?&sortOrder=recent&source=LinkedIn"));
+                string pageSource = string.Empty;
 
-
-                if (!pageSource.Contains("success"))
+                #region without_search
+                if (!Globals.is_Searched_Compose_msg)
                 {
-                    for (int i = 1; i <= 2; i++)
+                    pageSource = HttpHelper.getHtmlfromUrl(new Uri("https://www.linkedin.com/contacts/api/contacts/?&sortOrder=recent&source=LinkedIn"));   // if we url is getting redirected then comment this line
+
+
+                    // if (!string.IsNullOrEmpty(pageSource)&&!pageSource.Contains("success")) // if we url is getting redirected then remove this comment
+                    if (!pageSource.Contains("success"))
                     {
-                        Thread.Sleep(4000);
-                        pageSource = HttpHelper.getHtmlfromUrl(new Uri("https://www.linkedin.com/contacts/api/contacts/?&sortOrder=recent&source=LinkedIn"));
-                        if (pageSource.Contains("success"))
+                        for (int i = 1; i <= 2; i++)
                         {
-                            break;
+                            Thread.Sleep(4000);
+                            pageSource = HttpHelper.getHtmlfromUrl(new Uri("https://www.linkedin.com/contacts/api/contacts/?&sortOrder=recent&source=LinkedIn"));
+                            if (pageSource.Contains("success"))
+                            {
+                                break;
+                            }
+
                         }
-
                     }
-                }
-                
-
-                string[] RgxGroupData = System.Text.RegularExpressions.Regex.Split(pageSource, "{\"name\"");
-
-                foreach (var Members in RgxGroupData)
-                {
-                    string Fname = string.Empty;
-                    string Title = string.Empty;
-
-                    if (Members.Contains("title"))
+                    if (!string.IsNullOrEmpty(pageSource))
                     {
-                        try
+
+
+
+                        string[] RgxGroupData = System.Text.RegularExpressions.Regex.Split(pageSource, "{\"name\"");
+
+                        foreach (var Members in RgxGroupData)
                         {
-                            try
+                            string Fname = string.Empty;
+                            string Title = string.Empty;
+
+                            if (Members.Contains("title"))
                             {
-                                int startindex = Members.IndexOf(", \"id\": \"li_");
-                                string start = Members.Substring(startindex).Replace(", \"id\": \"li_", string.Empty);
-                                int endIndex = start.IndexOf("\"}");
-                                MemId1 = start.Substring(0, endIndex).Replace("{[", string.Empty).Replace("}]", string.Empty).Trim();
-                                MemId = user + ':' + MemId1;
-                                Globals.groupStatusString = "withoutAPI because of li_";
-                            }
-                            catch 
-                            {
-                                int startindex = Members.IndexOf(", \"id\":");
-                                string start = Members.Substring(startindex).Replace(", \"id\":", string.Empty);
-                                int endIndex = start.IndexOf("},");
-                                MemId1 = start.Substring(0, endIndex).Replace("{[", string.Empty).Replace("},", string.Empty).Trim();
-                                MemId = user + ':' + MemId1;
-
-                                Globals.groupStatusString = "API";
-                            }
-
-
-                            int StartIndex1 = Members.IndexOf(": \"");
-                            if (StartIndex1 == 0)
-                            {
-                                string Start = Members.Substring(StartIndex1).Replace(": \"", string.Empty);
-                                int EndIndex = Start.IndexOf("\",");
-                                string End = Start.Substring(0, EndIndex);
-                                Fname = End.Replace(",",";").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("&#x113;", "ē").Replace("&#xd3;", "Ó").Replace("&#xf1;", "ñ").Replace("&#x20ac;", "€").Replace("&#xd1;", "Ñ").Replace("&#xe8;", "è").Replace("&#xd3;", "Ó").Replace("&#xaa;", "ª").Replace("&#x2605;", "★").Replace("&#x2606;", "☆").Replace("&#xf1;", "ñ").Replace("&#xc0;", "À").Replace("&#x263a;", "☺").Replace("&#xbf;", "¿").Replace("\\u00ae", "®").Replace("{[", string.Empty).Replace("}]", string.Empty);
-                            }
-
-
-                            int StartIndextemp = Members.IndexOf("title\":");
-                            if (StartIndextemp > 0)
-                            {
-                                string Start = Members.Substring(StartIndextemp).Replace("title\":", string.Empty);
-                                int EndIndex = Start.IndexOf(",");
-                                string End = Start.Substring(0, EndIndex).Replace("\"","").Trim();
-                                Title = End.Replace(",", ";").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("&#x113;", "ē").Replace("&#xd3;", "Ó").Replace("&#xf1;", "ñ").Replace("&#x20ac;", "€").Replace("&#xd1;", "Ñ").Replace("&#xe8;", "è").Replace("&#xd3;", "Ó").Replace("&#xaa;", "ª").Replace("&#x2605;", "★").Replace("&#x2606;", "☆").Replace("&#xf1;", "ñ").Replace("&#xc0;", "À").Replace("&#x263a;", "☺").Replace("&#xbf;", "¿").Replace("\\u00ae", "®").Replace("{[", string.Empty).Replace("}]", string.Empty);
-                                if (Title == "null")
+                                try
                                 {
-                                    Title = "N/A";
+                                    try
+                                    {
+                                        int startindex = Members.IndexOf(", \"id\": \"li_");
+                                        string start = Members.Substring(startindex).Replace(", \"id\": \"li_", string.Empty);
+                                        int endIndex = start.IndexOf("\"}");
+                                        MemId1 = start.Substring(0, endIndex).Replace("{[", string.Empty).Replace("}]", string.Empty).Trim();
+                                        MemId = user + ':' + MemId1;
+                                        Globals.groupStatusString = "withoutAPI because of li_";
+                                    }
+                                    catch
+                                    {
+                                        int startindex = Members.IndexOf(", \"id\":");
+                                        string start = Members.Substring(startindex).Replace(", \"id\":", string.Empty);
+                                        int endIndex = start.IndexOf("},");
+                                        MemId1 = start.Substring(0, endIndex).Replace("{[", string.Empty).Replace("},", string.Empty).Trim();
+                                        MemId = user + ':' + MemId1;
+
+                                        Globals.groupStatusString = "API";
+                                    }
+
+
+                                    int StartIndex1 = Members.IndexOf(": \"");
+                                    if (StartIndex1 == 0)
+                                    {
+                                        string Start = Members.Substring(StartIndex1).Replace(": \"", string.Empty);
+                                        int EndIndex = Start.IndexOf("\",");
+                                        string End = Start.Substring(0, EndIndex);
+                                        Fname = End.Replace(",", ";").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("&#x113;", "ē").Replace("&#xd3;", "Ó").Replace("&#xf1;", "ñ").Replace("&#x20ac;", "€").Replace("&#xd1;", "Ñ").Replace("&#xe8;", "è").Replace("&#xd3;", "Ó").Replace("&#xaa;", "ª").Replace("&#x2605;", "★").Replace("&#x2606;", "☆").Replace("&#xf1;", "ñ").Replace("&#xc0;", "À").Replace("&#x263a;", "☺").Replace("&#xbf;", "¿").Replace("\\u00ae", "®").Replace("{[", string.Empty).Replace("}]", string.Empty);
+                                    }
+
+
+                                    int StartIndextemp = Members.IndexOf("title\":");
+                                    if (StartIndextemp > 0)
+                                    {
+                                        string Start = Members.Substring(StartIndextemp).Replace("title\":", string.Empty);
+                                        int EndIndex = Start.IndexOf(",");
+                                        string End = Start.Substring(0, EndIndex).Replace("\"", "").Trim();
+                                        Title = End.Replace(",", ";").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("&#x113;", "ē").Replace("&#xd3;", "Ó").Replace("&#xf1;", "ñ").Replace("&#x20ac;", "€").Replace("&#xd1;", "Ñ").Replace("&#xe8;", "è").Replace("&#xd3;", "Ó").Replace("&#xaa;", "ª").Replace("&#x2605;", "★").Replace("&#x2606;", "☆").Replace("&#xf1;", "ñ").Replace("&#xc0;", "À").Replace("&#x263a;", "☺").Replace("&#xbf;", "¿").Replace("\\u00ae", "®").Replace("{[", string.Empty).Replace("}]", string.Empty);
+                                        if (Title == "null")
+                                        {
+                                            Title = "N/A";
+                                        }
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 1 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
+                                    GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 1 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinAddFriendsGroupErrorLogs);
+                                }
+                                //   #endregion
+
+                                MemFullName = Fname;
+
+                                try
+                                {
+
+                                    if (!string.IsNullOrEmpty(MemId1))
+                                    {
+                                        #region WriteenByMe
+
+                                        // string MemUrl = "https://www.linkedin.com/profile/view?id=" + MemId1;
+
+                                        #endregion
+
+
+
+
+                                        string MemUrl = "https://www.linkedin.com/contacts/view?id=" + MemId1; //"https://www.linkedin.com/profile/view?id=" + MemId1;
+
+
+
+
+
+                                        //string memResponse = HttpHelper.getHtmlfromUrl(new Uri(MemUrl));
+                                        //if (memResponse.Contains("is your connection"))
+                                        //{
+
+                                        //if (!string.IsNullOrEmpty(Title))
+                                        {
+                                            MemberNameAndID.Add(MemId, MemFullName + ":" + Title);
+                                        }
+
+                                        GlobusFileHelper.AppendStringToTextfileNewLine(user + " : " + MemFullName, Globals.path_ComposeMessage_FriendList);
+                                        Logger("[ " + DateTime.Now + " ] => [ Added member : " + MemFullName + " ]");
+
+                                        string tempFinalData = user + "," + MemFullName + "," + MemId1 + "," + MemUrl + "," + Title;
+                                        AddingLinkedInDataToCSVFile(tempFinalData);
+
+                                        string Query = "INSERT INTO tb_endorsement (FriendName, FriendId,Username,Status) VALUES ('" + MemFullName + "', '" + MemId1 + "','" + user + "','0')";
+                                        DataBaseHandler.InsertQuery(Query, "tb_endorsement");
+
+                                        if (moduleLog == "endorsecamp")
+                                        {
+                                            Log_Endorse("[ " + DateTime.Now + " ] => [ Insert Member ID " + MemId1 + " of " + (MemFullName) + " ]");
+                                        }
+                                        // }
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 2 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
+                                    GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 2 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinAddFriendsGroupErrorLogs);
                                 }
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 1 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
-                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 1 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinAddFriendsGroupErrorLogs);
-                        }
-                #endregion
 
-                        MemFullName = Fname;
+                    }
+                }
+                #endregion without_search
 
-                        try
+
+                #region with_search
+
+                if (Globals.is_Searched_Compose_msg)
+                {
+                    string pageSourceaAdvanceSearch = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/search"));
+                    string rsid = Utils.getBetween(pageSourceaAdvanceSearch, "vsearch/g?rsid=", "&trk");
+
+                    string url_search = "https://www.linkedin.com/vsearch/p?orig=FCTD&rsid=" + rsid + "&keywords=" + GroupStatus.searchKeyword + "&trk=vsrp_people_sel&trkInfo=VSRPsearchId%3A4198823611434003376235,VSRPcmpt%3Atrans_nav&openFacets=N,G,CC&f_N=F";
+                    pageSource = HttpHelper.getHtmlfromUrl(new Uri(url_search));   // if we url is getting redirected then comment this line
+
+                    // if (!string.IsNullOrEmpty(pageSource)&&!pageSource.Contains("success")) // if we url is getting redirected then remove this comment
+
+                    string no_of_profiles = string.Empty;
+                    string pagination_url = string.Empty;
+                    int no_of_pages = 0;
+                    if (!string.IsNullOrEmpty(pageSource))
+                    {
+                        no_of_profiles = Utils.getBetween(pageSource, "i18n_results_count_capped_without_keywords", "/strong");
+                        no_of_profiles = Utils.getBetween(no_of_profiles, "003e", "+");
+
+                    }
+                    if (pageSource.Contains("isCurrentPage\":true,\"pageURL"))
+                    {
+                        pagination_url = Utils.getBetween(pageSource, "isCurrentPage", "pageNum");
+                        pagination_url = Utils.getBetween(pagination_url, "pageURL\":\"", "\",");
+                        pagination_url = "https://www.linkedin.com" + pagination_url;
+
+                        string s1 = "";
+
+
+
+
+                        //isCurrentPage":true,
+                    }
+                    if (string.IsNullOrEmpty(pageSource))
+                    {
+                        for (int i = 1; i <= 2; i++)
                         {
-                    
-                            if (!string.IsNullOrEmpty(MemId1))
+                            Thread.Sleep(4000);
+                            pageSource = HttpHelper.getHtmlfromUrl(new Uri(url_search));
+                            if (pageSource.Contains("<!DOCTYPE html>"))
                             {
-                                string MemUrl = "https://www.linkedin.com/contacts/view?id=" + MemId1; //"https://www.linkedin.com/profile/view?id=" + MemId1;
-                                //string memResponse = HttpHelper.getHtmlfromUrl(new Uri(MemUrl));
-                                //if (memResponse.Contains("is your connection"))
-                                //{
-
-                                    //if (!string.IsNullOrEmpty(Title))
-                                    {
-                                        MemberNameAndID.Add(MemId, MemFullName + ":" + Title);
-                                    }
-                                    
-                                    GlobusFileHelper.AppendStringToTextfileNewLine(user + " : " + MemFullName, Globals.path_ComposeMessage_FriendList);
-                                    Logger("[ " + DateTime.Now + " ] => [ Added member : " + MemFullName + " ]");
-
-                                    string tempFinalData = user + "," + MemFullName + "," + MemId1 + "," + MemUrl + "," + Title;
-                                    AddingLinkedInDataToCSVFile(tempFinalData);
-
-                                    string Query = "INSERT INTO tb_endorsement (FriendName, FriendId,Username,Status) VALUES ('" + MemFullName + "', '" + MemId1 + "','" + user + "','0')";
-                                    DataBaseHandler.InsertQuery(Query, "tb_endorsement");
-
-                                    if (moduleLog == "endorsecamp")
-                                    {
-                                        Log_Endorse("[ " + DateTime.Now + " ] => [ Insert Member ID " + MemId1 + " of " + (MemFullName) + " ]");
-                                    }
-                               // }
+                                break;
                             }
+
                         }
-                        catch (Exception ex)
+                    }
+                    if (!string.IsNullOrEmpty(no_of_profiles))
+                    {
+                        no_of_pages = Convert.ToInt32(no_of_profiles);
+                        no_of_pages = (no_of_pages / 10) + 1;
+                    }
+
+                    for (int i = 1; i <= no_of_pages; i++)
+                    {
+                        if (i == 1)
                         {
-                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 2 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
-                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 2 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinAddFriendsGroupErrorLogs);
+
+                        }
+                        else
+                        {
+                            pagination_url = Utils.getBetween(pagination_url, "", "num=");
+                            pagination_url = pagination_url + "num=" + i;
+                            pageSource = HttpHelper.getHtmlfromUrl(new Uri(pagination_url));
+
+                        }
+
+
+                        if (!string.IsNullOrEmpty(pageSource))
+                        {
+                            string[] RgxGroupData = System.Text.RegularExpressions.Regex.Split(pageSource, "fmt_headline");
+
+                            foreach (var Members in RgxGroupData)
+                            {
+                                string Fname = string.Empty;
+                                string Title = string.Empty;
+
+                                if (!Members.Contains("<!DOCTYPE html>"))
+                                {
+                                    try
+                                    {
+                                        try
+                                        {
+
+                                            MemId1 = Utils.getBetween(Members, "&pid=", "&");
+
+
+
+
+                                            // int startindex = Members.IndexOf(", \"id\": \"li_");
+                                            // string start = Members.Substring(startindex).Replace(", \"id\": \"li_", string.Empty);
+                                            // int endIndex = start.IndexOf("\"}");
+                                            // MemId1 = start.Substring(0, endIndex).Replace("{[", string.Empty).Replace("}]", string.Empty).Trim();
+                                            MemId = user + ':' + MemId1;
+                                            Globals.groupStatusString = "withoutAPI because of li_";
+                                        }
+                                        catch
+                                        {
+                                            int startindex = Members.IndexOf(", \"id\":");
+                                            string start = Members.Substring(startindex).Replace(", \"id\":", string.Empty);
+                                            int endIndex = start.IndexOf("},");
+                                            MemId1 = start.Substring(0, endIndex).Replace("{[", string.Empty).Replace("},", string.Empty).Trim();
+                                            MemId = user + ':' + MemId1;
+
+                                            Globals.groupStatusString = "API";
+                                        }
+
+                                        try
+                                        {
+                                            Fname = Utils.getBetween(Members, "fmt_name\":\"", "\",\"");
+                                            //  if(Fname.Contains(""))
+
+
+                                            // string Start = Members.Substring(StartIndex1).Replace(": \"", string.Empty);
+                                            // int EndIndex = Start.IndexOf("\",");
+                                            //string End = Start.Substring(0, EndIndex);
+                                            //Fname = End.Replace(",", ";").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("&#x113;", "ē").Replace("&#xd3;", "Ó").Replace("&#xf1;", "ñ").Replace("&#x20ac;", "€").Replace("&#xd1;", "Ñ").Replace("&#xe8;", "è").Replace("&#xd3;", "Ó").Replace("&#xaa;", "ª").Replace("&#x2605;", "★").Replace("&#x2606;", "☆").Replace("&#xf1;", "ñ").Replace("&#xc0;", "À").Replace("&#x263a;", "☺").Replace("&#xbf;", "¿").Replace("\\u00ae", "®").Replace("{[", string.Empty).Replace("}]", string.Empty);
+                                        }
+                                        catch
+                                        { }
+
+                                        try
+                                        {
+                                            Title = Utils.getBetween(Members, "\":\"", "\",\"");
+                                            // string Start = Members.Substring(StartIndextemp).Replace("title\":", string.Empty);
+                                            //int EndIndex = Start.IndexOf(",");
+                                            // string End = Start.Substring(0, EndIndex).Replace("\"", "").Trim();
+                                            // Title = End.Replace(",", ";").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("&#x113;", "ē").Replace("&#xd3;", "Ó").Replace("&#xf1;", "ñ").Replace("&#x20ac;", "€").Replace("&#xd1;", "Ñ").Replace("&#xe8;", "è").Replace("&#xd3;", "Ó").Replace("&#xaa;", "ª").Replace("&#x2605;", "★").Replace("&#x2606;", "☆").Replace("&#xf1;", "ñ").Replace("&#xc0;", "À").Replace("&#x263a;", "☺").Replace("&#xbf;", "¿").Replace("\\u00ae", "®").Replace("{[", string.Empty).Replace("}]", string.Empty);
+                                            if (Title.Contains("u003e"))
+                                            {
+                                                Title = Utils.getBetween(Title + "##", "u003e", "#");
+                                            }
+                                            if (Title.Contains("\\u003c/strong\\u003e"))
+                                            {
+                                                Title = Title.Replace("\\u003c/strong\\u003e", "");
+                                            }
+
+
+                                            if (Title == "null")
+                                            {
+                                                Title = "N/A";
+                                            }
+                                        }
+                                        catch
+                                        { }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 1 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
+                                        GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 1 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinAddFriendsGroupErrorLogs);
+                                    }
+                                    //   #endregion
+
+                                    MemFullName = Fname;
+
+                                    try
+                                    {
+
+                                        if (!string.IsNullOrEmpty(MemId1))
+                                        {
+                                            #region WriteenByMe
+
+                                            // string MemUrl = "https://www.linkedin.com/profile/view?id=" + MemId1;
+
+                                            #endregion
+
+
+
+
+                                            string MemUrl = "https://www.linkedin.com/contacts/view?id=" + MemId1; //"https://www.linkedin.com/profile/view?id=" + MemId1;
+
+
+
+
+
+                                            //string memResponse = HttpHelper.getHtmlfromUrl(new Uri(MemUrl));
+                                            //if (memResponse.Contains("is your connection"))
+                                            //{
+
+                                            //if (!string.IsNullOrEmpty(Title))
+                                            {
+                                                MemberNameAndID.Add(MemId, MemFullName + ":" + Title);
+                                            }
+
+                                            GlobusFileHelper.AppendStringToTextfileNewLine(user + " : " + MemFullName, Globals.path_ComposeMessage_FriendList);
+                                            Logger("[ " + DateTime.Now + " ] => [ Added member : " + MemFullName + " ]");
+
+                                            string tempFinalData = user + "," + MemFullName + "," + MemId1 + "," + MemUrl + "," + Title;
+                                            AddingLinkedInDataToCSVFile(tempFinalData);
+
+                                            string Query = "INSERT INTO tb_endorsement (FriendName, FriendId,Username,Status) VALUES ('" + MemFullName + "', '" + MemId1 + "','" + user + "','0')";
+                                            DataBaseHandler.InsertQuery(Query, "tb_endorsement");
+
+                                            if (moduleLog == "endorsecamp")
+                                            {
+                                                Log_Endorse("[ " + DateTime.Now + " ] => [ Insert Member ID " + MemId1 + " of " + (MemFullName) + " ]");
+                                            }
+                                            // }
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 2 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
+                                        GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Add Friends Groups --> PostAddMembers() >> 2 >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinAddFriendsGroupErrorLogs);
+                                    }
+                                }
+                            }
+
                         }
                     }
                 }
-
+                #endregion with_search
 
 
                 #region (Marry loadness) proxy issue
@@ -2414,7 +2672,7 @@ namespace Groups
 
                         do
                         {
-                            grpmem("[ " + DateTime.Now + " ] => [ Adding members from page " + (pagenumber+1)+ " ]");
+                            grpmem("[ " + DateTime.Now + " ] => [ Adding members from page " + (pagenumber + 1) + " ]");
 
                             pagesource1 = HttpHelper.getHtmlfromUrl(new Uri("https://www.linkedin.com/people/conn-list-view?fetchConnsFromDB=true&pageNum=" + pagenumber));
                             if (string.IsNullOrEmpty(pagesource1))
@@ -2455,14 +2713,14 @@ namespace Groups
                                         //int EndIndex = Start.IndexOf("<");
                                         //string End = Start.Substring(0, EndIndex).Replace("conn-name_", "").Replace(ID, "").Replace("\"", "");
                                         //Fname1 = End.Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("&#x113;", "ē").Replace("&#xd3;", "Ó").Replace("&#xf1;", "ñ").Replace("&#x20ac;", "€").Replace("&#xd1;", "Ñ").Replace("&#xe8;", "è").Replace("&#xd3;", "Ó").Replace("&#xaa;", "ª").Replace("&#x2605;", "★").Replace("&#x2606;", "☆").Replace("&#xf1;", "ñ").Replace("&#xc0;", "À").Replace("&#x263a;", "☺").Replace("&#xbf;", "¿");
-                                        
+
                                         #endregion
 
                                         int StartIndex2 = members1.IndexOf("type=\"checkbox\" value=");
 
                                         string Start = members1.Substring(StartIndex2).Replace("type=\"checkbox\" value=", string.Empty);
                                         int EndIndex = Start.IndexOf("/>");
-                                        string End = Start.Substring(0, EndIndex).Replace("conn-name_", "").Replace(ID, "").Replace("\"", "").Replace("\"","").Replace(">","");
+                                        string End = Start.Substring(0, EndIndex).Replace("conn-name_", "").Replace(ID, "").Replace("\"", "").Replace("\"", "").Replace(">", "");
                                         Fname1 = End.Replace(",", ";").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("&#x113;", "ē").Replace("&#xd3;", "Ó").Replace("&#xf1;", "ñ").Replace("&#x20ac;", "€").Replace("&#xd1;", "Ñ").Replace("&#xe8;", "è").Replace("&#xd3;", "Ó").Replace("&#xaa;", "ª").Replace("&#x2605;", "★").Replace("&#x2606;", "☆").Replace("&#xf1;", "ñ").Replace("&#xc0;", "À").Replace("&#x263a;", "☺").Replace("&#xbf;", "¿");
 
                                         int starttemp = members1.IndexOf("<span class=\"company-name\">");
@@ -2488,7 +2746,7 @@ namespace Groups
 
                                 try
                                 {
-                                   
+
 
                                     if (!string.IsNullOrEmpty(memID2))
                                     {
@@ -2497,10 +2755,10 @@ namespace Groups
                                         {
                                             MemberNameAndID.Add(memID1, Memfullname1 + ":" + title);
                                         }
-                                        
+
                                         GlobusFileHelper.AppendStringToTextfileNewLine(user + " : " + Fname1, Globals.path_ComposeMessage_FriendList);
                                         Globals.groupStatusString = "withoutAPI";
-                                        string MemUrl = "https://www.linkedin.com/profile/view?id="+memID2;
+                                        string MemUrl = "https://www.linkedin.com/profile/view?id=" + memID2;
 
                                         string tempFinalData = user + "," + Memfullname1 + "," + memID2 + "," + MemUrl + "," + title;
                                         AddingLinkedInDataToCSVFile(tempFinalData);
@@ -2613,11 +2871,11 @@ namespace Groups
         {
             try
             {
-                //string LinkedInAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "InBoardProGetData\\" + SearchCriteria.FileName + ".csv");
+                //string LinkedInAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LinkedInScraper\\" + SearchCriteria.FileName + ".csv");
                 string LinkedInDeskTop = Globals.DesktopFolder + "\\FriendsList.csv";
 
                 #region LinkedIn Writer
-                
+
                 //Checking File Exixtance
                 if (!File.Exists(LinkedInDeskTop))
                 {
@@ -2658,11 +2916,11 @@ namespace Groups
             {
                 MemberNameAndID.Clear();
 
-             
+
                 this.HttpHelper = HttpHelper;
-               // string pageSource = HttpHelper.getHtmlfromUrl(new Uri("https://www.linkedin.com/contacts/api/"));
+                // string pageSource = HttpHelper.getHtmlfromUrl(new Uri("https://www.linkedin.com/contacts/api/"));
                 string pagesource = Httphelper.getHtmlfromUrl(new Uri("https://www.linkedin.com/contacts/?filter=recent&trk=nav_responsive_tab_network#?filter=recent&trk=nav_responsive_tab_network"));
-               
+
                 foreach (string[] itemArr in Cmpmsg_excelData)
                 {
                     string MemId = string.Empty;
@@ -2681,7 +2939,7 @@ namespace Groups
                             URL = "https://www.linkedin.com/profile/view?id=" + URL;
                         }
                         string PagesrcProfileExcel = Httphelper.getHtmlfromUrl(new Uri(URL));
-                      
+
                         try
                         {
                             int startindex = URL.IndexOf("?id=");
@@ -2787,7 +3045,7 @@ namespace Groups
                     }
                 }
                 return MemberNameAndID;
-                
+
             }
             catch { return MemberNameAndID; }
 
@@ -2799,168 +3057,296 @@ namespace Groups
         {
             string GetID = string.Empty;
             Dictionary<string, string> GroupPendingDtl = new Dictionary<string, string>();
-          
+
 
             try
             {
-                     string pageSourceforGroup = string.Empty;
-                     //pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/profile/view?id=" + GetID));
+                string pageSourceforGroup = string.Empty;
+                //pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/profile/view?id=" + GetID));
+
+                try
+                {
+                    //pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/myGroups?trk=nav_responsive_sub_nav_groups"));
+                    pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/grp/"));
+                    //if (pageSourceforGroup == "")
+                    //{
+                    //    Thread.Sleep(2000);
+                    //    pageSourceforGroup = HttpHelper.getHtmlfromUrl(new Uri("http://www.linkedin.com/myGroups?trk=nav_responsive_sub_nav_groups"));
+                    //}
+                    //if (pageSourceforGroup == "")
+                    //{
+                    //    Thread.Sleep(2000);
+                    //    pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/grp/"));
+                    //}
+                    //if (pageSourceforGroup == "")
+                    //{
+                    //    Thread.Sleep(2000);
+                    //    pageSourceforGroup = HttpHelper.getHtmlfromUrl(new Uri("http://www.linkedin.com/grp/"));
+                    //}
+                }
+                catch { }
+
+
+                //string[] RgxGroupDataforGroup = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "<li class=\"media-block \">");
+                string[] RgxGroupDataforGroup = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "<div class=\"media-content\">");
+
+                foreach (string item in RgxGroupDataforGroup)
+                {
+                    string GroupUrl = string.Empty;
+                    string GroupNames = string.Empty;
+                    string GroupIds = string.Empty;
+                    string CheckOwnGroup = string.Empty;
 
                     try
                     {
-                        //pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/myGroups?trk=nav_responsive_sub_nav_groups"));
-                        pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/grp/"));
-                        //if (pageSourceforGroup == "")
-                        //{
-                        //    Thread.Sleep(2000);
-                        //    pageSourceforGroup = HttpHelper.getHtmlfromUrl(new Uri("http://www.linkedin.com/myGroups?trk=nav_responsive_sub_nav_groups"));
-                        //}
-                        //if (pageSourceforGroup == "")
-                        //{
-                        //    Thread.Sleep(2000);
-                        //    pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/grp/"));
-                        //}
-                        //if (pageSourceforGroup == "")
-                        //{
-                        //    Thread.Sleep(2000);
-                        //    pageSourceforGroup = HttpHelper.getHtmlfromUrl(new Uri("http://www.linkedin.com/grp/"));
-                        //}
-                    }
-                    catch { }
 
-                    
-                    //string[] RgxGroupDataforGroup = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "<li class=\"media-block \">");
-                      string[] RgxGroupDataforGroup = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "<div class=\"media-content\">");
-                    
-                    foreach (string item in RgxGroupDataforGroup)
-                    {
-                        string GroupUrl = string.Empty;
-                        string GroupNames = string.Empty;
-                        string GroupIds = string.Empty;
-                        string CheckOwnGroup = string.Empty;
 
-                        try
+
+                        //if (!item.Contains("<!DOCTYPE html>") && item.Contains("groups") && item.Contains("Membership Pending"))
+                        if (!item.Contains("<!DOCTYPE html>") && item.Contains("groups"))
                         {
 
-                          
+                            #region commented old code
+                            //try
+                            //{
+                            //    if (item.Contains("class=\"public\""))
+                            //    {
+                            //        int startindex = item.IndexOf("class=\"public\"");
+                            //        string start = item.Substring(startindex).Replace("class=\"public\"", string.Empty);
+                            //        int endindex = start.IndexOf("</a>");
+                            //        string end = start.Substring(0, endindex).Replace(">", string.Empty).Replace(":", "-").Replace(",", string.Empty);
+                            //        GroupNames = user + ":" + end;
+                            //    }
+                            //    else if (item.Contains("class=\"private\""))
+                            //    {
+                            //        int startindex = item.IndexOf("class=\"private\"");
+                            //        string start = item.Substring(startindex).Replace("class=\"private\"", string.Empty);
+                            //        int endindex = start.IndexOf("</a>");
+                            //        string end = start.Substring(0, endindex).Replace(">", string.Empty).Replace(":", "-").Replace(",", string.Empty);
+                            //        GroupNames = user + ":" + end;
+                            //    }
+                            //}
+                            //catch { }
 
-                            //if (!item.Contains("<!DOCTYPE html>") && item.Contains("groups") && item.Contains("Membership Pending"))
-                            if (!item.Contains("<!DOCTYPE html>") && item.Contains("groups"))
+
+                            //if (string.IsNullOrEmpty(GroupIds))
+                            //{
+                            //    int startindex = item.IndexOf("groups/");
+                            //    if (startindex > 0)
+                            //    {
+                            //        try
+                            //        {
+                            //            string start = item.Substring(startindex).Replace("groups/", "");
+                            //            int endindex = start.IndexOf("?trk");
+                            //            string endKey = start.Substring(0, endindex);
+
+                            //            string[] endKeyLast = endKey.Split('-');
+                            //            try
+                            //            {
+                            //                if (NumberHelper.ValidateNumber(endKeyLast[1]))
+                            //                {
+                            //                    endKey = endKeyLast[1];
+                            //                }
+                            //                else if (NumberHelper.ValidateNumber(endKeyLast[2]))
+                            //                {
+                            //                    endKey = endKeyLast[2];
+                            //                }
+                            //                else if (NumberHelper.ValidateNumber(endKeyLast[3]))
+                            //                {
+                            //                    endKey = endKeyLast[3];
+                            //                }
+                            //                else if (NumberHelper.ValidateNumber(endKeyLast[4]))
+                            //                {
+                            //                    endKey = endKeyLast[4];
+                            //                }
+                            //                else if (NumberHelper.ValidateNumber(endKeyLast[5]))
+                            //                {
+                            //                    endKey = endKeyLast[5];
+                            //                }
+                            //                else if (NumberHelper.ValidateNumber(endKeyLast[6]))
+                            //                {
+                            //                    endKey = endKeyLast[6];
+                            //                }
+                            //            }
+                            //            catch { }
+
+                            //            GroupIds = endKey;
+                            //        }
+                            //        catch { }
+                            //    }
+
+                            //}
+
+                            //try
+                            //{
+                            //    GroupPendingDtl.Add(GroupNames, GroupIds);
+                            //}
+                            //catch { } 
+                            #endregion
+
+                            try
                             {
+                                string[] UrlCollection = System.Text.RegularExpressions.Regex.Split(item, "<a href=");
 
-                                #region commented old code
-                                //try
-                                //{
-                                //    if (item.Contains("class=\"public\""))
-                                //    {
-                                //        int startindex = item.IndexOf("class=\"public\"");
-                                //        string start = item.Substring(startindex).Replace("class=\"public\"", string.Empty);
-                                //        int endindex = start.IndexOf("</a>");
-                                //        string end = start.Substring(0, endindex).Replace(">", string.Empty).Replace(":", "-").Replace(",", string.Empty);
-                                //        GroupNames = user + ":" + end;
-                                //    }
-                                //    else if (item.Contains("class=\"private\""))
-                                //    {
-                                //        int startindex = item.IndexOf("class=\"private\"");
-                                //        string start = item.Substring(startindex).Replace("class=\"private\"", string.Empty);
-                                //        int endindex = start.IndexOf("</a>");
-                                //        string end = start.Substring(0, endindex).Replace(">", string.Empty).Replace(":", "-").Replace(",", string.Empty);
-                                //        GroupNames = user + ":" + end;
-                                //    }
-                                //}
-                                //catch { }
-
-
-                                //if (string.IsNullOrEmpty(GroupIds))
-                                //{
-                                //    int startindex = item.IndexOf("groups/");
-                                //    if (startindex > 0)
-                                //    {
-                                //        try
-                                //        {
-                                //            string start = item.Substring(startindex).Replace("groups/", "");
-                                //            int endindex = start.IndexOf("?trk");
-                                //            string endKey = start.Substring(0, endindex);
-
-                                //            string[] endKeyLast = endKey.Split('-');
-                                //            try
-                                //            {
-                                //                if (NumberHelper.ValidateNumber(endKeyLast[1]))
-                                //                {
-                                //                    endKey = endKeyLast[1];
-                                //                }
-                                //                else if (NumberHelper.ValidateNumber(endKeyLast[2]))
-                                //                {
-                                //                    endKey = endKeyLast[2];
-                                //                }
-                                //                else if (NumberHelper.ValidateNumber(endKeyLast[3]))
-                                //                {
-                                //                    endKey = endKeyLast[3];
-                                //                }
-                                //                else if (NumberHelper.ValidateNumber(endKeyLast[4]))
-                                //                {
-                                //                    endKey = endKeyLast[4];
-                                //                }
-                                //                else if (NumberHelper.ValidateNumber(endKeyLast[5]))
-                                //                {
-                                //                    endKey = endKeyLast[5];
-                                //                }
-                                //                else if (NumberHelper.ValidateNumber(endKeyLast[6]))
-                                //                {
-                                //                    endKey = endKeyLast[6];
-                                //                }
-                                //            }
-                                //            catch { }
-
-                                //            GroupIds = endKey;
-                                //        }
-                                //        catch { }
-                                //    }
-
-                                //}
-
-                                //try
-                                //{
-                                //    GroupPendingDtl.Add(GroupNames, GroupIds);
-                                //}
-                                //catch { } 
-                                #endregion
-
-                                try
+                                foreach (var itemUrl in UrlCollection)
                                 {
-                                    string[] UrlCollection = System.Text.RegularExpressions.Regex.Split(item, "<a href=");
-
-                                    foreach (var itemUrl in UrlCollection)
-                                    {
-                                        if (itemUrl.Contains("trk=my_groups-tile-grp"))
-                                        {
-                                            try
-                                            {
-                                                int startind = itemUrl.IndexOf("/groups");
-                                                string star = itemUrl.Substring(startind);
-                                                int endInd = star.IndexOf("class=");
-                                                GroupUrl = "https://www.linkedin.com" + star.Substring(0, endInd).Replace("\"", string.Empty).Replace("amp;", string.Empty).Trim();
-                                                break;
-                                            }
-                                            catch { }
-                                        }
-                                    }
-
-                                    CheckOwnGroup = HttpHelper.getHtmlfromUrl1(new Uri(GroupUrl));
-
-                                }
-                                catch { }
-
-                                if (CheckOwnGroup.Contains("Leave this group.") || CheckOwnGroup.Contains("Your Membership is pending approval by the group owner."))
-                                {
-                                    if ((item.Contains("public")))
+                                    if (itemUrl.Contains("trk=my_groups-tile-grp"))
                                     {
                                         try
                                         {
-                                            int startindex = item.IndexOf("class=\"public\"");
+                                            int startind = itemUrl.IndexOf("/groups");
+                                            string star = itemUrl.Substring(startind);
+                                            int endInd = star.IndexOf("class=");
+                                            GroupUrl = "https://www.linkedin.com" + star.Substring(0, endInd).Replace("\"", string.Empty).Replace("amp;", string.Empty).Trim();
+                                            break;
+                                        }
+                                        catch { }
+                                    }
+                                }
+
+                                CheckOwnGroup = HttpHelper.getHtmlfromUrl1(new Uri(GroupUrl));
+
+                            }
+                            catch { }
+
+                            if (CheckOwnGroup.Contains("Leave this group.") || CheckOwnGroup.Contains("Your Membership is pending approval by the group owner."))
+                            {
+                                if ((item.Contains("public")))
+                                {
+                                    try
+                                    {
+                                        int startindex = item.IndexOf("class=\"public\"");
+                                        string start = item.Substring(startindex);
+                                        int endIndex = start.IndexOf("</a>");
+                                        GroupNames = start.Substring(0, endIndex).Replace("title", string.Empty).Replace("=", string.Empty).Replace(">", string.Empty).Replace("groups", string.Empty).Replace("/", string.Empty).Replace("\"", string.Empty).Replace("&amp;", "&").Replace("classpublic", string.Empty).Replace("&quot;", "'").Replace(":", ";").Replace("This is an open group", string.Empty);
+
+                                        if (item.Contains("Membership Pending"))
+                                        {
+                                            GroupNames = GroupNames + " (Pending Group)" + ':' + user;
+                                        }
+                                        else
+                                        {
+                                            GroupNames = GroupNames + " (Open Group)" + ':' + user;
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
+                                        GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update1 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
+                                    }
+
+                                    try
+                                    {
+                                        GroupIds = "";
+                                        int startindex1 = item.IndexOf("gid=");
+                                        string start1 = item.Substring(startindex1);
+                                        int endIndex1 = start1.IndexOf("&");
+                                        GroupIds = start1.Substring(0, endIndex1).Replace("gid=", string.Empty).Trim();
+                                        if (!NumberHelper.ValidateNumber(GroupIds))
+                                        {
+                                            try
+                                            {
+                                                GroupIds = GroupIds.Split('\"')[0];
+                                            }
+                                            catch { }
+                                        }
+
+                                        if (GroupIds == string.Empty)
+                                        {
+                                            startindex1 = item.IndexOf("group");
+                                            start1 = item.Substring(startindex1);
+                                            endIndex1 = start1.IndexOf("?");
+                                            GroupIds = start1.Substring(0, endIndex1).Replace("groups", string.Empty).Replace("/", string.Empty).Replace("<a href=", string.Empty).Replace("\"", string.Empty);
+
+                                            if (!NumberHelper.ValidateNumber(GroupIds))
+                                            {
+                                                try
+                                                {
+                                                    GroupIds = GroupIds.Split('\"')[0];
+                                                }
+                                                catch { }
+                                            }
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus2 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
+                                        GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update2 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
+                                    }
+
+                                    if (GroupIds.Contains("analyticsURL"))
+                                    {
+                                        continue;
+                                    }
+
+                                    if (GroupIds == string.Empty)
+                                    {
+                                        try
+                                        {
+                                            int startindex2 = item.IndexOf("gid=");
+                                            string start2 = item.Substring(startindex2);
+                                            int endIndex2 = start2.IndexOf("&");
+                                            GroupIds = start2.Substring(0, endIndex2).Replace("gid", string.Empty).Replace("=", string.Empty);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus3 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
+                                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update3 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        string[] endKeyLast = GroupIds.Split('-');
+                                        try
+                                        {
+                                            if (NumberHelper.ValidateNumber(endKeyLast[1]))
+                                            {
+                                                GroupIds = endKeyLast[1];
+                                            }
+                                            else if (NumberHelper.ValidateNumber(endKeyLast[2]))
+                                            {
+                                                GroupIds = endKeyLast[2];
+                                            }
+                                            else if (NumberHelper.ValidateNumber(endKeyLast[3]))
+                                            {
+                                                GroupIds = endKeyLast[3];
+                                            }
+                                            else if (NumberHelper.ValidateNumber(endKeyLast[4]))
+                                            {
+                                                GroupIds = endKeyLast[4];
+                                            }
+                                            else if (NumberHelper.ValidateNumber(endKeyLast[5]))
+                                            {
+                                                GroupIds = endKeyLast[5];
+                                            }
+                                            else if (NumberHelper.ValidateNumber(endKeyLast[6]))
+                                            {
+                                                GroupIds = endKeyLast[6];
+                                            }
+                                        }
+                                        catch { }
+                                    }
+
+                                    try
+                                    {
+                                        GroupPendingDtl.Add(GroupNames, GroupIds);
+                                    }
+                                    catch { }
+                                }
+
+
+
+                                //if (!item.Contains("<!DOCTYPE html>") && item.Contains("groups") && item.Contains("Membership Pending"))
+                                if (!item.Contains("<!DOCTYPE html>") && item.Contains("groups"))
+                                {
+                                    if ((item.Contains("private")))
+                                    {
+                                        try
+                                        {
+                                            int startindex = item.IndexOf("class=\"private\"");
                                             string start = item.Substring(startindex);
                                             int endIndex = start.IndexOf("</a>");
-                                            GroupNames = start.Substring(0, endIndex).Replace("title", string.Empty).Replace("=", string.Empty).Replace(">", string.Empty).Replace("groups", string.Empty).Replace("/", string.Empty).Replace("\"", string.Empty).Replace("&amp;", "&").Replace("classpublic", string.Empty).Replace("&quot;", "'").Replace(":", ";").Replace("This is an open group", string.Empty);
+                                            GroupNames = start.Substring(0, endIndex).Replace("=", string.Empty).Replace(">", string.Empty).Replace("groups", string.Empty).Replace("/", string.Empty).Replace("\"", string.Empty).Replace("&amp;", "&").Replace("&quot;", "'").Replace(":", ";").Replace("classprivate", string.Empty);
 
                                             if (item.Contains("Membership Pending"))
                                             {
@@ -2973,47 +3359,30 @@ namespace Groups
                                         }
                                         catch (Exception ex)
                                         {
-                                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
-                                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update1 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
+                                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus4 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
+                                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update4 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
                                         }
 
                                         try
                                         {
-                                            GroupIds = "";
                                             int startindex1 = item.IndexOf("gid=");
                                             string start1 = item.Substring(startindex1);
                                             int endIndex1 = start1.IndexOf("&");
-                                            GroupIds = start1.Substring(0, endIndex1).Replace("gid=", string.Empty).Trim();
-                                            if (!NumberHelper.ValidateNumber(GroupIds))
-                                            {
-                                                try
-                                                {
-                                                    GroupIds = GroupIds.Split('\"')[0];
-                                                }
-                                                catch { }
-                                            }
+                                            GroupIds = start1.Substring(0, endIndex1).Replace("gid=", string.Empty).Replace("/", string.Empty).Replace("<a href=", string.Empty).Replace("\"", string.Empty).Replace("class=blanket-target><a>groups?home=", string.Empty).Trim();
 
                                             if (GroupIds == string.Empty)
                                             {
-                                                startindex1 = item.IndexOf("group");
-                                                start1 = item.Substring(startindex1);
-                                                endIndex1 = start1.IndexOf("?");
-                                                GroupIds = start1.Substring(0, endIndex1).Replace("groups", string.Empty).Replace("/", string.Empty).Replace("<a href=", string.Empty).Replace("\"", string.Empty);
-
-                                                if (!NumberHelper.ValidateNumber(GroupIds))
+                                                try
                                                 {
-                                                    try
-                                                    {
-                                                        GroupIds = GroupIds.Split('\"')[0];
-                                                    }
-                                                    catch { }
+                                                    GroupIds = GroupIds.Split(' ')[0].Trim();
                                                 }
+                                                catch { }
                                             }
                                         }
                                         catch (Exception ex)
                                         {
-                                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus2 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
-                                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update2 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
+                                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus5 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
+                                            GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update5 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
                                         }
 
                                         if (GroupIds.Contains("analyticsURL"))
@@ -3029,11 +3398,21 @@ namespace Groups
                                                 string start2 = item.Substring(startindex2);
                                                 int endIndex2 = start2.IndexOf("&");
                                                 GroupIds = start2.Substring(0, endIndex2).Replace("gid", string.Empty).Replace("=", string.Empty);
+
+                                                if (!NumberHelper.ValidateNumber(GroupIds))
+                                                {
+                                                    try
+                                                    {
+                                                        GroupIds = GroupIds.Split('\"')[0];
+                                                    }
+                                                    catch { }
+                                                }
+
                                             }
                                             catch (Exception ex)
                                             {
-                                                GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus3 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
-                                                GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update3 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
+                                                GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus6 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
+                                                GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update6 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
                                             }
                                         }
                                         else
@@ -3076,184 +3455,63 @@ namespace Groups
                                         catch { }
                                     }
 
+                                    #region Commented old code
 
+                                    //try
+                                    //{
+                                    //    if (item.Contains("class=\"public\""))
+                                    //    {
+                                    //        int startindex = item.IndexOf("class=\"public\"");
+                                    //        string start = item.Substring(startindex).Replace("class=\"public\"", string.Empty);
+                                    //        int endindex = start.IndexOf("</a>");
+                                    //        string end = start.Substring(0, endindex).Replace(">", string.Empty).Replace(":", "-").Replace(",", string.Empty);
+                                    //        GroupNames = user + ":" + end;
+                                    //    }
+                                    //    else if (item.Contains("class=\"private\""))
+                                    //    {
+                                    //        int startindex = item.IndexOf("class=\"private\"");
+                                    //        string start = item.Substring(startindex).Replace("class=\"private\"", string.Empty);
+                                    //        int endindex = start.IndexOf("</a>");
+                                    //        string end = start.Substring(0, endindex).Replace(">", string.Empty).Replace(":", "-").Replace(",", string.Empty);
+                                    //        GroupNames = user + ":" + end;
+                                    //    }
+                                    //}
+                                    //catch { }
 
-                                    //if (!item.Contains("<!DOCTYPE html>") && item.Contains("groups") && item.Contains("Membership Pending"))
-                                    if (!item.Contains("<!DOCTYPE html>") && item.Contains("groups"))
-                                    {
-                                        if ((item.Contains("private")))
-                                        {
-                                            try
-                                            {
-                                                int startindex = item.IndexOf("class=\"private\"");
-                                                string start = item.Substring(startindex);
-                                                int endIndex = start.IndexOf("</a>");
-                                                GroupNames = start.Substring(0, endIndex).Replace("=", string.Empty).Replace(">", string.Empty).Replace("groups", string.Empty).Replace("/", string.Empty).Replace("\"", string.Empty).Replace("&amp;", "&").Replace("&quot;", "'").Replace(":", ";").Replace("classprivate", string.Empty);
+                                    //if (string.IsNullOrEmpty(GroupIds))
+                                    //{
+                                    //    try
+                                    //    {
+                                    //        int startindex = item.IndexOf("gid=");
+                                    //        if (startindex > 0)
+                                    //        {
+                                    //            try
+                                    //            {
+                                    //                string start = item.Substring(startindex).Replace("gid=", "");
+                                    //                int endindex = start.IndexOf("&amp");
+                                    //                string end = start.Substring(0, endindex);
+                                    //                GroupIds = end;
+                                    //            }
+                                    //            catch { }
+                                    //        }
+                                    //    }
+                                    //    catch { }
+                                    //}
 
-                                                if (item.Contains("Membership Pending"))
-                                                {
-                                                    GroupNames = GroupNames + " (Pending Group)" + ':' + user;
-                                                }
-                                                else
-                                                {
-                                                    GroupNames = GroupNames + " (Open Group)" + ':' + user;
-                                                }
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus4 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
-                                                GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update4 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
-                                            }
-
-                                            try
-                                            {
-                                                int startindex1 = item.IndexOf("gid=");
-                                                string start1 = item.Substring(startindex1);
-                                                int endIndex1 = start1.IndexOf("&");
-                                                GroupIds = start1.Substring(0, endIndex1).Replace("gid=", string.Empty).Replace("/", string.Empty).Replace("<a href=", string.Empty).Replace("\"", string.Empty).Replace("class=blanket-target><a>groups?home=", string.Empty).Trim();
-
-                                                if (GroupIds == string.Empty)
-                                                {
-                                                    try
-                                                    {
-                                                        GroupIds = GroupIds.Split(' ')[0].Trim();
-                                                    }
-                                                    catch { }
-                                                }
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus5 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
-                                                GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update5 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
-                                            }
-
-                                            if (GroupIds.Contains("analyticsURL"))
-                                            {
-                                                continue;
-                                            }
-
-                                            if (GroupIds == string.Empty)
-                                            {
-                                                try
-                                                {
-                                                    int startindex2 = item.IndexOf("gid=");
-                                                    string start2 = item.Substring(startindex2);
-                                                    int endIndex2 = start2.IndexOf("&");
-                                                    GroupIds = start2.Substring(0, endIndex2).Replace("gid", string.Empty).Replace("=", string.Empty);
-
-                                                    if (!NumberHelper.ValidateNumber(GroupIds))
-                                                    {
-                                                        try
-                                                        {
-                                                            GroupIds = GroupIds.Split('\"')[0];
-                                                        }
-                                                        catch { }
-                                                    }
-
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> GroupStatus6 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
-                                                    GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Error --> Group Update6 --> PostCreateGroupNames() >>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinGetGroupMemberErrorLogs);
-                                                }
-                                            }
-                                            else
-                                            {
-                                                string[] endKeyLast = GroupIds.Split('-');
-                                                try
-                                                {
-                                                    if (NumberHelper.ValidateNumber(endKeyLast[1]))
-                                                    {
-                                                        GroupIds = endKeyLast[1];
-                                                    }
-                                                    else if (NumberHelper.ValidateNumber(endKeyLast[2]))
-                                                    {
-                                                        GroupIds = endKeyLast[2];
-                                                    }
-                                                    else if (NumberHelper.ValidateNumber(endKeyLast[3]))
-                                                    {
-                                                        GroupIds = endKeyLast[3];
-                                                    }
-                                                    else if (NumberHelper.ValidateNumber(endKeyLast[4]))
-                                                    {
-                                                        GroupIds = endKeyLast[4];
-                                                    }
-                                                    else if (NumberHelper.ValidateNumber(endKeyLast[5]))
-                                                    {
-                                                        GroupIds = endKeyLast[5];
-                                                    }
-                                                    else if (NumberHelper.ValidateNumber(endKeyLast[6]))
-                                                    {
-                                                        GroupIds = endKeyLast[6];
-                                                    }
-                                                }
-                                                catch { }
-                                            }
-
-                                            try
-                                            {
-                                                GroupPendingDtl.Add(GroupNames, GroupIds);
-                                            }
-                                            catch { }
-                                        }
-
-                                        #region Commented old code
-
-                                        //try
-                                        //{
-                                        //    if (item.Contains("class=\"public\""))
-                                        //    {
-                                        //        int startindex = item.IndexOf("class=\"public\"");
-                                        //        string start = item.Substring(startindex).Replace("class=\"public\"", string.Empty);
-                                        //        int endindex = start.IndexOf("</a>");
-                                        //        string end = start.Substring(0, endindex).Replace(">", string.Empty).Replace(":", "-").Replace(",", string.Empty);
-                                        //        GroupNames = user + ":" + end;
-                                        //    }
-                                        //    else if (item.Contains("class=\"private\""))
-                                        //    {
-                                        //        int startindex = item.IndexOf("class=\"private\"");
-                                        //        string start = item.Substring(startindex).Replace("class=\"private\"", string.Empty);
-                                        //        int endindex = start.IndexOf("</a>");
-                                        //        string end = start.Substring(0, endindex).Replace(">", string.Empty).Replace(":", "-").Replace(",", string.Empty);
-                                        //        GroupNames = user + ":" + end;
-                                        //    }
-                                        //}
-                                        //catch { }
-
-                                        //if (string.IsNullOrEmpty(GroupIds))
-                                        //{
-                                        //    try
-                                        //    {
-                                        //        int startindex = item.IndexOf("gid=");
-                                        //        if (startindex > 0)
-                                        //        {
-                                        //            try
-                                        //            {
-                                        //                string start = item.Substring(startindex).Replace("gid=", "");
-                                        //                int endindex = start.IndexOf("&amp");
-                                        //                string end = start.Substring(0, endindex);
-                                        //                GroupIds = end;
-                                        //            }
-                                        //            catch { }
-                                        //        }
-                                        //    }
-                                        //    catch { }
-                                        //}
-
-                                        //try
-                                        //{
-                                        //    GroupPendingDtl.Add(GroupNames, GroupIds);
-                                        //}
-                                        //catch { } 
-                                        #endregion
-                                    }
+                                    //try
+                                    //{
+                                    //    GroupPendingDtl.Add(GroupNames, GroupIds);
+                                    //}
+                                    //catch { } 
+                                    #endregion
                                 }
                             }
                         }
-                        catch { }
                     }
-                   
-                    
+                    catch { }
+                }
+
+
                 return GroupPendingDtl;
             }
             catch (Exception ex)
@@ -3312,8 +3570,8 @@ namespace Groups
                                 else
                                 {
                                     GroupNames = GroupNames + " (Open Group)" + ':' + user;
-                                } 
-                                
+                                }
+
 
                             }
                             catch (Exception ex)
@@ -3446,7 +3704,7 @@ namespace Groups
             try
             {
                 string pageSourceforGroup = string.Empty;
-                
+
                 try
                 {
                     pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("https://www.linkedin.com/anet?dispSortAnets=&trk=my_groups-h_gn-settings"));
@@ -3456,14 +3714,14 @@ namespace Groups
                 catch { }
 
 
-               string[] RgxGroupDataforGroup = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "<td class=\"group-name\">");
+                string[] RgxGroupDataforGroup = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "<td class=\"group-name\">");
 
                 foreach (string item in RgxGroupDataforGroup)
                 {
                     string GroupUrl = string.Empty;
                     string GroupNames = string.Empty;
                     string GroupIds = string.Empty;
-                    
+
                     try
                     {
 
@@ -3598,7 +3856,7 @@ namespace Groups
 
         }
         #endregion
-      
+
         #region FromEmailCodeComposeMsg
         public string FromEmailCodeComposeMsg(ref GlobusHttpHelper HttpHelper, string email)
         {
@@ -3607,7 +3865,7 @@ namespace Groups
             string namewithid = string.Empty;
             string pageSource = string.Empty;
             string[] RgxGroupData = new string[] { };
-            
+
 
             if (string.IsNullOrEmpty(namewithid))
             {
@@ -3685,7 +3943,7 @@ namespace Groups
 
             try
             {
-               string pageSource1 = HttpHelper.getHtmlfromUrl(new Uri("http://www.linkedin.com/home?trk=hb_tab_home_top"));
+                string pageSource1 = HttpHelper.getHtmlfromUrl(new Uri("http://www.linkedin.com/home?trk=hb_tab_home_top"));
 
                 if (pageSource1.Contains("csrfToken"))
                 {
@@ -3754,7 +4012,7 @@ namespace Groups
 
                 string[] RgxGroupData = System.Text.RegularExpressions.Regex.Split(pageSource, "fmt_full_display_name");
 
-               
+
                 foreach (var fromname in RgxGroupData)
                 {
                     if (fromname.Contains("\":\""))
@@ -3769,7 +4027,7 @@ namespace Groups
                                     string start = fromname.Substring(StartIndex);
                                     int endIndex = start.IndexOf("i18n_optional_not_pinyin");
                                     FromNm = start.Substring(0, endIndex).Replace("\"", string.Empty).Replace("\":\"", string.Empty);
-                                    FromNam = FromNm.Split(',')[0].Replace(":", string.Empty).Replace("\\u002d","-");
+                                    FromNam = FromNm.Split(',')[0].Replace(":", string.Empty).Replace("\\u002d", "-");
                                 }
                                 catch
                                 { }
@@ -3777,11 +4035,11 @@ namespace Groups
                                 {
                                     if (string.IsNullOrEmpty(FromNm) || FromNm.Contains("LastName"))
                                     {
-                                    int StartIndex = fromname.IndexOf("\":\"");
-                                    string start = fromname.Substring(StartIndex);
-                                    int endIndex = start.IndexOf(",");
-                                    FromNm = start.Substring(0, endIndex).Replace("\"", string.Empty).Replace("\":\"", string.Empty);
-                                    FromNam = FromNm.Split(',')[0].Replace(":", string.Empty);
+                                        int StartIndex = fromname.IndexOf("\":\"");
+                                        string start = fromname.Substring(StartIndex);
+                                        int endIndex = start.IndexOf(",");
+                                        FromNm = start.Substring(0, endIndex).Replace("\"", string.Empty).Replace("\":\"", string.Empty);
+                                        FromNam = FromNm.Split(',')[0].Replace(":", string.Empty);
                                     }
                                 }
                                 catch
@@ -3822,10 +4080,10 @@ namespace Groups
                         string ProfileID = string.Empty;
                         if (Globals.groupStatusString == "API")
                         {
-                            string  ProfileUrl = "https://www.linkedin.com/contacts/view?id=" + ProfileID + "";
+                            string ProfileUrl = "https://www.linkedin.com/contacts/view?id=" + ProfileID + "";
                             string profilePageSource = HttpHelper.getHtmlfromUrl1(new Uri(ProfileUrl));
                             ProfileID = Utils.getBetween(profilePageSource, "id=", ",").Replace("\"", "");
-                            
+
                         }
                         else
                         {
@@ -4010,7 +4268,7 @@ namespace Groups
                                             try
                                             {
                                                 string membercountPageSource = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/groups?gid=" + GroupIds));
-                                                GroupMemberCount = getBetween(membercountPageSource, "class=\"member-count identified\">", "</a>").Replace(",","").Trim(); ;
+                                                GroupMemberCount = getBetween(membercountPageSource, "class=\"member-count identified\">", "</a>").Replace(",", "").Trim(); ;
                                             }
                                             catch { }
                                         }
@@ -4018,7 +4276,7 @@ namespace Groups
                                         {
                                             GroupDtl.Add(GroupNames, GroupIds);
 
-                                            string LinkedInDeskTop = Globals.DesktopFolder + "\\InBoardProGetData" + "FriendsGroupInfo" + ".csv";
+                                            string LinkedInDeskTop = Globals.DesktopFolder + "\\LinkedInScraper" + "FriendsGroupInfo" + ".csv";
                                             if (!File.Exists(LinkedInDeskTop))
                                             {
                                                 string Header = "FriendName" + "," + "GroupNames" + "," + "GroupUrl" + "," + "Total Member Of Group";
@@ -4045,7 +4303,7 @@ namespace Groups
                     Thread.Sleep(delay * 1000);
                 }
                 return GroupDtl;
-             }
+            }
             catch (Exception ex)
             {
                 return GroupDtl;
@@ -4054,119 +4312,119 @@ namespace Groups
         #endregion
 
         #region PostCreateGroupNames
-        public Dictionary<string, string> PostAddPendingGroupNames(ref GlobusHttpHelper HttpHelper,  string FriendsProfileIDs)
+        public Dictionary<string, string> PostAddPendingGroupNames(ref GlobusHttpHelper HttpHelper, string FriendsProfileIDs)
         {
             try
             {
                 string emailid = FriendsProfileIDs.Split(':')[0].ToString();
                 string friendID = FriendsProfileIDs.Split(':')[1].ToString();
 
+                try
+                {
+                    string pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/profile/view?id=" + friendID));
+
+                    if (pageSourceforGroup.Contains("Your address book is currently unavailable. Please check again later"))
+                    {
+                        Log("[ " + DateTime.Now + " ] => [ Your address book is currently unavailable. Please check again later ! ]");
+                        Log("[ " + DateTime.Now + " ] => [ Please Wait for sometimes ! ]");
+                        System.Threading.Thread.Sleep(1 * 60 * 1000);
+
+                        pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/profile/view?id=" + friendID));
+                    }
+
+                    if (pageSourceforGroup.Contains("You and this LinkedIn user don’t know anyone in common") || pageSourceforGroup.Contains("You and this LinkedIn user don&#8217;t know anyone in common"))
+                    {
+                        Log("[ " + DateTime.Now + " ] => [ You and this LinkedIn user don’t know anyone in common With Profile URL >>> " + "http://www.linkedin.com/profile/view?id=" + friendID + " ]");
+                        //continue;
+                    }
+
+                    //groups-name group-data
+                    string[] RgxGroupDataforGroup = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "link_groupRegistration");
+                    string[] RgxGroupDataName = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "fmt__profileUserFullName");
+
+
+                    #region CodeChabgeBysanjeev
+                    string MemberName = string.Empty;
                     try
                     {
-                        string pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/profile/view?id=" + friendID));
+                        MemberName = pageSourceforGroup.Substring(pageSourceforGroup.IndexOf("fmt__profileUserFullName"), (pageSourceforGroup.IndexOf(",", pageSourceforGroup.IndexOf("fmt__profileUserFullName")) - pageSourceforGroup.IndexOf("fmt__profileUserFullName"))).Replace("fmt__profileUserFullName", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(":", string.Empty).Trim();
+                        MemberName = MemberName.Replace(" ", "-");
+                    }
+                    catch { }
 
-                        if (pageSourceforGroup.Contains("Your address book is currently unavailable. Please check again later"))
-                        {
-                            Log("[ " + DateTime.Now + " ] => [ Your address book is currently unavailable. Please check again later ! ]");
-                            Log("[ " + DateTime.Now + " ] => [ Please Wait for sometimes ! ]");
-                            System.Threading.Thread.Sleep(1 * 60 * 1000);
 
-                            pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/profile/view?id=" + friendID));
-                        }
+                    try
+                    {
+                        pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/myGroups?trk=nav_responsive_sub_nav_groups"));
+                    }
+                    catch { }
 
-                        if (pageSourceforGroup.Contains("You and this LinkedIn user don’t know anyone in common") || pageSourceforGroup.Contains("You and this LinkedIn user don&#8217;t know anyone in common"))
-                        {
-                            Log("[ " + DateTime.Now + " ] => [ You and this LinkedIn user don’t know anyone in common With Profile URL >>> " + "http://www.linkedin.com/profile/view?id=" + friendID + " ]");
-                            //continue;
-                        }
+                    RgxGroupDataforGroup = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "<div class=\"media-content\">");
+                    RgxGroupDataName = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "class=\"full-name\">");
 
-                        //groups-name group-data
-                        string[] RgxGroupDataforGroup = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "link_groupRegistration");
-                        string[] RgxGroupDataName = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "fmt__profileUserFullName");
-
-                  
-                        #region CodeChabgeBysanjeev
-                        string MemberName = string.Empty;
-                        try
-                        {
-                            MemberName = pageSourceforGroup.Substring(pageSourceforGroup.IndexOf("fmt__profileUserFullName"), (pageSourceforGroup.IndexOf(",", pageSourceforGroup.IndexOf("fmt__profileUserFullName")) - pageSourceforGroup.IndexOf("fmt__profileUserFullName"))).Replace("fmt__profileUserFullName", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(":", string.Empty).Trim();
-                            MemberName = MemberName.Replace(" ", "-");
-                        }
-                        catch { }
-
+                    foreach (string item in RgxGroupDataforGroup)
+                    {
+                        string GroupNames = string.Empty;
+                        string GroupIds = string.Empty;
 
                         try
                         {
-                            pageSourceforGroup = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/myGroups?trk=nav_responsive_sub_nav_groups"));
-                        }
-                        catch { }
-
-                        RgxGroupDataforGroup = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "<div class=\"media-content\">");
-                        RgxGroupDataName = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "class=\"full-name\">");
-
-                        foreach (string item in RgxGroupDataforGroup)
-                        {
-                            string GroupNames = string.Empty;
-                            string GroupIds = string.Empty;
-
-                            try
+                            if (!item.Contains("<!DOCTYPE html>") && item.Contains("/groups") && item.Contains("Membership Pending"))
                             {
-                                if (!item.Contains("<!DOCTYPE html>") && item.Contains("/groups") && item.Contains("Membership Pending"))
+                                try
+                                {
+                                    if (item.Contains("class=\"public\""))
+                                    {
+                                        int startindex = item.IndexOf("class=\"public\"");
+                                        string start = item.Substring(startindex).Replace("class=\"public\"", string.Empty);
+                                        int endindex = start.IndexOf("</a>");
+                                        string end = start.Substring(0, endindex).Replace(">", string.Empty);
+                                        GroupNames = emailid + ":" + end;
+                                    }
+                                    else if (item.Contains("class=\"private\""))
+                                    {
+                                        int startindex = item.IndexOf("class=\"private\"");
+                                        string start = item.Substring(startindex).Replace("class=\"private\"", string.Empty);
+                                        int endindex = start.IndexOf("</a>");
+                                        string end = start.Substring(0, endindex).Replace(">", string.Empty);
+                                        GroupNames = emailid + ":" + end;
+                                    }
+                                }
+                                catch { }
+                                try
+                                {
+                                    int startindex = item.IndexOf("gid=");
+                                    if (startindex > 0)
+                                    {
+                                        string start = item.Substring(startindex).Replace("gid=", "");
+                                        int endindex = start.IndexOf("&amp");
+                                        string end = start.Substring(0, endindex);
+                                        GroupIds = end;
+                                    }
+                                }
+                                catch { }
+
+                                if (string.IsNullOrEmpty(GroupIds))
                                 {
                                     try
                                     {
-                                        if (item.Contains("class=\"public\""))
-                                        {
-                                            int startindex = item.IndexOf("class=\"public\"");
-                                            string start = item.Substring(startindex).Replace("class=\"public\"", string.Empty);
-                                            int endindex = start.IndexOf("</a>");
-                                            string end = start.Substring(0, endindex).Replace(">",string.Empty);
-                                            GroupNames = emailid + ":" + end;
-                                        }
-                                        else if (item.Contains("class=\"private\""))
-                                        {
-                                            int startindex = item.IndexOf("class=\"private\"");
-                                            string start = item.Substring(startindex).Replace("class=\"private\"", string.Empty);
-                                            int endindex = start.IndexOf("</a>");
-                                            string end = start.Substring(0, endindex).Replace(">", string.Empty);
-                                            GroupNames = emailid + ":" + end;
-                                                                                    }
-                                    }
-                                    catch { }
-                                    try
-                                    {
-                                        int startindex = item.IndexOf("gid=");
-                                        if (startindex > 0)
-                                        {
-                                            string start = item.Substring(startindex).Replace("gid=", "");
-                                            int endindex = start.IndexOf("&amp");
-                                            string end = start.Substring(0, endindex);
-                                            GroupIds = end;
-                                        }
-                                    }
-                                    catch { }
-
-                                    if (string.IsNullOrEmpty(GroupIds))
-                                    {
-                                        try
-                                        {
-                                            GroupIds = item.Substring(item.IndexOf("groupRegistration?gid="), (item.IndexOf("&", item.IndexOf("groupRegistration?gid=")) - item.IndexOf("groupRegistration?gid="))).Replace("groupRegistration?gid=", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace("&amp", "").Trim();
-                                        }
-                                        catch { }
-                                    }
-
-                                    try
-                                    {
-                                        GroupDtl.Add(GroupNames, GroupIds);
+                                        GroupIds = item.Substring(item.IndexOf("groupRegistration?gid="), (item.IndexOf("&", item.IndexOf("groupRegistration?gid=")) - item.IndexOf("groupRegistration?gid="))).Replace("groupRegistration?gid=", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace("&amp", "").Trim();
                                     }
                                     catch { }
                                 }
+
+                                try
+                                {
+                                    GroupDtl.Add(GroupNames, GroupIds);
+                                }
+                                catch { }
                             }
-                            catch { }
                         }
-                        #endregion
+                        catch { }
                     }
-                    catch { }
+                    #endregion
+                }
+                catch { }
                 //}
                 return GroupDtl;
             }
@@ -4185,7 +4443,7 @@ namespace Groups
                 string MainUrl = string.Empty;
 
                 FriendsProfileIDs = FriendsProfileIDs.Distinct().ToList();
-                
+
                 foreach (var friendID in FriendsProfileIDs)
                 {
                     try
@@ -4208,7 +4466,7 @@ namespace Groups
                             continue;
                         }
 
-                         
+
                         string[] RgxGroupDataforGroup = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "link_groupRegistration");
                         string[] RgxGroupDataName = System.Text.RegularExpressions.Regex.Split(pageSourceforGroup, "fmt__profileUserFullName");
 
@@ -4316,7 +4574,7 @@ namespace Groups
                                                     CSVUtilities.ExportDataCSVFile(CSVHeader, CSV_Content, Globals.path_LinkedinFriendsGroupScraper);
                                                     Logger("[ " + DateTime.Now + " ] => [ GroupUrl: " + GroupUrl + " ]");
                                                     Logger("[ " + DateTime.Now + " ] => [ GroupName: " + GroupNames + " ]");
-                                                    Logger("[ " + DateTime.Now + " ] => [ FriendName: " + MemberName +" ]");
+                                                    Logger("[ " + DateTime.Now + " ] => [ FriendName: " + MemberName + " ]");
                                                     Logger("[ " + DateTime.Now + " ] => [ SearchByID: " + username + " ]");
                                                     Logger("[ " + DateTime.Now + " ] => [ Data Saved In CSV File ! ]");
 
@@ -4352,21 +4610,21 @@ namespace Groups
                                         {
                                             //GroupNames = item.Substring(item.IndexOf("\"name\":\""), (item.IndexOf("\",\"", item.IndexOf("\"name\":\"")) - item.IndexOf("\"name\":\""))).Replace("\"name\":\"", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Trim();
                                             int startindex = item.IndexOf("\"name\"");
-                                            string start = item.Substring(startindex).Replace("\"name\"",string.Empty).Replace(":", string.Empty);
+                                            string start = item.Substring(startindex).Replace("\"name\"", string.Empty).Replace(":", string.Empty);
                                             int endindex = start.IndexOf(",");
-                                            string end = start.Substring(0, endindex).Replace("\"",string.Empty);
+                                            string end = start.Substring(0, endindex).Replace("\"", string.Empty);
                                             GroupNames = end.Trim();
                                         }
                                         catch { }
 
                                         try
-                                        {                                           
-                                                int startindex1 = item.IndexOf("\"groupID\"");
-                                                string start = item.Substring(startindex1).Replace("\"groupID\"",string.Empty).Replace(":", string.Empty);
-                                                int endindex = start.IndexOf(",");
-                                                string end = start.Substring(0, endindex);
-                                                GroupIds = end.Trim();
-                                          
+                                        {
+                                            int startindex1 = item.IndexOf("\"groupID\"");
+                                            string start = item.Substring(startindex1).Replace("\"groupID\"", string.Empty).Replace(":", string.Empty);
+                                            int endindex = start.IndexOf(",");
+                                            string end = start.Substring(0, endindex);
+                                            GroupIds = end.Trim();
+
                                         }
                                         catch { }
 
@@ -4417,17 +4675,17 @@ namespace Groups
                     }
                     catch { }
                 }
-                
+
             }
             catch (Exception ex)
             {
-               
+
             }
         }
         #endregion
 
         #region Fromgid
-        public string Fromgid(ref GlobusHttpHelper HttpHelper, string PostGrpName,string ResponseStatusMsg)
+        public string Fromgid(ref GlobusHttpHelper HttpHelper, string PostGrpName, string ResponseStatusMsg)
         {
             try
             {
@@ -4475,7 +4733,7 @@ namespace Groups
 
         #region Events logger
         public static Events logger = new Events();
-        
+
         private void Log(string log)
         {
             try
@@ -4517,7 +4775,7 @@ namespace Groups
         #endregion
 
         #region PostGroupAddFinal
-        public string PostGroupAddFinal(string Screen_name, string pass , int mindelay , int maxdelay)
+        public string PostGroupAddFinal(string Screen_name, string pass, int mindelay, int maxdelay)
         {
             string postdata = string.Empty;
             string postUrl = string.Empty;
@@ -4541,11 +4799,11 @@ namespace Groups
                         csrfToken = pageSource.Substring(pageSource.IndexOf("csrfToken"), 50);
                         string[] Arr = csrfToken.Split('&');
                         csrfToken = Arr[0];
-                        csrfToken = csrfToken.Replace(":", "%3A").Replace("csrfToken", "").Replace("\"", string.Empty).Replace("value", string.Empty).Replace("\n",string.Empty).Replace(">",string.Empty).Replace("<script src",string.Empty).Replace("cs", string.Empty).Replace("id", string.Empty).Replace("=", string.Empty);
+                        csrfToken = csrfToken.Replace(":", "%3A").Replace("csrfToken", "").Replace("\"", string.Empty).Replace("value", string.Empty).Replace("\n", string.Empty).Replace(">", string.Empty).Replace("<script src", string.Empty).Replace("cs", string.Empty).Replace("id", string.Empty).Replace("=", string.Empty);
                         csrfToken = csrfToken.Trim();
-                       
+
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine("Error >>> " + ex.StackTrace);
                     }
@@ -4586,10 +4844,10 @@ namespace Groups
                 catch { }
 
 
-               
+
                 //postUrl = "https://www.linkedin.com/uas/login-submit";
                 //postdata = "session_key=" + Screen_name + "&session_password=" + pass + "&source_app=&trk=guest_home_login&session_redirect=&csrfToken=" + csrfToken + "&sourceAlias=" + sourceAlias;
-                
+
                 postUrl = "https://www.linkedin.com/uas/login-submit";
                 postdata = "isJsEnabled=true&source_app=&tryCount=&session_key=" + Uri.EscapeDataString(Screen_name) + "&session_password=" + pass + "&signin=Sign%20In&session_redirect=&loginCsrfParam=" + regCsrfParam + "&csrfToken=" + csrfToken + "&sourceAlias=" + sourceAlias;
 
@@ -4626,7 +4884,7 @@ namespace Groups
                                                 int startindex = itemGrps.IndexOf("?gid=");
                                                 string start = itemGrps.Substring(startindex);
                                                 int endIndex = start.IndexOf("csrfToken");  //groupRegistration?gid=85746&amp;csrfToken
-                                                GroupId = start.Substring(0, endIndex).Replace("?gid=", string.Empty).Replace("amp", string.Empty).Replace("&",string.Empty).Replace(";", string.Empty).Replace("csrfToken", string.Empty);
+                                                GroupId = start.Substring(0, endIndex).Replace("?gid=", string.Empty).Replace("amp", string.Empty).Replace("&", string.Empty).Replace(";", string.Empty).Replace("csrfToken", string.Empty);
                                             }
                                             catch { }
                                         }
@@ -4643,7 +4901,7 @@ namespace Groups
                                                         {
                                                             try
                                                             {
-                                                             
+
                                                                 {
                                                                     string ExistGroup = GroupValue.Key.Split(':')[1];
                                                                     string SelectedGroup = SelectedGrp.Split(':')[1];
@@ -4658,7 +4916,7 @@ namespace Groups
 
                                                                         if (GroupId == SelItem)
                                                                         {
-                                                                            PostGroupstatus = post + itemGrps.Split('\"')[0].Replace("amp;", string.Empty).Replace("&goback=","&trk=group-join-button").Replace(" ","");
+                                                                            PostGroupstatus = post + itemGrps.Split('\"')[0].Replace("amp;", string.Empty).Replace("&goback=", "&trk=group-join-button").Replace(" ", "");
                                                                             ResponseStatusMsg = HttpHelper.getHtmlfromUrl1(new Uri(PostGroupstatus));
 
                                                                             if (ResponseStatusMsg.Contains("Welcome to the"))
@@ -4679,7 +4937,7 @@ namespace Groups
                                                                             }
                                                                             else if (ResponseStatusMsg.Contains("exceeded the maximum number"))
                                                                             {
-                                                                                Log("[ " + DateTime.Now + " ] => [ SORRY..You’ve reached or exceeded the maximum number of confirmed and pending groups." + " with : " + Screen_name +" ]" );
+                                                                                Log("[ " + DateTime.Now + " ] => [ SORRY..You’ve reached or exceeded the maximum number of confirmed and pending groups." + " with : " + Screen_name + " ]");
                                                                                 ReturnString = "You’ve reached or exceeded the maximum number of confirmed and pending groups.";
                                                                                 status = ReturnString;
 
@@ -4782,7 +5040,7 @@ namespace Groups
                     }
 
                     Log("[ " + DateTime.Now + " ] => [ PROCESS COMPLETED FOR ACCOUNT : " + accountUser + " ]");
-                  }
+                }
                 catch (Exception ex)
                 {
                     GlobusFileHelper.AppendStringToTextfileNewLine("DateTime : " + DateTime.Now + " :: Error --> Add Friends Groups --> PostGroupAddFinal() ---1--->>>> " + ex.Message + "StackTrace --> >>>" + ex.StackTrace, Globals.Path_LinkedinErrorLogs);
@@ -4826,7 +5084,7 @@ namespace Groups
                         csrfToken = pageSource.Substring(pageSource.IndexOf("csrfToken"), 50);
                         string[] Arr = csrfToken.Split('&');
                         csrfToken = Arr[0];
-                        csrfToken = csrfToken.Replace(":", "%3A").Replace("csrfToken", "").Replace("\"", string.Empty).Replace("value", string.Empty).Replace("cs", string.Empty).Replace("id", string.Empty).Replace("=", string.Empty).Replace(">",string.Empty).Replace("\n",string.Empty).Replace("<script src",string.Empty).Replace("<script typ",string.Empty);
+                        csrfToken = csrfToken.Replace(":", "%3A").Replace("csrfToken", "").Replace("\"", string.Empty).Replace("value", string.Empty).Replace("cs", string.Empty).Replace("id", string.Empty).Replace("=", string.Empty).Replace(">", string.Empty).Replace("\n", string.Empty).Replace("<script src", string.Empty).Replace("<script typ", string.Empty);
                         csrfToken = csrfToken.Trim();
                     }
                     catch (Exception ex)
@@ -4995,38 +5253,38 @@ namespace Groups
                 ResLogin = HttpHelper.postFormData(new Uri(postUrl), postdata);
 
                 string PostGroupInvite = string.Empty;
-                   
+
                 int counter = 0;
 
                 foreach (string SelectedGrp in lstInvitationGroup)
                 {
                     counter++;
 
-                   foreach (var itemEmail in lstEmailsGroupInvite)
-	               {
-                       try
-                       {
-                           string GetRemInvitePageSource = HttpHelper.getHtmlfromUrl1(new Uri("https://www.linkedin.com/manageGroup?dispAddMbrs=&gid=" + SelectedGrp.Split(':')[2] + "&invtActn=im-invite&cntactSrc=cs-connections&trk=grpmgr_invite"));
-                           string[] Reminvite1 = Regex.Split(GetRemInvitePageSource, "name=\"remIntives\"");
-                           string[] Reminvite2 = Regex.Split(Reminvite1[1], "id=");
-                           string reminvite = Reminvite2[0].Replace("value=", string.Empty).Replace("\"", string.Empty).Trim();
+                    foreach (var itemEmail in lstEmailsGroupInvite)
+                    {
+                        try
+                        {
+                            string GetRemInvitePageSource = HttpHelper.getHtmlfromUrl1(new Uri("https://www.linkedin.com/manageGroup?dispAddMbrs=&gid=" + SelectedGrp.Split(':')[2] + "&invtActn=im-invite&cntactSrc=cs-connections&trk=grpmgr_invite"));
+                            string[] Reminvite1 = Regex.Split(GetRemInvitePageSource, "name=\"remIntives\"");
+                            string[] Reminvite2 = Regex.Split(Reminvite1[1], "id=");
+                            string reminvite = Reminvite2[0].Replace("value=", string.Empty).Replace("\"", string.Empty).Trim();
 
-                           string postData = "csrfToken=" + csrfToken + "&emailRecipients=" + itemEmail.Replace("@", "%40") + "&subAddMbrs=Send+Invitations&gid=" + SelectedGrp.Split(':')[2] + "&invtActn=im-invite&cntactSrc=cs-connections&remIntives=" + reminvite + "&connectionIds=&connectionNames=&contactIDs=&newGroup=false";
-                           PostGroupInvite = HttpHelper.postFormData(new Uri("https://www.linkedin.com/manageGroup"), postData);
-                       }
-                       catch { }
-                     
-                     if (PostGroupInvite.Contains("You have successfully sent invitations to this group."))
-                     {
-                         LoggerInviteGrp("[ " + DateTime.Now + " ] => [ Group : " + SelectedGrp.Split(':')[0] + ", Invited to Account : " + itemEmail + " from : " + Screen_name + " ]");
-                        LoggerInviteGrp("[ " + DateTime.Now + " ] => [ Group Invited Successfully ]");
-                        ReturnString = "Group Invited : " + SelectedGrp.Split(':')[0] + "";
-                        GlobusFileHelper.AppendStringToTextfileNewLine(Screen_name + ":" + ReturnString, Globals.path_PendingGroupWithdrawn);
-                     }
+                            string postData = "csrfToken=" + csrfToken + "&emailRecipients=" + itemEmail.Replace("@", "%40") + "&subAddMbrs=Send+Invitations&gid=" + SelectedGrp.Split(':')[2] + "&invtActn=im-invite&cntactSrc=cs-connections&remIntives=" + reminvite + "&connectionIds=&connectionNames=&contactIDs=&newGroup=false";
+                            PostGroupInvite = HttpHelper.postFormData(new Uri("https://www.linkedin.com/manageGroup"), postData);
+                        }
+                        catch { }
 
-                   }
+                        if (PostGroupInvite.Contains("You have successfully sent invitations to this group."))
+                        {
+                            LoggerInviteGrp("[ " + DateTime.Now + " ] => [ Group : " + SelectedGrp.Split(':')[0] + ", Invited to Account : " + itemEmail + " from : " + Screen_name + " ]");
+                            LoggerInviteGrp("[ " + DateTime.Now + " ] => [ Group Invited Successfully ]");
+                            ReturnString = "Group Invited : " + SelectedGrp.Split(':')[0] + "";
+                            GlobusFileHelper.AppendStringToTextfileNewLine(Screen_name + ":" + ReturnString, Globals.path_PendingGroupWithdrawn);
+                        }
 
-                   if (counter != lstInvitationGroup.Count())
+                    }
+
+                    if (counter != lstInvitationGroup.Count())
                     {
                         int delay = RandomNumberGenerator.GenerateRandom(mindelay, maxdelay);
                         LoggerInviteGrp("[ " + DateTime.Now + " ] => [ Delay for : " + delay + " Seconds ]");
@@ -5051,7 +5309,7 @@ namespace Groups
         #region GetAllGrpMember
         ClsScrapGroupMember obj_ClsScrapGroupMember = new ClsScrapGroupMember();
         public List<string> GetAllGrpMember(ref GlobusHttpHelper httpHelper, string grpId)
-        {      
+        {
             List<string> lstFriendProfileURLs = new List<string>();
             try
             {
@@ -5113,7 +5371,7 @@ namespace Groups
 
                                 try
                                 {
-                                    
+
                                     if (!(item.Contains("<!DOCTYPE html>")))
                                     {
                                         if (item.Contains("/profile/view?id="))
@@ -5154,7 +5412,7 @@ namespace Groups
             lstFriendProfileURLs = lstFriendProfileURLs.Distinct().ToList();
 
             return lstFriendProfileURLs;
-        } 
+        }
         #endregion
 
         #region StartScrapGrpMemberMultiThread
@@ -5204,7 +5462,7 @@ namespace Groups
         }
         #endregion
 
-        
+
 
         #region logger Loggergrppmem
 
@@ -5273,6 +5531,6 @@ namespace Groups
         }
 
 
-        
+
     }
 }

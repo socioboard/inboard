@@ -223,6 +223,10 @@ namespace BaseLib
                         string end = start.Substring(0, endIndex).Replace("value=\"", "").Trim();
                         csrfToken = end;
                         //csrfToken = csrfToken;
+                        if (csrfToken.Contains("https://www.linkedin.com"))
+                        {
+                            csrfToken = Utils.getBetween("@@@@@@@" + csrfToken, "@@@@@@@", "\"/></form>");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -262,10 +266,20 @@ namespace BaseLib
                             regCsrfParam = pageSrcLogin.Substring(pageSrcLogin.IndexOf("regCsrfParam"), 100);
                             string[] Arr = regCsrfParam.Split('"');
                             regCsrfParam = Arr[2].Replace(@"\", string.Empty).Replace("//", string.Empty);
+                            if (string.IsNullOrEmpty(regCsrfParam))
+                            {
+                                regCsrfParam = Utils.getBetween(pageSrcLogin, "loginCsrfParam", "/>");
+                                regCsrfParam = Utils.getBetween(regCsrfParam, "value=\"", "\"");
+                            }
                         }
                         catch
                         {
                         }
+                    }
+                    if (string.IsNullOrEmpty(regCsrfParam))
+                    {
+                        regCsrfParam = Utils.getBetween(pageSrcLogin, "loginCsrfParam", "/>");
+                        regCsrfParam = Utils.getBetween(regCsrfParam, "value=\"", "\"");
                     }
 
                 }

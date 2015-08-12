@@ -613,9 +613,9 @@ namespace InBoardPro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap linkedin_prescrapper {
+        internal static System.Drawing.Bitmap linkedin_getData {
             get {
-                object obj = ResourceManager.GetObject("linkedin_prescrapper", resourceCulture);
+                object obj = ResourceManager.GetObject("linkedin_getData", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -626,6 +626,36 @@ namespace InBoardPro.Properties {
         internal static System.Drawing.Bitmap linkedin_search {
             get {
                 object obj = ResourceManager.GetObject("linkedin_search", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap linkedLogoHD {
+            get {
+                object obj = ResourceManager.GetObject("linkedLogoHD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap linkedLogoHD___Copy {
+            get {
+                object obj = ResourceManager.GetObject("linkedLogoHD - Copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap linkedLogoHD1 {
+            get {
+                object obj = ResourceManager.GetObject("linkedLogoHD1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1126,6 +1156,16 @@ namespace InBoardPro.Properties {
         internal static System.Drawing.Bitmap setting {
             get {
                 object obj = ResourceManager.GetObject("setting", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap share_btns {
+            get {
+                object obj = ResourceManager.GetObject("share_btns", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

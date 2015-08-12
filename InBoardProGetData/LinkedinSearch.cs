@@ -13,14 +13,14 @@ using System.Threading;
 
 namespace InBoardProGetData
 {
-  public class LinkedinSearch
+    public class LinkedinSearch
     {
         #region Global declaration
         ChilkatHttpHelpr objChilkat = new ChilkatHttpHelpr();
 
         public static Events loggersearch = new Events();
         public static Events loggerscrap = new Events();
-        
+
         string userName = string.Empty;
         string password = string.Empty;
 
@@ -55,7 +55,7 @@ namespace InBoardProGetData
         #region LinkedinSearch
         public LinkedinSearch()
         {
-        } 
+        }
         #endregion
 
         #region LinkedinSearch with param signature
@@ -67,7 +67,7 @@ namespace InBoardProGetData
             proxyPort = ProxyPort;
             proxyUsername = ProxyUserName;
             proxyPassword = ProxyPassword;
-        } 
+        }
         #endregion
 
         #region StartLinkedInSearch
@@ -107,7 +107,7 @@ namespace InBoardProGetData
                         {
                         }
                     }
-                  
+
                 }
 
                 if (_RdbURL)
@@ -115,7 +115,7 @@ namespace InBoardProGetData
                     if (lstLinkedinSearchProfileURL.Count > 0)
                     {
                         try
-                        {                           
+                        {
                             //LinkedinLogin Login = new LinkedinLogin();
                             //Login.logger.addToLogger += new EventHandler(logger_addSearchToLogger);
                             //Login.LoginHttpHelper(ref HttpHelper, userName, password, proxyAddress, proxyUsername, proxyPassword, proxyPort);
@@ -146,7 +146,7 @@ namespace InBoardProGetData
                             {
                                 GetProfileData(ref HttpHelper);
                             }
-                           
+
                         }
                         catch
                         {
@@ -196,7 +196,7 @@ namespace InBoardProGetData
 
                         Login.logger.addToLogger += new EventHandler(logger_addSearchToLogger);
 
-                    
+
                         if (_RdbCompanyEmployeeSearchKeyword)
                         {
                             try
@@ -209,7 +209,7 @@ namespace InBoardProGetData
 
                         if (_RdbCompanyEmployeeSearchURL)
                         {
-                            
+
                             GetEmployeeDataFromCompanyURL(ref HttpHelper, listCompanyURL);
                         }
                     }
@@ -222,7 +222,7 @@ namespace InBoardProGetData
             catch
             {
             }
-        } 
+        }
         #endregion
 
         #region SearchByPeople
@@ -281,15 +281,15 @@ namespace InBoardProGetData
                     catch
                     {
                     }
-                    if (_Keyword.Contains("or")||(_Keyword.Contains("and"))||(_Keyword.Contains("not")))
+                    if (_Keyword.Contains("or") || (_Keyword.Contains("and")) || (_Keyword.Contains("not")))
                     {
                         try
                         {
-                            _Keyword = _Keyword.Replace(" or "," OR ");
+                            _Keyword = _Keyword.Replace(" or ", " OR ");
                             _Keyword = _Keyword.Replace(" and ", " AND ");
                             _Keyword = _Keyword.Replace(" not ", " NOT ");
                         }
-                        catch{}
+                        catch { }
                     }
                     try
                     {
@@ -441,7 +441,7 @@ namespace InBoardProGetData
                                     data = data.Replace("\n", "");
                                     if (data.Contains(">"))
                                     {
-                                        string[] ArrTemp = Regex.Split(data,"primaryUrlAlias");
+                                        string[] ArrTemp = Regex.Split(data, "primaryUrlAlias");
                                         data = ArrTemp[0];
                                         data = data.Replace(":", string.Empty);
                                         data = data.Trim();
@@ -513,8 +513,8 @@ namespace InBoardProGetData
                                 try
                                 {
                                     PostRequestURL = "http://www.linkedin.com/search/fpsearch?";
-                                    PostdataForPagination = "type=people&keywords="+_Keyword+"&page_num="+i;
-                                    PostResponce = HttpHelper.postFormData(new Uri(PostRequestURL),PostdataForPagination);
+                                    PostdataForPagination = "type=people&keywords=" + _Keyword + "&page_num=" + i;
+                                    PostResponce = HttpHelper.postFormData(new Uri(PostRequestURL), PostdataForPagination);
                                 }
                                 catch { }
 
@@ -535,7 +535,7 @@ namespace InBoardProGetData
                             {
                                 try
                                 {
-                                    
+
                                     PostRequestURL = "http://www.linkedin.com/search/fpsearch?";
                                     PostdataForPagination = "type=people&keywords=" + _Keyword + "&page_num=" + i;
                                     PostResponce = HttpHelper.postFormData(new Uri(PostRequestURL), PostdataForPagination);
@@ -559,20 +559,20 @@ namespace InBoardProGetData
                                     {
                                         if (!(item.Contains("<!DOCTYPE html>")))
                                         {
-                                        try
-                                        {
-                                            int startindex = item.IndexOf("pid=");
-                                            string start = item.Substring(startindex).Replace("pid=", string.Empty);
-                                            int endindex = start.IndexOf(",");
-                                            string end = start.Substring(0, endindex).Replace(",", string.Empty).Trim();
-                                            string basicUrl = end;
-                                            string modifiedProfUrl = "https://www.linkedin.com/profile/view?id=" + basicUrl;
-                                            string urlSerch = modifiedProfUrl;
-                                            Log("[ " + DateTime.Now + " ] => [ " + urlSerch + " ]");
-                                            RecordURL.Add(urlSerch);
-                                        }
-                                        catch
-                                        { }
+                                            try
+                                            {
+                                                int startindex = item.IndexOf("pid=");
+                                                string start = item.Substring(startindex).Replace("pid=", string.Empty);
+                                                int endindex = start.IndexOf(",");
+                                                string end = start.Substring(0, endindex).Replace(",", string.Empty).Trim();
+                                                string basicUrl = end;
+                                                string modifiedProfUrl = "https://www.linkedin.com/profile/view?id=" + basicUrl;
+                                                string urlSerch = modifiedProfUrl;
+                                                Log("[ " + DateTime.Now + " ] => [ " + urlSerch + " ]");
+                                                RecordURL.Add(urlSerch);
+                                            }
+                                            catch
+                                            { }
                                         }
                                     }
                                 }
@@ -680,13 +680,13 @@ namespace InBoardProGetData
                     //    test();
                     //}).Start();
                 }
-                               
+
             }
 
             catch
             {
             }
-        } 
+        }
         #endregion
 
         #region forUrl
@@ -764,7 +764,7 @@ namespace InBoardProGetData
             }
 
             //Log("Process Completed With UserName >>> " + userName);
-        } 
+        }
         #endregion
 
         #region CrawlingLinkedInPage
@@ -844,30 +844,30 @@ namespace InBoardProGetData
                 Url = "http://" + Url;
             }
 
-           string stringSource = HttpHelper.getHtmlfromUrl1(new Uri(Url));
+            string stringSource = HttpHelper.getHtmlfromUrl1(new Uri(Url));
 
-           if (stringSource == "")
-           {
-               stringSource = HttpHelper.getHtmlfromUrl1(new Uri(Url));
-           }
+            if (stringSource == "")
+            {
+                stringSource = HttpHelper.getHtmlfromUrl1(new Uri(Url));
+            }
 
-           #region ImageURL
-           try
-           {
-               int startindex = stringSource.IndexOf("\"img_raw\":\"");
-               string start = stringSource.Substring(startindex).Replace("\"img_raw\":\"", string.Empty);
-               int endindex = start.IndexOf("\",\"");
-               string end = start.Substring(0, endindex).Replace("\",\"", string.Empty);
-               ImageUrl = end.Trim();
-           }
-           catch
-           { }
+            #region ImageURL
+            try
+            {
+                int startindex = stringSource.IndexOf("\"img_raw\":\"");
+                string start = stringSource.Substring(startindex).Replace("\"img_raw\":\"", string.Empty);
+                int endindex = start.IndexOf("\",\"");
+                string end = start.Substring(0, endindex).Replace("\",\"", string.Empty);
+                ImageUrl = end.Trim();
+            }
+            catch
+            { }
 
 
-           #endregion ImageURL
+            #endregion ImageURL
 
-           #region GroupMemId
-           try
+            #region GroupMemId
+            try
             {
                 string[] gid = Url.Split('&');
                 GroupMemId = gid[0].Replace("http://www.linkedin.com/profile/view?id=", string.Empty);
@@ -1047,28 +1047,28 @@ namespace InBoardProGetData
             #region titlecurrent
             try
             {
-             try
+                try
                 {
                     try
                     {
-                        
+
                         int startindex = stringSource.IndexOf("\"title_highlight\":\"");
                         string start = stringSource.Substring(startindex).Replace("\"title_highlight\":\"", "");
                         int endindex = start.IndexOf("\",\"");
                         string end = start.Substring(0, endindex).Replace("\u002d", string.Empty).Replace("Å", "A").Replace("\\u002d", "-").Replace("\"\n", "").Replace("\n", "").Replace(";", ",").Replace("&amp", "");
-                        titlecurrent = end; 
+                        titlecurrent = end;
                     }
                     catch
                     {
                     }
 
-                //    if (string.IsNullOrEmpty(Company))
+                    //    if (string.IsNullOrEmpty(Company))
                     if (string.IsNullOrEmpty(titlecurrent))
                     {
                         try
                         {
                             //memberHeadline
-                          //  titlecurrent = stringSource.Substring(stringSource.IndexOf("memberHeadline\":"), (stringSource.IndexOf(",", stringSource.IndexOf("memberHeadline\":")) - stringSource.IndexOf("memberHeadline\":"))).Replace("memberHeadline\":", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Replace(":", string.Empty).Replace("   ", string.Empty).Replace(":", "").Replace("&dsh;", "").Replace("&amp", "").Replace(";", "").Replace("u002d",string.Empty).Trim();
+                            //  titlecurrent = stringSource.Substring(stringSource.IndexOf("memberHeadline\":"), (stringSource.IndexOf(",", stringSource.IndexOf("memberHeadline\":")) - stringSource.IndexOf("memberHeadline\":"))).Replace("memberHeadline\":", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Replace(":", string.Empty).Replace("   ", string.Empty).Replace(":", "").Replace("&dsh;", "").Replace("&amp", "").Replace(";", "").Replace("u002d",string.Empty).Trim();
 
                             int startindex = stringSource.IndexOf("memberHeadline");
                             string start = stringSource.Substring(startindex).Replace("memberHeadline", "");
@@ -1084,7 +1084,7 @@ namespace InBoardProGetData
                     if (string.IsNullOrEmpty(titlecurrent))
                     {
                         string[] cmpny = Regex.Split(stringSource, "trk=prof-exp-title' name='title' title='Find others with this title'>");
-                        foreach(string item in cmpny)
+                        foreach (string item in cmpny)
                         {
                             try
                             {
@@ -1103,14 +1103,14 @@ namespace InBoardProGetData
                                 }
                                 catch
                                 {
-                                    
-                                    
+
+
                                 }
                             }
-                            catch 
+                            catch
                             {
-                                
-                                
+
+
                             }
                         }
                     }
@@ -1143,7 +1143,7 @@ namespace InBoardProGetData
 
                     }
 
-                    
+
                     string[] strdesigandcompany = new string[4];
                     if (Company.Contains(" at ") || Company.Contains(" of "))
                     {
@@ -1160,7 +1160,7 @@ namespace InBoardProGetData
                             }
                         }
                         catch { }
-                    
+
 
                         #region Title
                         try
@@ -1170,7 +1170,7 @@ namespace InBoardProGetData
                         catch { }
                         #endregion
 
-                        
+
                         #region Current Company
                         try
                         {
@@ -1183,7 +1183,7 @@ namespace InBoardProGetData
                     if (string.IsNullOrEmpty(memhead))
                     {
                         int startindex = stringSource.IndexOf("title \">");
-                        string start = stringSource.Substring(startindex).Replace("title\":", "").Replace("title \">","");
+                        string start = stringSource.Substring(startindex).Replace("title\":", "").Replace("title \">", "");
                         int endindex = start.IndexOf("</p>");
                         string end = start.Substring(0, endindex).Replace("\u002d", string.Empty).Replace("Å", "A").Replace("\\u002d", "-").Replace("\"\n", "").Replace("\n", "").Replace(";", ",").Replace("&amp", "");
                         titlecurrent = end;
@@ -1215,8 +1215,8 @@ namespace InBoardProGetData
                     }
                     catch { }
                 }
-                
-               // string AllComapny = string.Empty;
+
+                // string AllComapny = string.Empty;
                 if (checkerlst.Count > 0)
                 {
                     foreach (string item1 in checkerlst)
@@ -1241,7 +1241,7 @@ namespace InBoardProGetData
                 }
                 if (string.IsNullOrEmpty(AllComapny))
                 {
-                    string[] allCompany = Regex.Split(stringSource,"trk=prof-exp-company-name\" name=\"company\" title=\"Find others who have worked at this company\">");
+                    string[] allCompany = Regex.Split(stringSource, "trk=prof-exp-company-name\" name=\"company\" title=\"Find others who have worked at this company\">");
                     foreach (string item in allCompany)
                     {
                         if (!item.Contains("<!DOCTYPE html>"))
@@ -1256,9 +1256,9 @@ namespace InBoardProGetData
                                 companyList.Add(companies);
                                 companyList = companyList.Distinct().ToList();
                             }
-                            catch 
-                            {                              
-                               
+                            catch
+                            {
+
                             }
                         }
 
@@ -1278,9 +1278,9 @@ namespace InBoardProGetData
                                 companyList.Add(companies);
                                 companyList = companyList.Distinct().ToList();
                             }
-                            catch 
+                            catch
                             {
-                                
+
                             }
                         }
                     }
@@ -1339,23 +1339,23 @@ namespace InBoardProGetData
                 {
                     companycurrent = companyList[0];
                 }
-            
-     //           if (companycurrent == string.Empty)
-     //           {
-     //               try
-     //               {
-       //                 companycurrent = checkerlst[0].ToString();
-       //             }
-       //             catch { }
-        //        }
+
+                //           if (companycurrent == string.Empty)
+                //           {
+                //               try
+                //               {
+                //                 companycurrent = checkerlst[0].ToString();
+                //             }
+                //             catch { }
+                //        }
 
                 #endregion
-               #endregion Company
+            #endregion Company
 
-            #region Education
+                #region Education
                 try
                 {
-                  //  string[] str_UniversityName = Regex.Split(stringSource, "link__school_name");
+                    //  string[] str_UniversityName = Regex.Split(stringSource, "link__school_name");
                     string[] str_UniversityName = Regex.Split(stringSource, "link__school_name_public");
                     foreach (string item in str_UniversityName)
                     {
@@ -1385,7 +1385,7 @@ namespace InBoardProGetData
                                         int startindex1 = item.IndexOf("degree");
                                         string start1 = item.Substring(startindex1).Replace("degree", "");
                                         int endindex1 = start1.IndexOf(",");
-                                        Degree = start1.Substring(0, endindex1).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace("_highlight",string.Empty);
+                                        Degree = start1.Substring(0, endindex1).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace("_highlight", string.Empty);
                                     }
                                     catch { }
 
@@ -1394,7 +1394,7 @@ namespace InBoardProGetData
                                         int startindex2 = item.IndexOf("enddate_my");
                                         string start2 = item.Substring(startindex2).Replace("enddate_my", "");
                                         int endindex2 = start2.IndexOf(",");
-                                        SessionEnd = start2.Substring(0, endindex2).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace("}",string.Empty);
+                                        SessionEnd = start2.Substring(0, endindex2).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace("}", string.Empty);
                                     }
                                     catch { }
 
@@ -1403,7 +1403,7 @@ namespace InBoardProGetData
                                         int startindex3 = item.IndexOf("startdate_my");
                                         string start3 = item.Substring(startindex3).Replace("startdate_my", "");
                                         int endindex3 = start3.IndexOf(",");
-                                        SessionStart = start3.Substring(0, endindex3).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace("}",string.Empty);
+                                        SessionStart = start3.Substring(0, endindex3).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace("}", string.Empty);
                                     }
                                     catch { }
                                     //if (Degree == string.Empty)
@@ -1566,19 +1566,19 @@ namespace InBoardProGetData
                                             SessionStart = start2.Substring(0, endindex2).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace("'", string.Empty);
                                         }
                                         catch { }
-                                            if (string.IsNullOrEmpty(SessionStart))
+                                        if (string.IsNullOrEmpty(SessionStart))
+                                        {
+                                            try
                                             {
-                                                try
-                                                {
-                                                    int startindex3 = item.IndexOf("<span class=\"education-date\"><time>");
-                                                    string start3 = item.Substring(startindex3).Replace("<span class=\"education-date\"><time>", string.Empty);
-                                                    int endindex3 = start3.IndexOf("</time>");
-                                                    SessionStart = start3.Substring(0, endindex3).Replace("</time>", string.Empty).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace(">", string.Empty).Replace("'", string.Empty);
-                                                }
-                                                catch
-                                                { }
+                                                int startindex3 = item.IndexOf("<span class=\"education-date\"><time>");
+                                                string start3 = item.Substring(startindex3).Replace("<span class=\"education-date\"><time>", string.Empty);
+                                                int endindex3 = start3.IndexOf("</time>");
+                                                SessionStart = start3.Substring(0, endindex3).Replace("</time>", string.Empty).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace(">", string.Empty).Replace("'", string.Empty);
+                                            }
+                                            catch
+                                            { }
 
-                                            }                                                                        
+                                        }
 
                                         try
                                         {
@@ -1586,40 +1586,40 @@ namespace InBoardProGetData
                                             string start2 = item.Substring(startindex2).Replace("<time> &#8211;", string.Empty);
                                             int endindex2 = start2.IndexOf("</time>");
                                             SessionEnd = start2.Substring(0, endindex2).Replace("</time>", string.Empty).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace(">", string.Empty).Replace("'", string.Empty);
-                                                                                        
+
                                         }
                                         catch { }
-                                            if (string.IsNullOrEmpty(SessionStart))
+                                        if (string.IsNullOrEmpty(SessionStart))
+                                        {
+                                            try
                                             {
-                                                try
-                                                {
-                                                    int startindex3 = item.IndexOf("<span class=\"education-date\"><time>");
-                                                    string start3 = item.Substring(startindex3).Replace("<span class=\"education-date\"><time>", string.Empty);
-                                                    int endindex3 = start3.IndexOf("</time>");
-                                                    SessionEnd = start3.Substring(0, endindex3).Replace("</time>", string.Empty).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace(">", string.Empty).Replace("'", string.Empty);
-                                                }
-                                                catch
-                                                { }
+                                                int startindex3 = item.IndexOf("<span class=\"education-date\"><time>");
+                                                string start3 = item.Substring(startindex3).Replace("<span class=\"education-date\"><time>", string.Empty);
+                                                int endindex3 = start3.IndexOf("</time>");
+                                                SessionEnd = start3.Substring(0, endindex3).Replace("</time>", string.Empty).Replace("\\u002d", string.Empty).Replace(":", string.Empty).Replace("\"", string.Empty).Replace(">", string.Empty).Replace("'", string.Empty);
+                                            }
+                                            catch
+                                            { }
 
-                                            }
+                                        }
 
 
-                                            if (SessionStart == string.Empty && SessionEnd == string.Empty && !string.IsNullOrEmpty(Degree))
-                                            {
-                                                Education = " [" + School + " Degree: " + Degree + " ]";
-                                            }
-                                            else if (Degree == string.Empty && !string.IsNullOrEmpty(SessionStart) && !string.IsNullOrEmpty(SessionEnd))
-                                            {
-                                                Education = " [" + School + " Session: " + SessionStart + "-" + SessionEnd + " ]";
-                                            }
-                                            else
-                                            {
-                                                Education = " [" + School + " ]";
-                                            }
-                                        
-                                            
-                                    
-                                        
+                                        if (SessionStart == string.Empty && SessionEnd == string.Empty && !string.IsNullOrEmpty(Degree))
+                                        {
+                                            Education = " [" + School + " Degree: " + Degree + " ]";
+                                        }
+                                        else if (Degree == string.Empty && !string.IsNullOrEmpty(SessionStart) && !string.IsNullOrEmpty(SessionEnd))
+                                        {
+                                            Education = " [" + School + " Session: " + SessionStart + "-" + SessionEnd + " ]";
+                                        }
+                                        else
+                                        {
+                                            Education = " [" + School + " ]";
+                                        }
+
+
+
+
                                     }
 
                                     catch
@@ -1846,9 +1846,9 @@ namespace InBoardProGetData
                                         {
                                             Education = " [" + School + " Session: " + SessionStart + "-" + SessionEnd + " ]";
                                         }
-                                        else if (!string.IsNullOrEmpty(School)&&!string.IsNullOrEmpty(Degree) && !string.IsNullOrEmpty(SessionStart) && !string.IsNullOrEmpty(SessionEnd))
+                                        else if (!string.IsNullOrEmpty(School) && !string.IsNullOrEmpty(Degree) && !string.IsNullOrEmpty(SessionStart) && !string.IsNullOrEmpty(SessionEnd))
                                         {
-                                            Education = "[" + School + " :Degree: " + Degree +" Session: " + SessionStart + "-" + SessionEnd + " ]";
+                                            Education = "[" + School + " :Degree: " + Degree + " Session: " + SessionStart + "-" + SessionEnd + " ]";
                                         }
                                         else
                                         {
@@ -1917,7 +1917,7 @@ namespace InBoardProGetData
                 }
                 #endregion Email
 
-            #region Contact
+                #region Contact
                 try
                 {
                     int startindex = stringSource.IndexOf("Phone:");
@@ -1967,7 +1967,7 @@ namespace InBoardProGetData
 
                 #endregion
 
-            #region Website
+                #region Website
                 string Web1 = string.Empty;
                 List<string> Websites = new List<string>();
                 try
@@ -2013,7 +2013,7 @@ namespace InBoardProGetData
 
                     try
                     {
-                        if (Website.Contains("]") || Website.Contains("}") || Website.Contains("[") || Website.Contains("}")) 
+                        if (Website.Contains("]") || Website.Contains("}") || Website.Contains("[") || Website.Contains("}"))
                         {
                             Website = Website.Replace("]", string.Empty).Replace("}", string.Empty).Replace("\\u002d", string.Empty).Replace("[", string.Empty).Replace("{", string.Empty).Trim();
                         }
@@ -2026,7 +2026,7 @@ namespace InBoardProGetData
                 //foreach (var item in Websites)
                 int size = Websites.Count;
 
-                for (int i=1; i<=size; i++)
+                for (int i = 1; i <= size; i++)
                 {
                     try
                     {
@@ -2037,14 +2037,14 @@ namespace InBoardProGetData
 
                 #endregion Website
 
-            #region location
+                #region location
                 try
                 {
                     //location = stringSource.Substring(stringSource.IndexOf("Country\",\"fmt__location\":"), (stringSource.IndexOf("i18n_no_location_matches", stringSource.IndexOf("Country\",\"fmt__location\":")) - stringSource.IndexOf("Country\",\"fmt__location\":"))).Replace("Country\",\"fmt__location\":", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Replace(":", string.Empty).Trim();
                     int startindex = stringSource.IndexOf("fmt_location");
                     string start = stringSource.Substring(startindex).Replace("fmt_location\":\"", "");
                     int endindex = start.IndexOf("\"");
-                    string end = start.Substring(0, endindex).Replace("\u002d", string.Empty).Replace("Å", "A").Replace("\\u002d","-");
+                    string end = start.Substring(0, endindex).Replace("\u002d", string.Empty).Replace("Å", "A").Replace("\\u002d", "-");
                     location = end;
                 }
                 catch (Exception ex)
@@ -2060,8 +2060,8 @@ namespace InBoardProGetData
                         int startindex1 = start.IndexOf("\">");
                         string start1 = start.Substring(startindex1);
                         int endindex = start1.IndexOf("</a>");
-                        string end = start1.Substring(0, endindex).Replace("\u002d", string.Empty).Replace("Å", "A").Replace("\\u002d", "-").Replace(">", string.Empty).Replace("/",string.Empty).Replace("\"",string.Empty).Trim();
-                        location = end; 
+                        string end = start1.Substring(0, endindex).Replace("\u002d", string.Empty).Replace("Å", "A").Replace("\\u002d", "-").Replace(">", string.Empty).Replace("/", string.Empty).Replace("\"", string.Empty).Trim();
+                        location = end;
                     }
                     catch
                     { }
@@ -2069,7 +2069,7 @@ namespace InBoardProGetData
 
                 #endregion location
 
-            #region Country
+                #region Country
                 try
                 {
                     int startindex = stringSource.IndexOf("\"geo_region\":");
@@ -2108,7 +2108,7 @@ namespace InBoardProGetData
                 {
                     try
                     {
-                        string[] countLocation  = location.Split(',');
+                        string[] countLocation = location.Split(',');
 
                         if (countLocation.Count() == 2)
                         {
@@ -2122,12 +2122,12 @@ namespace InBoardProGetData
 
                     }
                     catch { }
-                   
+
                 }
 
                 #endregion
 
-            #region Industry
+                #region Industry
                 try
                 {
                     //Industry = stringSource.Substring(stringSource.IndexOf("fmt__industry_highlight\":"), (stringSource.IndexOf(",", stringSource.IndexOf("fmt__industry_highlight\":")) - stringSource.IndexOf("fmt__industry_highlight\":"))).Replace("fmt__industry_highlight\":", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Replace(":", string.Empty).Trim();
@@ -2148,9 +2148,9 @@ namespace InBoardProGetData
                     try
                     {
                         int startindex = stringSource.IndexOf("name=\"industry\" title=\"Find other members in this industry\">");
-                        string start = stringSource.Substring(startindex).Replace("name=\"industry\" title=\"Find other members in this industry\">",string.Empty);
+                        string start = stringSource.Substring(startindex).Replace("name=\"industry\" title=\"Find other members in this industry\">", string.Empty);
                         int endindex = start.IndexOf("</a>");
-                        string end = start.Substring(0, endindex).Replace("</a>",string.Empty).Replace("&amp;", "&");
+                        string end = start.Substring(0, endindex).Replace("</a>", string.Empty).Replace("&amp;", "&");
                         Industry = end;
                     }
                     catch
@@ -2158,7 +2158,7 @@ namespace InBoardProGetData
                 }
                 #endregion Industry
 
-            #region Connection
+                #region Connection
                 try
                 {
                     //Connection = stringSource.Substring(stringSource.IndexOf("_count_string\":"), (stringSource.IndexOf(",", stringSource.IndexOf("_count_string\":")) - stringSource.IndexOf("_count_string\":"))).Replace("_count_string\":", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Replace(":", string.Empty).Trim();
@@ -2175,10 +2175,10 @@ namespace InBoardProGetData
                     {
                         int startindex1 = stringSource.IndexOf("overview-connections");
                         if (startindex1 > 0)
-                        {                          
-                            string start = stringSource.Substring(startindex1).Replace("overview-connections", "").Replace("\n",string.Empty).Replace("<p>",string.Empty).Replace("</p>",string.Empty);
+                        {
+                            string start = stringSource.Substring(startindex1).Replace("overview-connections", "").Replace("\n", string.Empty).Replace("<p>", string.Empty).Replace("</p>", string.Empty);
                             int endindex = start.IndexOf("</strong>");
-                            string end = start.Substring(0, endindex).Replace("&amp;", "&").Replace("\"", string.Empty).Replace("<strong>", string.Empty).Replace(">",string.Empty).Trim();
+                            string end = start.Substring(0, endindex).Replace("&amp;", "&").Replace("\"", string.Empty).Replace("<strong>", string.Empty).Replace(">", string.Empty).Trim();
                             Connection = end;
                         }
                     }
@@ -2189,7 +2189,7 @@ namespace InBoardProGetData
                             int startindex1 = stringSource.IndexOf("class=\"member-connections\"><strong>");
                             string start = stringSource.Substring(startindex1).Replace("class=\"member-connections\"><strong>", "").Replace("\n", string.Empty).Replace("<p>", string.Empty).Replace("</p>", string.Empty);
                             int endindex = start.IndexOf("</strong>");
-                            string end = start.Substring(0, endindex).Replace("&amp;", "&").Replace("\"", string.Empty).Replace("<strong>", string.Empty).Replace(">", string.Empty).Replace("<a href=#connections class=connections-link",string.Empty).Replace("</a",string.Empty).Trim();
+                            string end = start.Substring(0, endindex).Replace("&amp;", "&").Replace("\"", string.Empty).Replace("<strong>", string.Empty).Replace(">", string.Empty).Replace("<a href=#connections class=connections-link", string.Empty).Replace("</a", string.Empty).Trim();
                             Connection = end;
                         }
                         catch
@@ -2200,9 +2200,9 @@ namespace InBoardProGetData
                 catch (Exception ex)
                 {
                 }
-               #endregion Connection
+                #endregion Connection
 
-            #region Recommendation
+                #region Recommendation
 
                 try
                 {
@@ -2284,7 +2284,7 @@ namespace InBoardProGetData
                     }
 
                 }
-                    
+
                 catch { }
                 if (string.IsNullOrEmpty(Recommendations))
                 {
@@ -2293,17 +2293,17 @@ namespace InBoardProGetData
                     foreach (string item in recommend)
                     {
                         if (!item.Contains("<!DOCTYPE html>"))
-                        try
-                        {
-                            int startindex = item.IndexOf("");
-                            string start = item.Substring(startindex);
-                            int endindex = start.IndexOf("</a>");
-                            string end = start.Substring(0, endindex).Replace("</a>", string.Empty);
-                            string recmnd = end.Trim();
-                            ListRecommendationName.Add(recmnd);
-                        }
-                        catch
-                        { }
+                            try
+                            {
+                                int startindex = item.IndexOf("");
+                                string start = item.Substring(startindex);
+                                int endindex = start.IndexOf("</a>");
+                                string end = start.Substring(0, endindex).Replace("</a>", string.Empty);
+                                string recmnd = end.Trim();
+                                ListRecommendationName.Add(recmnd);
+                            }
+                            catch
+                            { }
                     }
                     foreach (string item in ListRecommendationName)
                     {
@@ -2321,7 +2321,7 @@ namespace InBoardProGetData
                 #endregion
 
 
-            #region Following
+                #region Following
 
                 String pagesource = HttpHelper.getHtmlfromUrl(new Uri(Url));
                 try
@@ -2363,7 +2363,7 @@ namespace InBoardProGetData
                 #endregion
 
 
-            #region Group
+                #region Group
                 List<string> ListGroupName = new List<string>();
                 try
                 {
@@ -2384,7 +2384,7 @@ namespace InBoardProGetData
                     string PageSource = HttpHelper.getHtmlfromUrl1(new Uri(GroupUrl));
 
                     string[] array1 = Regex.Split(PageSource, "groupRegistration?");
-                    
+
                     string SelItem = string.Empty;
 
                     foreach (var itemGrps in array1)
@@ -2400,8 +2400,8 @@ namespace InBoardProGetData
                                         int startindex = itemGrps.IndexOf("\"name\":");
                                         string start = itemGrps.Substring(startindex);
                                         int endIndex = start.IndexOf(",");
-                                      //  ListGroupName.Add(start.Substring(0, endIndex).Replace("\"", string.Empty).Replace("amp", string.Empty).Replace("&", string.Empty).Replace(";", string.Empty).Replace("csrfToken", string.Empty).Replace("name:", string.Empty));
-                                        ListGroupName.Add(start.Substring(0, endIndex).Replace("\\","").Replace("\"", string.Empty).Replace("&amp", string.Empty).Replace("&", string.Empty).Replace(";", string.Empty).Replace("csrfToken", string.Empty).Replace("name:", string.Empty));
+                                        //  ListGroupName.Add(start.Substring(0, endIndex).Replace("\"", string.Empty).Replace("amp", string.Empty).Replace("&", string.Empty).Replace(";", string.Empty).Replace("csrfToken", string.Empty).Replace("name:", string.Empty));
+                                        ListGroupName.Add(start.Substring(0, endIndex).Replace("\\", "").Replace("\"", string.Empty).Replace("&amp", string.Empty).Replace("&", string.Empty).Replace(";", string.Empty).Replace("csrfToken", string.Empty).Replace("name:", string.Empty));
                                     }
                                     catch { }
                                 }
@@ -2433,10 +2433,10 @@ namespace InBoardProGetData
                     if (string.IsNullOrEmpty(groupscollectin))
                     {
                         int StartIndex = stringSource.IndexOf("profile_v2_connections\",\"url\":\"");
-                        string Start = stringSource.Substring(StartIndex).Replace("profile_v2_connections\",\"url\":\"",string.Empty);
+                        string Start = stringSource.Substring(StartIndex).Replace("profile_v2_connections\",\"url\":\"", string.Empty);
                         int EndIndex = Start.IndexOf("\"}");
                         string End = Start.Substring(0, EndIndex).Replace("\"}", string.Empty);
-                        GroupUrl = End.Trim();                            
+                        GroupUrl = End.Trim();
                     }
                     string GroupUrlResponse = HttpHelper.getHtmlfromUrl(new Uri(GroupUrl));
 
@@ -2448,7 +2448,7 @@ namespace InBoardProGetData
                             try
                             {
                                 int StartIndex = item.IndexOf("\"name\":\"");
-                                string Start = item.Substring(StartIndex).Replace("\"name\":\"",string.Empty);
+                                string Start = item.Substring(StartIndex).Replace("\"name\":\"", string.Empty);
                                 int EndIndex = Start.IndexOf("\",\"");
                                 string End = Start.Substring(0, EndIndex).Replace("\",\"", string.Empty);
                                 ListGroupName.Add(End);
@@ -2476,8 +2476,8 @@ namespace InBoardProGetData
                 catch
                 { }
                 #endregion
-                
-            #region commented Experience
+
+                #region commented Experience
                 //if (LDS_Experience == string.Empty)
                 //{
                 //    try
@@ -2785,7 +2785,7 @@ namespace InBoardProGetData
 
                 #endregion
 
-            #region skill and Expertise
+                #region skill and Expertise
                 try
                 {
                     string[] strarr_skill = Regex.Split(stringSource, "endorse-item-name-text\"");
@@ -2800,7 +2800,7 @@ namespace InBoardProGetData
                                 {
                                     try
                                     {
-                                        string Grp = item.Substring(item.IndexOf(">"), (item.IndexOf("<", item.IndexOf(">")) - item.IndexOf(">"))).Replace(">", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Replace(":", string.Empty).Replace("&amp","&").Trim();
+                                        string Grp = item.Substring(item.IndexOf(">"), (item.IndexOf("<", item.IndexOf(">")) - item.IndexOf(">"))).Replace(">", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Replace(":", string.Empty).Replace("&amp", "&").Trim();
                                         checkgrplist.Add(Grp);
                                         checkgrplist.Distinct().ToList();
                                     }
@@ -2811,7 +2811,7 @@ namespace InBoardProGetData
                             catch { }
                         }
 
-                        if (checkgrplist.Count>0) 
+                        if (checkgrplist.Count > 0)
                         {
                             foreach (string item in checkgrplist)
                             {
@@ -2823,7 +2823,7 @@ namespace InBoardProGetData
                                 {
                                     Skill = Skill + "  :  " + item;
                                 }
-                            } 
+                            }
                         }
                     }
                     else
@@ -2895,9 +2895,9 @@ namespace InBoardProGetData
                     {
                         string _temppagesource = Utils.getBetween(stringSource, "skills\":[", "],");
                         string[] strarr_skill = Regex.Split(_temppagesource, ",");
-                        foreach (string  item in strarr_skill)
+                        foreach (string item in strarr_skill)
                         {
-                            checkgrplist.Add(item.Replace("\"","").Replace(",",""));
+                            checkgrplist.Add(item.Replace("\"", "").Replace(",", ""));
                             checkgrplist.Distinct().ToList();
                         }
 
@@ -2918,43 +2918,43 @@ namespace InBoardProGetData
 
                 #endregion
 
-            #region Pasttitle comment on 28.08.13
+                #region Pasttitle comment on 28.08.13
                 //    string[] pasttitles = Regex.Split(stringSource, "{\"media_logo\":\"");
-            //    string pstTitlesitem = string.Empty;
-            //    pasttitles = pasttitles.Skip(1).ToArray();
-            //    foreach (string item in pasttitles)
-            //    {
-            //        try
-            //        {
-            //            int startindex = item.IndexOf("companyName\":\"");
-            //            if (startindex > 0)
-            //            {
-            //                string start = item.Substring(startindex).Replace("companyName\":\"", "");
+                //    string pstTitlesitem = string.Empty;
+                //    pasttitles = pasttitles.Skip(1).ToArray();
+                //    foreach (string item in pasttitles)
+                //    {
+                //        try
+                //        {
+                //            int startindex = item.IndexOf("companyName\":\"");
+                //            if (startindex > 0)
+                //            {
+                //                string start = item.Substring(startindex).Replace("companyName\":\"", "");
 
-            //                int endindex = start.IndexOf("\",");
-            //                string end = start.Substring(0, endindex);
-            //                pstTitlesitem = end.Replace("&amp;",string.Empty);
-            //            }
-            //            if (string.IsNullOrEmpty(LDS_PastTitles))
-            //            {
-            //                LDS_PastTitles = pstTitlesitem;
-            //            }
-            //            else if (LDS_PastTitles.Contains(pstTitlesitem))
-            //            {
-            //                continue;
-            //            }
-            //            else
-            //            {
-            //                LDS_PastTitles = LDS_PastTitles + "  :  " + pstTitlesitem;
-            //            }
-            //        }
-            //        catch
-            //        {
-            //        }
+                //                int endindex = start.IndexOf("\",");
+                //                string end = start.Substring(0, endindex);
+                //                pstTitlesitem = end.Replace("&amp;",string.Empty);
+                //            }
+                //            if (string.IsNullOrEmpty(LDS_PastTitles))
+                //            {
+                //                LDS_PastTitles = pstTitlesitem;
+                //            }
+                //            else if (LDS_PastTitles.Contains(pstTitlesitem))
+                //            {
+                //                continue;
+                //            }
+                //            else
+                //            {
+                //                LDS_PastTitles = LDS_PastTitles + "  :  " + pstTitlesitem;
+                //            }
+                //        }
+                //        catch
+                //        {
+                //        }
                 //    }
                 #endregion
 
-            #region Pasttitle
+                #region Pasttitle
                 string[] pasttitles = Regex.Split(stringSource, "title_highlight");
                 string pstTitlesitem = string.Empty;
                 pasttitles = pasttitles.Skip(1).ToArray();
@@ -2970,7 +2970,7 @@ namespace InBoardProGetData
                                 pstTitlesitem = Past_Ttl[0].Replace(":", string.Empty).Replace("\"", string.Empty).Replace("\\u002d", "-").Replace("&amp;", "&");
                             }
                             catch { }
-                            
+
                             if (string.IsNullOrEmpty(LDS_PastTitles))
                             {
                                 LDS_PastTitles = pstTitlesitem;
@@ -2999,7 +2999,7 @@ namespace InBoardProGetData
                         {
                             LDS_PastTitles = LDS_PastTitles + " : " + item;
                         }
-                        
+
                     }
                     catch
                     { }
@@ -3052,7 +3052,7 @@ namespace InBoardProGetData
                 }
                 #endregion
 
-            #region FullUrl
+                #region FullUrl
                 try
                 {
                     string[] UrlFull = System.Text.RegularExpressions.Regex.Split(Url, "&authType");
@@ -3063,7 +3063,7 @@ namespace InBoardProGetData
                 catch { }
                 #endregion
 
-            #region old code
+                #region old code
                 //#region Designation Company Current
                 //try
                 //{
@@ -3106,7 +3106,7 @@ namespace InBoardProGetData
                 //#endregion
                 #endregion
 
-            #region Current Title Current Company
+                #region Current Title Current Company
 
                 try
                 {
@@ -3165,7 +3165,7 @@ namespace InBoardProGetData
                     {
                         try
                         {
-                           Company = stringSource.Substring(stringSource.IndexOf("memberHeadline\":"), (stringSource.IndexOf(",", stringSource.IndexOf("memberHeadline\":")) - stringSource.IndexOf("memberHeadline\":"))).Replace("memberHeadline\":", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Replace(":", string.Empty).Replace("   ", string.Empty).Replace(":", "").Replace("&dsh;", "").Replace("&amp", "").Replace(";", "").Replace("u002d",string.Empty).Trim();
+                            Company = stringSource.Substring(stringSource.IndexOf("memberHeadline\":"), (stringSource.IndexOf(",", stringSource.IndexOf("memberHeadline\":")) - stringSource.IndexOf("memberHeadline\":"))).Replace("memberHeadline\":", string.Empty).Replace("\\", string.Empty).Replace("\"", string.Empty).Replace(",", string.Empty).Replace(":", string.Empty).Replace("   ", string.Empty).Replace(":", "").Replace("&dsh;", "").Replace("&amp", "").Replace(";", "").Replace("u002d", string.Empty).Trim();
                         }
                         catch
                         {
@@ -3201,45 +3201,45 @@ namespace InBoardProGetData
                 }
                 catch { }
 
-        /*        #region PastCompany
-                checkerlst.Clear();
-                foreach (string item in companylist)
-                {
-                    try
-                    {
-                        if (!item.Contains("<!DOCTYPE html>"))
+                /*        #region PastCompany
+                        checkerlst.Clear();
+                        foreach (string item in companylist)
                         {
-                           // int startindex = item.IndexOf("\"},");
-                            int startindex = item.IndexOf("\"}");
-                            string start = item.Substring(0, startindex);
-                            string data = start.Replace("\"", "").Replace(":", "");
-                            checkerlst.Add(Company);
-                            checkerlst = checkerlst.Distinct().ToList();
+                            try
+                            {
+                                if (!item.Contains("<!DOCTYPE html>"))
+                                {
+                                   // int startindex = item.IndexOf("\"},");
+                                    int startindex = item.IndexOf("\"}");
+                                    string start = item.Substring(0, startindex);
+                                    string data = start.Replace("\"", "").Replace(":", "");
+                                    checkerlst.Add(Company);
+                                    checkerlst = checkerlst.Distinct().ToList();
+                                }
+                            }
+                            catch { }
                         }
-                    }
-                    catch { }
-                }
-                AllComapny = string.Empty;
-                foreach (string item1 in checkerlst)
-                {
-                    if (string.IsNullOrEmpty(AllComapny))
-                    {
-                        AllComapny = item1.Replace("}", "").Replace("]", "").Replace("&amp;", "&").Replace("u002d", string.Empty);
-                    }
-                    else if (AllComapny.Contains(item1))
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        AllComapny = AllComapny + " : " + item1.Replace("}", "").Replace("]", "").Replace("&amp;", "&").Replace("u002d", string.Empty);
-                    }
-                }
-                #endregion */
+                        AllComapny = string.Empty;
+                        foreach (string item1 in checkerlst)
+                        {
+                            if (string.IsNullOrEmpty(AllComapny))
+                            {
+                                AllComapny = item1.Replace("}", "").Replace("]", "").Replace("&amp;", "&").Replace("u002d", string.Empty);
+                            }
+                            else if (AllComapny.Contains(item1))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                AllComapny = AllComapny + " : " + item1.Replace("}", "").Replace("]", "").Replace("&amp;", "&").Replace("u002d", string.Empty);
+                            }
+                        }
+                        #endregion */
 
-                #endregion Company
+        #endregion Company
 
-            #region degreeConnection
+                #region degreeConnection
                 //try
                 // {
                 //    int startindex = stringSource.IndexOf("text_plain__NAME_is_");
@@ -3284,7 +3284,7 @@ namespace InBoardProGetData
                 //    { }
                 //}
 
-                string[] arr = Regex.Split(stringSource,"<span class=\"fp-degree-icon\">");
+                string[] arr = Regex.Split(stringSource, "<span class=\"fp-degree-icon\">");
                 arr = arr.Skip(1).ToArray();
                 foreach (string tempItem in arr)
                 {
@@ -3306,7 +3306,7 @@ namespace InBoardProGetData
                         int startindex = stringSource.IndexOf("class=\"degree-icon \">");
                         string start = stringSource.Substring(startindex).Replace("class=\"degree-icon \">", string.Empty);
                         int endIndex = start.IndexOf("</abbr>");
-                        string end = start.Substring(0, endIndex).Replace("</abbr>", string.Empty).Replace("</sup>",string.Empty).Replace("<sup>",string.Empty);
+                        string end = start.Substring(0, endIndex).Replace("</abbr>", string.Empty).Replace("</sup>", string.Empty).Replace("<sup>", string.Empty);
                         degreeConnection = end.Trim();
                     }
                     catch
@@ -3326,7 +3326,7 @@ namespace InBoardProGetData
 
                         if (tempPageSource.Contains("{\"status\": \"success"))
                         {
-                            
+
                             try
                             {
                                 Website = Utils.getBetween(tempPageSource, "url\":", ",").Replace("\"", "").Replace(",", "").Trim();
@@ -3390,7 +3390,7 @@ namespace InBoardProGetData
                 if (location == string.Empty) location = "--";
                 if (country == string.Empty) country = "--";
                 if (Industry == string.Empty) Industry = "--";
-           //   if (Website == string.Empty) Website = "--";
+                //   if (Website == string.Empty) Website = "--";
                 if (website1 == string.Empty) website1 = "--";
                 if (degreeConnection == string.Empty) degreeConnection = "--";
                 if (companycurrent == string.Empty) companycurrent = "--";
@@ -3399,56 +3399,56 @@ namespace InBoardProGetData
 
                 //if (!string.IsNullOrEmpty(tempFinalData))
                 //{
-                    try
+                try
+                {
+                    if (status.Contains("LinkedinSearch_ProfileData"))
                     {
-                        if (status.Contains("LinkedinSearch_ProfileData"))
+                        try
                         {
-                            try
-                            {
-                                //AppFileHelper.AddingLinkedInDataToCSVFile(LDS_FinalData, Globals.path_LinkedinSearchByProfileURL);
+                            //AppFileHelper.AddingLinkedInDataToCSVFile(LDS_FinalData, Globals.path_LinkedinSearchByProfileURL);
 
-                                string CSVHeader = "ProfileType" + "," + "Degree Connection" + "," + "UserProfileLink" + "," + "FirstName" + "," + "LastName" + "," + "HeadLineTitle" + "," + "Current Title " + "," + "Current Company" + "," + "Connection" + "," + "Following" + "," + "Recommendations " + "," + "SkillAndExpertise " + "," + "Experience " + "," + " Education" + "," + "Groups" + "," + "UserEmail" + "," + "UserContactNumber" + "," + "PastTitles" + "," + "PastCompany" + "," + "Location" + "," + "Country" + "," + "Industry" + "," + "WebSites" + "," + "LinkedInLoginID" + ",";
-                                string CSV_Content = TypeOfProfile.Replace(",", ";") + "," + degreeConnection.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + firstname.Replace(",", ";") + "," + lastname.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";").Replace("&amp;","&") + "," + titlecurrent.Replace(",", ";") + "," + companycurrent.Replace(",", ";").Replace("002", "-") + "," + Connection.Replace(",", ";") + "," + Follower + "," + recomandation.Replace(",", ";") + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + AllComapny.Replace(",", ";") + "," + location.Replace(",", ";") + "," + country.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + website1.Replace(",", ";") + "," + LDS_LoginID.Replace(",", ";");
-                                //string CSV_Content = TypeOfProfile.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + firstname.Replace(",", ";") + "," + lastname.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";") + "," + titlecurrent.Replace(",", ";") + "," + Company.Replace(",", ";") + "," + Connection.Replace(",", ";") + "," + recomandation.Replace(",", ";") + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + AllComapny.Replace(",", ";") + "," + location.Replace(",", ";") + "," + country.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + Website.Replace(",", ";") + "," + LDS_LoginID.Replace(",", ";");
-                                //string CSV_Content = TypeOfProfile + "," + LDS_UserProfileLink + "," + firstname + "," + lastname + "," + Company.Replace(",", ";") + "," + titlecurrent.Replace(",", ";") + "," + companycurrent.Replace(",", ";") + "," + Connection.Replace(",", ";") + "," + recomandation.Replace(",", string.Empty) + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", string.Empty) + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles + "," + AllComapny.Replace(",", ";") + "," + country.Replace(",", ";") + "," + location.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + Website.Replace(",", ";") + "," + LDS_LoginID + ",";// +TypeOfProfile + ",";
+                            string CSVHeader = "ProfileType" + "," + "Degree Connection" + "," + "UserProfileLink" + "," + "FirstName" + "," + "LastName" + "," + "HeadLineTitle" + "," + "Current Title " + "," + "Current Company" + "," + "Connection" + "," + "Following" + "," + "Recommendations " + "," + "SkillAndExpertise " + "," + "Experience " + "," + " Education" + "," + "Groups" + "," + "UserEmail" + "," + "UserContactNumber" + "," + "PastTitles" + "," + "PastCompany" + "," + "Location" + "," + "Country" + "," + "Industry" + "," + "WebSites" + "," + "LinkedInLoginID" + ",";
+                            string CSV_Content = TypeOfProfile.Replace(",", ";") + "," + degreeConnection.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + firstname.Replace(",", ";") + "," + lastname.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";").Replace("&amp;", "&") + "," + titlecurrent.Replace(",", ";") + "," + companycurrent.Replace(",", ";").Replace("002", "-") + "," + Connection.Replace(",", ";") + "," + Follower + "," + recomandation.Replace(",", ";") + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + AllComapny.Replace(",", ";") + "," + location.Replace(",", ";") + "," + country.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + website1.Replace(",", ";") + "," + LDS_LoginID.Replace(",", ";");
+                            //string CSV_Content = TypeOfProfile.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + firstname.Replace(",", ";") + "," + lastname.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";") + "," + titlecurrent.Replace(",", ";") + "," + Company.Replace(",", ";") + "," + Connection.Replace(",", ";") + "," + recomandation.Replace(",", ";") + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + AllComapny.Replace(",", ";") + "," + location.Replace(",", ";") + "," + country.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + Website.Replace(",", ";") + "," + LDS_LoginID.Replace(",", ";");
+                            //string CSV_Content = TypeOfProfile + "," + LDS_UserProfileLink + "," + firstname + "," + lastname + "," + Company.Replace(",", ";") + "," + titlecurrent.Replace(",", ";") + "," + companycurrent.Replace(",", ";") + "," + Connection.Replace(",", ";") + "," + recomandation.Replace(",", string.Empty) + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", string.Empty) + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles + "," + AllComapny.Replace(",", ";") + "," + country.Replace(",", ";") + "," + location.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + Website.Replace(",", ";") + "," + LDS_LoginID + ",";// +TypeOfProfile + ",";
 
-                                CSVUtilities.ExportDataCSVFile(CSVHeader, CSV_Content, Globals.path_LinkedinSearchByProfileURL);
+                            CSVUtilities.ExportDataCSVFile(CSVHeader, CSV_Content, Globals.path_LinkedinSearchByProfileURL);
 
-                                Log("[ " + DateTime.Now + " ] => [ Record Saved In CSV File ! ]");
-                            }
-                            catch
-                            {
-                            }
+                            Log("[ " + DateTime.Now + " ] => [ Record Saved In CSV File ! ]");
                         }
-                        else
+                        catch
                         {
-                            try
-                            {
-                                //AppFileHelper.AddingLinkedInDataToCSVFile(LDS_FinalData, Globals.path_LinkedinSearchSearchByPeople);
-
-                                string CSVHeader = "ProfileType" + "," + "Degree Connection" + "," + "UserProfileLink" + "," + "FirstName" + "," + "LastName" + "," + "HeadLineTitle" + "," + "CurrentTitle " + "," + "Company" + "," + "Connection" + "," + "Following" + "," + "Recommendations " + "," + "SkillAndExpertise " + "," + "Experience " + "," + " Education" + "," + "Groups" + "," + "UserEmail" + "," + "UserContactNumber" + "," + "PastTitles" + "," + "PastCompany" + "," + "Location" + "," + "Country" + "," + "Industry" + "," + "WebSites" + "," + "LinkedInLoginID" + ",";
-                                //string CSV_Content = TypeOfProfile.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + firstname.Replace(",", ";") + "," + lastname.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";") + "," + titlecurrent.Replace(",", ";") + "," + Company.Replace(",", ";") + "," + Connection.Replace(",", ";") + "," + recomandation.Replace(",", ";") + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + AllComapny.Replace(",", ";") + "," + location.Replace(",", ";") + "," + country.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + Website.Replace(",", ";") + "," + LDS_LoginID.Replace(",", ";");
-                                string CSV_Content = TypeOfProfile.Replace(",", ";") + "," + degreeConnection.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + firstname.Replace(",", ";") + "," + lastname.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";") + "," + titlecurrent.Replace(",", ";") + "," + companycurrent.Replace(",", ";").Replace("002", "-") + "," + Connection.Replace(",", ";") + "," + Follower.Replace(",",";") + "," + recomandation.Replace(",", ";") + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + AllComapny.Replace(",", ";") + "," + location.Replace(",", ";") + "," + country.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + website1.Replace(",", ";") + "," + LDS_LoginID.Replace(",", ";");
-
-                                CSVUtilities.ExportDataCSVFile(CSVHeader, CSV_Content, Globals.path_LinkedinSearchByPeople);
-
-                                Log("[ " + DateTime.Now + " ] => [ Record Saved In CSV File ! ]");
-                            }
-                            catch
-                            {
-                            }
                         }
                     }
-                    catch
+                    else
                     {
-                    }
+                        try
+                        {
+                            //AppFileHelper.AddingLinkedInDataToCSVFile(LDS_FinalData, Globals.path_LinkedinSearchSearchByPeople);
 
-                    return true;
+                            string CSVHeader = "ProfileType" + "," + "Degree Connection" + "," + "UserProfileLink" + "," + "FirstName" + "," + "LastName" + "," + "HeadLineTitle" + "," + "CurrentTitle " + "," + "Company" + "," + "Connection" + "," + "Following" + "," + "Recommendations " + "," + "SkillAndExpertise " + "," + "Experience " + "," + " Education" + "," + "Groups" + "," + "UserEmail" + "," + "UserContactNumber" + "," + "PastTitles" + "," + "PastCompany" + "," + "Location" + "," + "Country" + "," + "Industry" + "," + "WebSites" + "," + "LinkedInLoginID" + ",";
+                            //string CSV_Content = TypeOfProfile.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + firstname.Replace(",", ";") + "," + lastname.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";") + "," + titlecurrent.Replace(",", ";") + "," + Company.Replace(",", ";") + "," + Connection.Replace(",", ";") + "," + recomandation.Replace(",", ";") + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + AllComapny.Replace(",", ";") + "," + location.Replace(",", ";") + "," + country.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + Website.Replace(",", ";") + "," + LDS_LoginID.Replace(",", ";");
+                            string CSV_Content = TypeOfProfile.Replace(",", ";") + "," + degreeConnection.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + firstname.Replace(",", ";") + "," + lastname.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";") + "," + titlecurrent.Replace(",", ";") + "," + companycurrent.Replace(",", ";").Replace("002", "-") + "," + Connection.Replace(",", ";") + "," + Follower.Replace(",", ";") + "," + recomandation.Replace(",", ";") + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + AllComapny.Replace(",", ";") + "," + location.Replace(",", ";") + "," + country.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + website1.Replace(",", ";") + "," + LDS_LoginID.Replace(",", ";");
+
+                            CSVUtilities.ExportDataCSVFile(CSVHeader, CSV_Content, Globals.path_LinkedinSearchByPeople);
+
+                            Log("[ " + DateTime.Now + " ] => [ Record Saved In CSV File ! ]");
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+                catch
+                {
+                }
+
+                return true;
                 //}
             }
             catch { }
             return false;
-        } 
+        }
         #endregion
 
         #region CrawlingLinkedInPageWithoutLoggingIn
@@ -3458,6 +3458,10 @@ namespace InBoardProGetData
         #endregion
 
         #region CrawlingPageDataSource
+
+        public static int MinDelayForSearchProfile = 5;
+        public static int MaxDelayForSearchProfile = 10;
+
         public void CrawlingPageDataSource(string Url, ref GlobusHttpHelper HttpHelper, string status)
         {
             //if (SearchCriteria.starter)
@@ -4319,70 +4323,78 @@ namespace InBoardProGetData
 
                             if (!string.IsNullOrEmpty(tempFinalData))
                             {
-                            try
-                            {
-                                if (status.Contains("LinkedinSearch_ProfileData"))
+                                try
                                 {
-                                    try
+                                    if (status.Contains("LinkedinSearch_ProfileData"))
                                     {
-                                        AppFileHelper.AddingLinkedInDataToCSVFile(LDS_FinalData, Globals.path_LinkedinSearchByProfileURL);
+                                        try
+                                        {
+                                            AppFileHelper.AddingLinkedInDataToCSVFile(LDS_FinalData, Globals.path_LinkedinSearchByProfileURL);
 
-                                        string CSVHeader = "ProfileType" + "," + "UserProfileLink" + "," + "FirstName" + "," + "LastName" + "," + "HeadLineTitle" + "," + "CurrentTitle " + "," + "Company" + "," + "Connection" + "," + "Recommendations " + "," + "SkillAndExpertise " + "," + "Experience " + "," + " Education" + "," + "Groups" + "," + "UserEmail" + "," + "UserContactNumber" + "," + "PastTitles" + "," + "PastCompany" + "," + "Location" + "," + "Country" + "," + "Industry" + "," + "WebSites" + "," + "LinkedInLoginID" + ",";
-                                        string CSV_Content = LDS_ProfileType.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + LDS_FirstName.Replace(",", ";") + "," + LDS_LastName.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";") + "," + LDS_CurrentTitle.Replace(",", ";") + "," + LDS_CurrentCompany.Replace(",", ";") + "," + LDS_Connection.Replace(",", ";") + "," + LDS_Recommendations.Replace(",", ";") + "," + LDS_SkillAndExpertise.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + LDS_Education.Replace(",", ";") + "," + LDS_Groups.Replace(",", ";") + "," + LDS_UserEmail.Replace(",", ";") + "," + LDS_UserContactNumber.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + LDS_PastCompany.Replace(",", ";") + "," + LDS_Loction.Replace(",", ";") + "," + LDS_Country.Replace(",", ";") + "," + LDS_Industry.Replace(",", ";") + "," + LDS_Websites.Replace(",", ";") + "," + userName.Replace(",", ";") + ",";
+                                            string CSVHeader = "ProfileType" + "," + "UserProfileLink" + "," + "FirstName" + "," + "LastName" + "," + "HeadLineTitle" + "," + "CurrentTitle " + "," + "Company" + "," + "Connection" + "," + "Recommendations " + "," + "SkillAndExpertise " + "," + "Experience " + "," + " Education" + "," + "Groups" + "," + "UserEmail" + "," + "UserContactNumber" + "," + "PastTitles" + "," + "PastCompany" + "," + "Location" + "," + "Country" + "," + "Industry" + "," + "WebSites" + "," + "LinkedInLoginID" + ",";
+                                            string CSV_Content = LDS_ProfileType.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + LDS_FirstName.Replace(",", ";") + "," + LDS_LastName.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";") + "," + LDS_CurrentTitle.Replace(",", ";") + "," + LDS_CurrentCompany.Replace(",", ";") + "," + LDS_Connection.Replace(",", ";") + "," + LDS_Recommendations.Replace(",", ";") + "," + LDS_SkillAndExpertise.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + LDS_Education.Replace(",", ";") + "," + LDS_Groups.Replace(",", ";") + "," + LDS_UserEmail.Replace(",", ";") + "," + LDS_UserContactNumber.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + LDS_PastCompany.Replace(",", ";") + "," + LDS_Loction.Replace(",", ";") + "," + LDS_Country.Replace(",", ";") + "," + LDS_Industry.Replace(",", ";") + "," + LDS_Websites.Replace(",", ";") + "," + userName.Replace(",", ";") + ",";
 
-                                        //string CSV_Content = TypeOfProfile + "," + LDS_UserProfileLink + "," + firstname + "," + lastname + "," + Company.Replace(",", ";") + "," + titlecurrent.Replace(",", ";") + "," + companycurrent.Replace(",", ";") + "," + Connection.Replace(",", ";") + "," + recomandation.Replace(",", string.Empty) + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", string.Empty) + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles + "," + AllComapny.Replace(",", ";") + "," + country.Replace(",", ";") + "," + location.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + Website.Replace(",", ";") + "," + LDS_LoginID + ",";// +TypeOfProfile + ",";
+                                            //string CSV_Content = TypeOfProfile + "," + LDS_UserProfileLink + "," + firstname + "," + lastname + "," + Company.Replace(",", ";") + "," + titlecurrent.Replace(",", ";") + "," + companycurrent.Replace(",", ";") + "," + Connection.Replace(",", ";") + "," + recomandation.Replace(",", string.Empty) + "," + Skill.Replace(",", ";") + "," + LDS_Experience.Replace(",", string.Empty) + "," + EducationCollection.Replace(",", ";") + "," + groupscollectin.Replace(",", ";") + "," + USERemail.Replace(",", ";") + "," + LDS_UserContact.Replace(",", ";") + "," + LDS_PastTitles + "," + AllComapny.Replace(",", ";") + "," + country.Replace(",", ";") + "," + location.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + Website.Replace(",", ";") + "," + LDS_LoginID + ",";// +TypeOfProfile + ",";
 
 
-                                        CSVUtilities.ExportDataCSVFile(CSVHeader, CSV_Content, Globals.path_LinkedinSearchByProfileURL);
+                                            CSVUtilities.ExportDataCSVFile(CSVHeader, CSV_Content, Globals.path_LinkedinSearchByProfileURL);
 
-                                        Log("[ " + DateTime.Now + " ] => [ Record Saved In CSV File ! ]");
+                                            Log("[ " + DateTime.Now + " ] => [ Record Saved In CSV File ! ]");
+                                        }
+                                        catch
+                                        {
+                                        }
                                     }
-                                    catch
+                                    else
                                     {
+                                        try
+                                        {
+                                            AppFileHelper.AddingLinkedInDataToCSVFile(LDS_FinalData, Globals.path_LinkedinSearchByPeople);
+
+                                            string CSVHeader = "ProfileType" + "," + "UserProfileLink" + "," + "FirstName" + "," + "LastName" + "," + "HeadLineTitle" + "," + "CurrentTitle " + "," + "Company" + "," + "Connection" + "," + "Recommendations " + "," + "SkillAndExpertise " + "," + "Experience " + "," + " Education" + "," + "Groups" + "," + "UserEmail" + "," + "UserContactNumber" + "," + "PastTitles" + "," + "PastCompany" + "," + "Location" + "," + "Country" + "," + "Industry" + "," + "WebSites" + "," + "LinkedInLoginID" + ",";
+                                            if (firstname == string.Empty) firstname = "LinkedIn";
+                                            if (lastname == string.Empty) lastname = "Member";
+                                            if (LDS_HeadLineTitle == string.Empty) LDS_HeadLineTitle = "--";
+                                            if (LDS_CurrentTitle == string.Empty) LDS_CurrentTitle = "--";
+                                            if (LDS_CurrentCompany == string.Empty) LDS_CurrentCompany = "--";
+                                            if (LDS_Connection == string.Empty) LDS_Connection = "--";
+                                            if (LDS_Recommendations == string.Empty) LDS_Recommendations = "--";
+                                            if (LDS_SkillAndExpertise == string.Empty) LDS_SkillAndExpertise = "--";
+                                            if (LDS_Experience == string.Empty) LDS_Experience = "--";
+                                            if (LDS_Experience == string.Empty) LDS_Experience = "--";
+                                            if (LDS_Education == string.Empty) LDS_Education = "--";
+                                            if (LDS_Groups == string.Empty) LDS_Groups = "--";
+                                            if (LDS_UserEmail == string.Empty) LDS_UserEmail = "--";
+                                            if (LDS_UserContactNumber == string.Empty) LDS_UserContactNumber = "--";
+                                            if (LDS_PastTitles == string.Empty) LDS_PastTitles = "--";
+                                            if (LDS_Loction == string.Empty) LDS_Loction = "--";
+                                            if (LDS_Country == string.Empty) LDS_Country = "--";
+                                            if (LDS_Industry == string.Empty) LDS_Industry = "--";
+                                            if (LDS_Websites == string.Empty) LDS_Websites = "--";
+
+                                            string CSV_Content = LDS_ProfileType.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + LDS_FirstName.Replace(",", ";") + "," + LDS_LastName.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";") + "," + LDS_CurrentTitle.Replace(",", ";") + "," + LDS_CurrentCompany.Replace(",", ";") + "," + LDS_Connection.Replace(",", ";") + "," + LDS_Recommendations.Replace(",", ";") + "," + LDS_SkillAndExpertise.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + LDS_Education.Replace(",", ";") + "," + LDS_Groups.Replace(",", ";") + "," + LDS_UserEmail.Replace(",", ";") + "," + LDS_UserContactNumber.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + LDS_PastCompany.Replace(",", ";") + "," + LDS_Loction.Replace(",", ";") + "," + LDS_Country.Replace(",", ";") + "," + LDS_Industry.Replace(",", ";") + "," + LDS_Websites.Replace(",", ";") + "," + userName.Replace(",", ";") + ",";
+                                            CSVUtilities.ExportDataCSVFile(CSVHeader, CSV_Content, Globals.path_LinkedinSearchByPeople);
+                                            Log("[ " + DateTime.Now + " ] => [ Record Saved In CSV File ! ]");
+
+                                            int delay = RandomNumberGenerator.GenerateRandom(MinDelayForSearchProfile, MaxDelayForSearchProfile);
+                                            Log("[ " + DateTime.Now + " ] => [ Delay for : " + delay + " Seconds ]");
+                                            Thread.Sleep(delay * 1000);
+
+
+
+
+                                        }
+                                        catch
+                                        {
+                                        }
                                     }
                                 }
-                                else
+                                catch
                                 {
-                                    try
-                                    {
-                                        AppFileHelper.AddingLinkedInDataToCSVFile(LDS_FinalData, Globals.path_LinkedinSearchByPeople);
-
-                                        string CSVHeader = "ProfileType" + "," + "UserProfileLink" + "," + "FirstName" + "," + "LastName" + "," + "HeadLineTitle" + "," + "CurrentTitle " + "," + "Company" + "," + "Connection" + "," + "Recommendations " + "," + "SkillAndExpertise " + "," + "Experience " + "," + " Education" + "," + "Groups" + "," + "UserEmail" + "," + "UserContactNumber" + "," + "PastTitles" + "," + "PastCompany" + "," + "Location" + "," + "Country" + "," + "Industry" + "," + "WebSites" + "," + "LinkedInLoginID" + ",";
-                                        if (firstname == string.Empty) firstname = "LinkedIn";
-                                        if (lastname == string.Empty) lastname = "Member";
-                                        if (LDS_HeadLineTitle == string.Empty) LDS_HeadLineTitle = "--";
-                                        if (LDS_CurrentTitle == string.Empty) LDS_CurrentTitle = "--";
-                                        if (LDS_CurrentCompany == string.Empty) LDS_CurrentCompany = "--";
-                                        if (LDS_Connection == string.Empty) LDS_Connection = "--";
-                                        if (LDS_Recommendations == string.Empty) LDS_Recommendations = "--";
-                                        if (LDS_SkillAndExpertise == string.Empty) LDS_SkillAndExpertise = "--";
-                                        if (LDS_Experience == string.Empty) LDS_Experience = "--";
-                                        if (LDS_Experience == string.Empty) LDS_Experience = "--";
-                                        if (LDS_Education == string.Empty) LDS_Education = "--";
-                                        if (LDS_Groups == string.Empty) LDS_Groups = "--";
-                                        if (LDS_UserEmail == string.Empty) LDS_UserEmail = "--";
-                                        if (LDS_UserContactNumber == string.Empty) LDS_UserContactNumber = "--";
-                                        if (LDS_PastTitles == string.Empty) LDS_PastTitles = "--";
-                                        if (LDS_Loction == string.Empty) LDS_Loction = "--";
-                                        if (LDS_Country == string.Empty) LDS_Country = "--";
-                                        if (LDS_Industry == string.Empty) LDS_Industry = "--";
-                                        if (LDS_Websites == string.Empty) LDS_Websites = "--";
-
-                                        string CSV_Content = LDS_ProfileType.Replace(",", ";") + "," + LDS_UserProfileLink.Replace(",", ";") + "," + LDS_FirstName.Replace(",", ";") + "," + LDS_LastName.Replace(",", ";") + "," + LDS_HeadLineTitle.Replace(",", ";") + "," + LDS_CurrentTitle.Replace(",", ";") + "," + LDS_CurrentCompany.Replace(",", ";") + "," + LDS_Connection.Replace(",", ";") + "," + LDS_Recommendations.Replace(",", ";") + "," + LDS_SkillAndExpertise.Replace(",", ";") + "," + LDS_Experience.Replace(",", ";") + "," + LDS_Education.Replace(",", ";") + "," + LDS_Groups.Replace(",", ";") + "," + LDS_UserEmail.Replace(",", ";") + "," + LDS_UserContactNumber.Replace(",", ";") + "," + LDS_PastTitles.Replace(",", ";") + "," + LDS_PastCompany.Replace(",", ";") + "," + LDS_Loction.Replace(",", ";") + "," + LDS_Country.Replace(",", ";") + "," + LDS_Industry.Replace(",", ";") + "," + LDS_Websites.Replace(",", ";") + "," + userName.Replace(",", ";") + ",";
-                                        CSVUtilities.ExportDataCSVFile(CSVHeader, CSV_Content, Globals.path_LinkedinSearchByPeople);
-                                        Log("[ " + DateTime.Now + " ] => [ Record Saved In CSV File ! ]");
-                                    }
-                                    catch
-                                    {
-                                    }
                                 }
-                            }
-                            catch
-                            {
-                            }
 
-                            //return true;
-                        }
+                                //return true;
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -4391,7 +4403,7 @@ namespace InBoardProGetData
                     }
                 }
             }
-        } 
+        }
         #endregion
 
         #region SearchByCompany
@@ -4399,17 +4411,17 @@ namespace InBoardProGetData
         {
             try
             {
-              
+
                 Log("[ " + DateTime.Now + " ] => [ Starting Search By Company With UserName : " + userName + " ]");
                 _Search = _Search.ToLower();
                 _Keyword = _Keyword.ToLower();
-            
-               string CompanySearchGetRequest = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/vsearch/c?type=companies&keywords=" + _Keyword.ToLower() + "&orig=GLHD&rsid=&pageKey=nprofile_v2_edit_fs"));
-               //Temporosy code for client
-               GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Comp Scpr Pagesource 1 >>>> " + CompanySearchGetRequest, Globals.Path_LinkedinCompanyScrapperPagesource);
-               List<string> lstCompanyUrls = GettingAllUrlswithCompanyFilter(CompanySearchGetRequest);
-               
-                
+
+                string CompanySearchGetRequest = HttpHelper.getHtmlfromUrl1(new Uri("http://www.linkedin.com/vsearch/c?type=companies&keywords=" + _Keyword.ToLower() + "&orig=GLHD&rsid=&pageKey=nprofile_v2_edit_fs"));
+                //Temporosy code for client
+                GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Comp Scpr Pagesource 1 >>>> " + CompanySearchGetRequest, Globals.Path_LinkedinCompanyScrapperPagesource);
+                List<string> lstCompanyUrls = GettingAllUrlswithCompanyFilter(CompanySearchGetRequest);
+
+
                 // call to GetDataFromCompanyURL
                 GetDataFromCompanyURL(ref HttpHelper, lstCompanyUrls);
 
@@ -4427,7 +4439,7 @@ namespace InBoardProGetData
                 {
 
                 }
-           
+
                 string GetResponce = string.Empty;
                 string GetRequestURL = string.Empty;
 
@@ -4435,7 +4447,7 @@ namespace InBoardProGetData
                 {
                     try
                     {
-                    
+
                         //string posturl = "http://www.linkedin.com/csearch/hits";
                         string posturl = "http://www.linkedin.com/vsearch/c?keywords=" + _Keyword + "";
                         for (int s = 2; s <= pagenumber; s++)
@@ -4448,7 +4460,7 @@ namespace InBoardProGetData
                                     _Keyword = _Keyword.Replace("&", "%26");
 
                                 }
-                                
+
                                 string PostData = "&orig=GLHD&pageKey=voltron_company_search_internal_jsp&search=Search&openFacets=N,CCR,JO&page_num=" + s + "&pt=companies";
                                 string Responses = HttpHelper.postFormData(new Uri(posturl), PostData);
 
@@ -4469,7 +4481,7 @@ namespace InBoardProGetData
 
                             }
                             catch { }
-                            
+
                         }
                     }
                     catch
@@ -4486,9 +4498,9 @@ namespace InBoardProGetData
                 catch { }
             }
             catch { }
-            Log("[ " + DateTime.Now + " ] => [ " +  "PROCESS COMPLETED With UserName : " + userName + " ]");
+            Log("[ " + DateTime.Now + " ] => [ " + "PROCESS COMPLETED With UserName : " + userName + " ]");
 
-        } 
+        }
         #endregion
 
         #region SearchByCompanyWithFilter
@@ -4530,7 +4542,7 @@ namespace InBoardProGetData
                 string getlocurl = string.Empty;
                 if (SearchCriteria.OtherLocation != string.Empty)
                 {
-                    getlocurl = "http://www.linkedin.com/ta/region?query="+ Uri.EscapeDataString(SearchCriteria.OtherLocation) + "";
+                    getlocurl = "http://www.linkedin.com/ta/region?query=" + Uri.EscapeDataString(SearchCriteria.OtherLocation) + "";
                     getOthLocCode = HttpHelper.getHtmlfromUrl1(new Uri(getlocurl));
                     //Temporosy code for client
                     //GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Comp Scpr Pagesource 2 >>>> " + getOthLocCode, Globals.Path_LinkedinCompanyScrapperPagesource);
@@ -4544,7 +4556,7 @@ namespace InBoardProGetData
                         SearchCriteria.Country = othccountrycode.Replace(":", "%3A");
                     }
                     catch { }
-             
+
                 }
 
                 if (SearchCriteria.Relationship == "" && SearchCriteria.Country == "" && SearchCriteria.IndustryType == "" && SearchCriteria.CompanySize == "" && SearchCriteria.Follower == "" && SearchCriteria.Fortune1000 == "")
@@ -4557,11 +4569,11 @@ namespace InBoardProGetData
                     //url = "http://www.linkedin.com/vsearch/c?keywords=" + _Keyword + "&openFacets=N,CCR,JO,I,CS,NFR,F&f_CCR=" + SearchCriteria.Country + "&f_I=" + SearchCriteria.IndustryType + "&f_CS=" + SearchCriteria.CompanySize + "&f_NFR=" + SearchCriteria.Follower + "&f_N=" + SearchCriteria.Relationship + "&f_F=" + SearchCriteria.Fortune1000 + "&orig=FCTD";
                     url = "http://www.linkedin.com/vsearch/c?type=companies&keywords=" + _Keyword + "&orig=GLHD&openFacets=N,CCR,JO,I,CS,NFR,F&f_CCR=" + SearchCriteria.Country + "&f_I=" + SearchCriteria.IndustryType + "&f_CS=" + SearchCriteria.CompanySize + "&f_NFR=" + SearchCriteria.Follower + "&f_N=" + SearchCriteria.Relationship + "&f_F=" + SearchCriteria.Fortune1000 + "";
                 }
-                       
-               string CompanySearchGetRequest = HttpHelper.getHtmlfromUrl1(new Uri(url));
 
-               //Temporosy code for client
-               //GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Comp Scpr Pagesource 2 >>>> " + CompanySearchGetRequest, Globals.Path_LinkedinCompanyScrapperPagesource);
+                string CompanySearchGetRequest = HttpHelper.getHtmlfromUrl1(new Uri(url));
+
+                //Temporosy code for client
+                //GlobusFileHelper.AppendStringToTextfileNewLine("DateTime :- " + DateTime.Now + " :: Comp Scpr Pagesource 2 >>>> " + CompanySearchGetRequest, Globals.Path_LinkedinCompanyScrapperPagesource);
 
                 List<string> lstCompanyUrls = GettingAllUrlswithCompanyFilter(CompanySearchGetRequest);
 
@@ -4574,7 +4586,7 @@ namespace InBoardProGetData
                 try
                 {
                     LogScrap("[ " + DateTime.Now + " ] => [ Total Urls : " + pagenumber.ToString() + " ]");
-                    pagenumber = int.Parse(pagenumber.ToString())/10 + 1;
+                    pagenumber = int.Parse(pagenumber.ToString()) / 10 + 1;
                 }
                 catch (Exception)
                 {
@@ -4591,7 +4603,7 @@ namespace InBoardProGetData
                     {
                         string posturl = "http://www.linkedin.com/vsearch/c?keywords=" + _Keyword + "&orig=FCTD";
 
-                      for (int s = 2; s <= pagenumber; s++)
+                        for (int s = 2; s <= pagenumber; s++)
                         {
                             try
                             {
@@ -4698,9 +4710,9 @@ namespace InBoardProGetData
 
             try
             {
-               if (PageSource.Contains("&pid="))
+                if (PageSource.Contains("&pid="))
                 {
-                   string[] trkArr = Regex.Split(PageSource, "&pid=");
+                    string[] trkArr = Regex.Split(PageSource, "&pid=");
 
                     foreach (string item in trkArr)
                     {
@@ -4709,7 +4721,7 @@ namespace InBoardProGetData
                             if (item.Contains("vsrp_companies_res_sim"))
                             {
                                 //http://www.linkedin.com/company/1009?trk=vsrp_companies_res_name&trkInfo=VSRPsearchId%3A1652155531374817163809%2CVSRPtargetId%3A1009%2CVSRPcmpt%3Aprimary
-                                string url = item.Substring(0, item.IndexOf("\"")).Replace("\"", string.Empty).Replace("vsrp_companies_res_sim","vsrp_companies_res_name").Replace("&","?").Trim();
+                                string url = item.Substring(0, item.IndexOf("\"")).Replace("\"", string.Empty).Replace("vsrp_companies_res_sim", "vsrp_companies_res_name").Replace("&", "?").Trim();
                                 string finalurl = "http://www.linkedin.com/company/" + url;
                                 suburllist.Add(finalurl);
                             }
@@ -4718,7 +4730,7 @@ namespace InBoardProGetData
                         {
                         }
                     }
-                                       
+
                 }
 
             }
@@ -4727,7 +4739,7 @@ namespace InBoardProGetData
             }
             suburllist = suburllist.Distinct().ToList();
             return suburllist.Distinct().ToList();
-        } 
+        }
         #endregion
 
         #region GetPageNo
@@ -4760,16 +4772,16 @@ namespace InBoardProGetData
                                 {
                                     string PageNO = Regex.Split(item, ",")[0].Replace(",", string.Empty).Replace("\"", string.Empty).Replace("<strong>", string.Empty).Replace("</strong>", string.Empty).Replace(":", string.Empty).Trim();
                                     pageNo = Convert.ToInt32(PageNO);
-                                   
-                                   
+
+
 
                                     string[] arrPageNO = Regex.Split(PageNO, "[^0-9]");
                                 }
-                                catch 
+                                catch
                                 {
                                     string PageNO = Regex.Split(item, "i18n_opportunities_interested_in")[0].Replace(",", string.Empty).Replace("\"", string.Empty).Replace("<strong>", string.Empty).Replace("</strong>", string.Empty).Replace(":", string.Empty).Trim();
-                                        pageNo = Convert.ToInt32(PageNO);
-                                  
+                                    pageNo = Convert.ToInt32(PageNO);
+
                                     string[] arrPageNO = Regex.Split(PageNO, "[^0-9]");
                                 }
 
@@ -4799,7 +4811,7 @@ namespace InBoardProGetData
                             {
                                 try
                                 {
-                                    string pageNO = item.Substring(item.IndexOf("<p class=\"summary\">"), item.IndexOf("</p>", item.IndexOf("<p class=\"summary\">")) - item.IndexOf("<p class=\"summary\">")).Replace("<p class=\"summary\">", string.Empty).Replace(",", string.Empty).Replace("Results",string.Empty).Trim();
+                                    string pageNO = item.Substring(item.IndexOf("<p class=\"summary\">"), item.IndexOf("</p>", item.IndexOf("<p class=\"summary\">")) - item.IndexOf("<p class=\"summary\">")).Replace("<p class=\"summary\">", string.Empty).Replace(",", string.Empty).Replace("Results", string.Empty).Trim();
                                     string[] arrPageNO = Regex.Split(pageNO, "[^0-9]");
                                     pageNo = Convert.ToInt32(pageNO);
                                     foreach (string item1 in arrPageNO)
@@ -4876,7 +4888,7 @@ namespace InBoardProGetData
             }
 
             return pageNo;
-        } 
+        }
         #endregion
 
         #region GetEmployeeDataFromCompanyURL
@@ -4899,7 +4911,7 @@ namespace InBoardProGetData
                         try
                         {
                             //string EmployeeUrl = string.Empty;
-                            
+
                             #region commented old code
                             //string[] URL_Split = Regex.Split(LinkPagesource, "<li><a class=\"density\" ");
                             //foreach (string CompanyURl in URL_Split)
@@ -4970,7 +4982,7 @@ namespace InBoardProGetData
                                 }
                             }
 
-                            
+
 
                             try
                             {
@@ -4993,7 +5005,7 @@ namespace InBoardProGetData
                             EmployeeUrl = EmployeeUrl + "##CompanyEmployeeScraper";
 
                             obj_LinkedInScrape.StartCompanyEmployeeScraperWithPagination(ref HttpHelper, EmployeeUrl, pagenumber);
-                            
+
                         }
                         catch
                         { }
@@ -5004,7 +5016,7 @@ namespace InBoardProGetData
             }
             catch { }
         }
-            
+
         #endregion
 
         #region GetDataFromCompanyURL
@@ -5203,7 +5215,7 @@ namespace InBoardProGetData
                         catch { }
                         #endregion
 
-                        
+
                         #region Industry
                         try
                         {
@@ -5252,7 +5264,7 @@ namespace InBoardProGetData
                         #region CompanyDesciption
                         try
                         {
-                          //  CompanyDesciption = LinkPagesource.Substring(LinkPagesource.IndexOf("<div class=\"text-logo\">"), (LinkPagesource.IndexOf("</p>", LinkPagesource.IndexOf("<div class=\"text-logo\">")) - LinkPagesource.IndexOf("<div class=\"text-logo\">"))).Replace("<div class=\"text-logo\">", string.Empty).Replace("<p>", string.Empty).Replace("<br>", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty).Replace("\r", string.Empty).Replace(",", ";").Trim();
+                            //  CompanyDesciption = LinkPagesource.Substring(LinkPagesource.IndexOf("<div class=\"text-logo\">"), (LinkPagesource.IndexOf("</p>", LinkPagesource.IndexOf("<div class=\"text-logo\">")) - LinkPagesource.IndexOf("<div class=\"text-logo\">"))).Replace("<div class=\"text-logo\">", string.Empty).Replace("<p>", string.Empty).Replace("<br>", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty).Replace("\r", string.Empty).Replace(",", ";").Trim();
                             CompanyDesciption = LinkPagesource.Substring(LinkPagesource.IndexOf("<div class=\"text-logo\">"), (LinkPagesource.IndexOf("</p>", LinkPagesource.IndexOf("<div class=\"text-logo\">")) - LinkPagesource.IndexOf("<div class=\"text-logo\">"))).Replace("<div class=\"text-logo\">", string.Empty).Replace("<p>", string.Empty).Replace("<br>", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty).Replace("\r", string.Empty).Replace(",", ";").Replace("&quot;", "''").Replace("&#x2014;", "-").Replace("&#x201c;", "\"").Replace("&#x201d;", "\"").Replace("&#x2019;", "'").Replace("&#x2018;", "'").Replace("&#x113;", "ē").Replace("&#x2022;", "•").Replace("&#x2122;", "™").Replace("&#x20ac;", "€").Replace("&#xa9;", "©").Replace("&#xae;", "®")
                                                   .Replace("&#x2019;", "'").Replace("&#xe4;", "ä").Replace("&#x2013;", "-").Replace("&#39;", "'").Replace("&#x", "-").Replace("amp;", string.Empty).Trim();
                         }
@@ -5262,7 +5274,7 @@ namespace InBoardProGetData
                         #region Specialties
                         try
                         {
-                           // Specialties = LinkPagesource.Substring(LinkPagesource.IndexOf("<h3>Specialties</h3>"), (LinkPagesource.IndexOf("</p>", LinkPagesource.IndexOf("<h3>Specialties</h3>")) - LinkPagesource.IndexOf("<h3>Specialties</h3>"))).Replace("<h3>Specialties</h3>", string.Empty).Replace("<p>", string.Empty).Replace("\n", string.Empty).Replace(",", ";").Trim();
+                            // Specialties = LinkPagesource.Substring(LinkPagesource.IndexOf("<h3>Specialties</h3>"), (LinkPagesource.IndexOf("</p>", LinkPagesource.IndexOf("<h3>Specialties</h3>")) - LinkPagesource.IndexOf("<h3>Specialties</h3>"))).Replace("<h3>Specialties</h3>", string.Empty).Replace("<p>", string.Empty).Replace("\n", string.Empty).Replace(",", ";").Trim();
                             Specialties = LinkPagesource.Substring(LinkPagesource.IndexOf("<h3>Specialties</h3>"), (LinkPagesource.IndexOf("</p>", LinkPagesource.IndexOf("<h3>Specialties</h3>")) - LinkPagesource.IndexOf("<h3>Specialties</h3>"))).Replace("<h3>Specialties</h3>", string.Empty).Replace("<p>", string.Empty).Replace("\n", string.Empty).Replace(",", ";").Replace("&quot;", "''").Replace("&#x2019;", "'").Replace("&#x2013;", "-").Replace("&#39;", "'").Replace("&#x", "-").Replace("amp;", string.Empty).Trim();
                         }
                         catch { }
@@ -5347,7 +5359,7 @@ namespace InBoardProGetData
                             Log("[ " + DateTime.Now + " ] => [ Company Name Title: " + CompanyName.ToString() + " ]");
                             Log("[ " + DateTime.Now + " ] => [ Industry: " + Industry + " ]");
                             Log("----------------------------------------------------------------------------------------------------------------------------------------------------");
-                        } 
+                        }
                         #endregion
 
                     }
@@ -5359,7 +5371,7 @@ namespace InBoardProGetData
             catch
             {
             }
-        } 
+        }
         #endregion
 
         #region GetDataFromCompanyURLWithFilter
@@ -5393,7 +5405,7 @@ namespace InBoardProGetData
 
                         #region CompanyName
                         try
-                         {
+                        {
                             CompanyName = LinkPagesource.Substring(LinkPagesource.IndexOf("class=\"company-name\">"), (LinkPagesource.IndexOf("</h1>", LinkPagesource.IndexOf("class=\"company-name\">")) - LinkPagesource.IndexOf("class=\"company-name\">"))).Replace("class=\"company-name\">", string.Empty).Replace("<p>", string.Empty).Replace(": Overview | LinkedIn", string.Empty).Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#x113;", "e").Replace("&#39;", "'").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Trim();
 
                             if (CompanyName.Contains("&"))
@@ -5412,7 +5424,7 @@ namespace InBoardProGetData
                                 CompanyName = CompanyName.Split('&')[0];
                             }
                         }
-                        catch { } 
+                        catch { }
                         #endregion
 
                         #region CompanySize
@@ -5466,7 +5478,7 @@ namespace InBoardProGetData
                                 catch { }
                             }
 
-                           
+
                         }
                         catch { }
 
@@ -5489,7 +5501,7 @@ namespace InBoardProGetData
                         catch { }
 
                         #endregion
-                     
+
                         #region Industry
                         try
                         {
@@ -5581,18 +5593,18 @@ namespace InBoardProGetData
                         #region CompanyDesciption
                         try
                         {
-                            
-                          //  CompanyDesciption = LinkPagesource.Substring(LinkPagesource.IndexOf("<div class=\"text-logo\">"), (LinkPagesource.IndexOf("</p>", LinkPagesource.IndexOf("<div class=\"text-logo\">")) - LinkPagesource.IndexOf("<div class=\"text-logo\">"))).Replace("<div class=\"text-logo\">", string.Empty).Replace("<p>", string.Empty).Replace("<br>", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty).Replace("\r", string.Empty).Replace(",", ";").Replace("&quot;","''").Replace("amp;",string.Empty).Replace("&#x2019;","'").Trim();
+
+                            //  CompanyDesciption = LinkPagesource.Substring(LinkPagesource.IndexOf("<div class=\"text-logo\">"), (LinkPagesource.IndexOf("</p>", LinkPagesource.IndexOf("<div class=\"text-logo\">")) - LinkPagesource.IndexOf("<div class=\"text-logo\">"))).Replace("<div class=\"text-logo\">", string.Empty).Replace("<p>", string.Empty).Replace("<br>", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty).Replace("\r", string.Empty).Replace(",", ";").Replace("&quot;","''").Replace("amp;",string.Empty).Replace("&#x2019;","'").Trim();
                             CompanyDesciption = LinkPagesource.Substring(LinkPagesource.IndexOf("<div class=\"text-logo\">"), (LinkPagesource.IndexOf("</p>", LinkPagesource.IndexOf("<div class=\"text-logo\">")) - LinkPagesource.IndexOf("<div class=\"text-logo\">"))).Replace("<div class=\"text-logo\">", string.Empty).Replace("<p>", string.Empty).Replace("<br>", string.Empty).Replace("\n", string.Empty).Replace("\t", string.Empty).Replace("\r", string.Empty).Replace(",", ";").Replace("&quot;", "''").Replace("&#x2014;", "-").Replace("&#x201c;", "\"").Replace("&#x201d;", "\"").Replace("&#x2019;", "'").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("&#x2018;", "'").Replace("&#x113;", "ē").Replace("&#x2022;", "•").Replace("&#x2122;", "").Replace("&#x20ac;", "").Replace("&#xa9;", "").Replace("&#xae;", "")
                                                    .Replace("&#x2019;", "'").Replace("&#x2013;", "-").Replace("&#39;", "'").Replace("&#x", "-").Replace("amp;", string.Empty).Trim();
                         }
-                        catch { } 
+                        catch { }
                         #endregion
 
                         #region Specialties
                         try
                         {
-                           Specialties = LinkPagesource.Substring(LinkPagesource.IndexOf("<h3>Specialties</h3>"), (LinkPagesource.IndexOf("</p>", LinkPagesource.IndexOf("<h3>Specialties</h3>")) - LinkPagesource.IndexOf("<h3>Specialties</h3>"))).Replace("<h3>Specialties</h3>", string.Empty).Replace("<p>", string.Empty).Replace("\n", string.Empty).Replace(",", ";").Replace("&quot;", "''").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("&#x2019;", "'").Replace("&#x2013;", "-").Replace("&#39;", "'").Replace("&#x", "-").Replace("amp;", string.Empty).Trim();
+                            Specialties = LinkPagesource.Substring(LinkPagesource.IndexOf("<h3>Specialties</h3>"), (LinkPagesource.IndexOf("</p>", LinkPagesource.IndexOf("<h3>Specialties</h3>")) - LinkPagesource.IndexOf("<h3>Specialties</h3>"))).Replace("<h3>Specialties</h3>", string.Empty).Replace("<p>", string.Empty).Replace("\n", string.Empty).Replace(",", ";").Replace("&quot;", "''").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("&#x2019;", "'").Replace("&#x2013;", "-").Replace("&#39;", "'").Replace("&#x", "-").Replace("amp;", string.Empty).Trim();
                         }
                         catch { }
 
@@ -5655,7 +5667,7 @@ namespace InBoardProGetData
                                     try
                                     {
                                         //State = add.Substring(add.IndexOf("\"region\" title=\""), (add.IndexOf(">", add.IndexOf("\"region\" title=\"")) - add.IndexOf("\"region\" title=\""))).Replace("\"region\" title=\"", string.Empty).Replace("\"", string.Empty).Replace(",", ";").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Trim();
-                                        State = add.Substring(add.IndexOf("\"addressRegion\">"), (add.IndexOf("<span", add.IndexOf("\"addressRegion\">")) - add.IndexOf("\"addressRegion\">"))).Replace("\"addressRegion\">", string.Empty).Replace("\"", string.Empty).Replace(",", ";").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("</abbr>",string.Empty).Trim();
+                                        State = add.Substring(add.IndexOf("\"addressRegion\">"), (add.IndexOf("<span", add.IndexOf("\"addressRegion\">")) - add.IndexOf("\"addressRegion\">"))).Replace("\"addressRegion\">", string.Empty).Replace("\"", string.Empty).Replace(",", ";").Replace("&#xe3;", "ã").Replace("&#xe7;", "ç").Replace("&#xf4;", "ô").Replace("&#xe9;", "é").Replace("&#xba;", "º").Replace("&#xc1;", "Á").Replace("&#xb4;", "'").Replace("&#xed;", "í").Replace("&#xf5;", "õ").Replace("&#xf3;", "ó").Replace("&#xe1;", "á").Replace("&#xea;", "ê").Replace("&#xe0;", "à").Replace("&#xfc;", "ü").Replace("&#xe4;", "ä").Replace("&#xf6;", "ö").Replace("&#xfa;", "ú").Replace("&#xf4;", "ô").Replace("&#xc9;", "É").Replace("&#xe2;", "â").Replace("</abbr>", string.Empty).Trim();
                                     }
                                     catch { }
                                 }
@@ -5685,7 +5697,7 @@ namespace InBoardProGetData
 
 
                         }
-                        catch { } 
+                        catch { }
                         #endregion
 
                         #region Csv Writing
@@ -5695,14 +5707,14 @@ namespace InBoardProGetData
                             //string CSV_Content = CompanyName.Replace(",", ";") + "," + item.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + CompanyDesciption.Replace(",", ";") + "," + Specialties.Replace(",", ";") + "," + Address.Replace(",", ";") + "," + CompanySize.Replace(",", ";") + "," + Website.Replace(",", ";") + "," + Founded.Replace(",", ";") + "," + DateTime.Now.ToString() + "," + SearchCriteria.LoginID;
 
                             string CSVHeader = "Company Name" + "," + "Company link" + "," + "Industry" + "," + "Country" + "," + "State" + "," + "City" + "," + "ZipCode" + "," + "Street" + "," + "CompanyDescription" + "," + "Specialties" + "," + "Company Size" + "," + "CORP Web Link" + "," + "Company Founded" + "," + "DateTime of Crawl" + "," + "LinkedInLoginID";
-                        //  System.IO.StreamReader CSV_Content = new System.IO.StreamReader();
+                            //  System.IO.StreamReader CSV_Content = new System.IO.StreamReader();
                             string CSV_Content = (CompanyName.Replace(",", ";") + "," + item.Replace(",", ";") + "," + Industry.Replace(",", ";") + "," + Country.Replace(",", ";") + "," + State.Replace(",", ";") + "," + City.Replace(";", string.Empty) + "," + Zipcode.Replace(",", ";") + "," + StreetAddr.Replace(",", ";") + "," + CompanyDesciption.Replace(",", ";") + "," + Specialties.Replace(",", ";") + "," + CompanySize.Replace(",", ";") + "," + Website.Replace(",", ";") + "," + Founded.Replace(",", ";") + "," + DateTime.Now.ToString() + "," + SearchCriteria.LoginID);
-                           
+
                             CSVUtilities.ExportDataCSVFile(CSVHeader, CSV_Content, Globals.path_LinkedinSearchByCompanyWithFilter);
                             LogScrap("[ " + DateTime.Now + " ] => [ Saved Data in csv File With UserName : " + SearchCriteria.LoginID + " and URL : " + item + " ]");
-                        } 
+                        }
                         #endregion
-                        
+
                     }
                     catch
                     {
@@ -5714,7 +5726,7 @@ namespace InBoardProGetData
             }
         }
         #endregion
-            
+
         #region Scraper for Load Profile Data "GetProfileData"
         private void GetProfileData(ref GlobusHttpHelper HttpHelper)
         {
@@ -5742,7 +5754,7 @@ namespace InBoardProGetData
             catch
             {
             }
-        } 
+        }
         #endregion
 
         #region GetProfileDataWithoutLoggingIn
@@ -5762,7 +5774,7 @@ namespace InBoardProGetData
                             CrawlingPageDataSource(item, ref HttpHelper, status);
                         }
 
-                        
+
 
                     }
                     catch
@@ -5890,7 +5902,7 @@ namespace InBoardProGetData
 
             //objSocialdata.ComapnyPhoneNumber = Phones;
             return Phones;
-        } 
+        }
         #endregion
 
         #region logger Log
@@ -5908,7 +5920,7 @@ namespace InBoardProGetData
 
             }
 
-        } 
+        }
         #endregion
 
         #region LogScrap Log
@@ -5957,6 +5969,6 @@ namespace InBoardProGetData
 
 
 
-     
+
     }
 }

@@ -222,7 +222,7 @@
             this.MaximizeBox = false;
             this.Name = "frmFriendsGroupScraper";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Friends Group Scraper";
+            this.Text = "Friends Group GetData";
             this.Load += new System.EventHandler(this.frmFriendsGroupScraper_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.frmFriendsGroupScraper_Paint);
             this.gbFriendsGroupInput.ResumeLayout(false);

@@ -316,7 +316,7 @@
             this.MaximizeBox = false;
             this.Name = "CompanyEmployeeScraper";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CompanyEmployeeScraper";
+            this.Text = "CompanyEmployeedGetData";
             this.Load += new System.EventHandler(this.CompanyEmployeeScraper_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.CompanyEmployeeScraper_Paint);
             this.grpBox_CompanySearch.ResumeLayout(false);

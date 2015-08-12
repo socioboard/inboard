@@ -88,7 +88,7 @@
             this.lblModuleAuthNote.Name = "lblModuleAuthNote";
             this.lblModuleAuthNote.Size = new System.Drawing.Size(380, 13);
             this.lblModuleAuthNote.TabIndex = 1;
-            this.lblModuleAuthNote.Text = "Note: Please contact \"facedominatorsupport\" in skype for details.";
+            this.lblModuleAuthNote.Text = "Note: Please contact \"socioboard.support\" in skype for details.";
             // 
             // ModuleAuthentication
             // 

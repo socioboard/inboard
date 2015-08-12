@@ -114,13 +114,13 @@ namespace BaseLib
                             }
 
                             //using (SQLiteDataAdapter ad = new SQLiteDataAdapter("SELECT * FROM tb_FBAccount WHERE ProxyAddress = '" + proxyAddress + "'", con))
-                            using (SQLiteDataAdapter ad = new SQLiteDataAdapter("SELECT * FROM tb_LinkedInAccount WHERE ProxyAddress = '" + proxyAddress + "' and ProxyPort = '" + proxyPort + "'", con))
+                            using (SQLiteDataAdapter ad = new SQLiteDataAdapter("SELECT * FROM tb_LinkedInAccount WHERE IPAddress = '" + proxyAddress + "' and IPPort = '" + proxyPort + "'", con))
                             {
                                 ad.Fill(ds);
                                 if (ds.Tables[0].Rows.Count == 0)
                                 {
                                     ds.Clear();
-                                    using (SQLiteDataAdapter ad1 = new SQLiteDataAdapter("SELECT * FROM tb_LinkedInAccount WHERE ProxyAddress = '" + "" + "' OR ProxyAddress = '" + null + "'", con))
+                                    using (SQLiteDataAdapter ad1 = new SQLiteDataAdapter("SELECT * FROM tb_LinkedInAccount WHERE IPAddress = '" + "" + "' OR IPAddress = '" + null + "'", con))
                                     {
                                         ad1.Fill(ds);
 
@@ -131,7 +131,7 @@ namespace BaseLib
                                         }
                                         for (int i = 0; i < count; i++)
                                         {
-                                            string UpdateQuery = "Update tb_LinkedInAccount Set ProxyAddress='" + proxyAddress + "', ProxyPort='" + proxyPort + "', ProxyUserName='" + proxyUserName + "', ProxyPassword='" + proxyPassword + "' WHERE UserName='" + ds.Tables[0].Rows[i]["UserName"].ToString() + "'";
+                                            string UpdateQuery = "Update tb_LinkedInAccount Set IPAddress='" + proxyAddress + "', IPPort='" + proxyPort + "', IPUserName='" + proxyUserName + "', IPPassword='" + proxyPassword + "' WHERE UserName='" + ds.Tables[0].Rows[i]["UserName"].ToString() + "'";
                                             DataBaseHandler.UpdateQuery(UpdateQuery, "tb_LinkedInAccount");
                                         }
                                     }

@@ -661,7 +661,7 @@ namespace InBoardPro
                                     {
                                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                                         {
-                                            string UpdateQuery = "Update tb_LinkedInAccount Set ProxyAddress='" + "" + "', ProxyPort='" + "" + "', ProxyUserName='" + "" + "', ProxyPassword='" + "" + "' WHERE UserName='" + ds.Tables[0].Rows[i]["UserName"].ToString() + "'";
+                                            string UpdateQuery = "Update tb_LinkedInAccount Set IPAddress='" + "" + "', IPPort='" + "" + "', IPUserName='" + "" + "', IPPassword='" + "" + "' WHERE UserName='" + ds.Tables[0].Rows[i]["UserName"].ToString() + "'";
                                             DataBaseHandler.UpdateQuery(UpdateQuery, "tb_LinkedInAccount");
                                         }
 

@@ -124,9 +124,6 @@
   <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\test.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="linkedin_prescrapper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\linkedin_prescraper.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="emp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\emp.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -136,14 +133,17 @@
   <data name="delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="clear_private_proxiex_from_database" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clear_private_proxiex_from_database.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\stop.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LD1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LD1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="send_update" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\send_update.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="group_update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\group_update.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="off" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\off.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,9 +160,6 @@
   <data name="add_groups1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add_groups.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AddPendingGroups" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AddPendingGroups.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="menu_captcha_setting" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu_captcha_setting.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -172,8 +169,14 @@
   <data name="menu_invite_member" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu_invite_member.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="linkedLogoHD1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\linkedLogoHD.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="create_an_open_group" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\create_an_open_group.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="create_group_New" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\create_group_New.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\on.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -192,6 +195,9 @@
   </data>
   <data name="ld_img" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ld_img.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="linkedLogoHD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\linkedLogoHD.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="captacha_submit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\captacha_submit.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -253,8 +259,8 @@
   <data name="menu_help_book-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu_help_book-icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="scrape" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\scrape.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="comment_liker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\comment_liker.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="account_creation_using_ie" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\account_creation_using_ie.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -277,8 +283,8 @@
   <data name="Menu_Accept_Invitation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Menu_Accept_Invitation.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="group_update" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\group_update.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="green_sign" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\green_sign.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="help" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\help.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -292,8 +298,11 @@
   <data name="new_search" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new_search.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Shedule For Later" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Shedule For Later.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="linkedin_getData" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\linkedin_getData.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\pause.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="msg_group_member" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\msg_group_member.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -313,14 +322,14 @@
   <data name="Add_friend" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add_friend.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Banner-728x90_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Banner-728x90_3.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="UPDATE CAMPAIGN" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UPDATE CAMPAIGN.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="menu_my_accounts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\menu_my_accounts.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="menu_Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\menu_Folder.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="scrape" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scrape.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="join_group" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\join_group.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -340,8 +349,8 @@
   <data name="Profile_Ranking" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Profile_Ranking.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="clear_private_proxiex_from_database" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\clear_private_proxiex_from_database.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Shedule For Later" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shedule For Later.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="add_profilepicture" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add_profilepicture.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -376,8 +385,8 @@
   <data name="Account_creator" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Account_creator.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\pause.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AddPendingGroups" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddPendingGroups.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="clear_proxy_setting" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clear_proxy_setting.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -400,11 +409,14 @@
   <data name="search_groups" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\search_groups.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Banner-728x90_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Banner-728x90_3.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="send_update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\send_update.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menu_features" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu_features.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="share_btns" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\share_btns.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="send_message" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\send_message.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -418,8 +430,8 @@
   <data name="inboard-logo-1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inboard-logo-1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="comment_liker" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\comment_liker.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="menu_my_accounts" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\menu_my_accounts.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="menu_exprerince" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu_exprerince.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -430,8 +442,8 @@
   <data name="InviteGroups" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\InviteGroups.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="green_sign" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\green_sign.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="menu_Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\menu_Folder.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="follow_company" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\follow_company1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -464,7 +476,7 @@
     <value>..\Resources\group_update.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="create_group_New" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\create_group_New.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="linkedLogoHD - Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\linkedLogoHD - Copy.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

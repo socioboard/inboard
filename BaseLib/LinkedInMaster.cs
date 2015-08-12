@@ -113,7 +113,11 @@ namespace BaseLib
                             int endindex = start.IndexOf("\" ");
                             string end = start.Substring(0, endindex);
                             csrfToken = end.Replace("value=\"", "").Replace("\\", "").Replace(" ", "");
-                            csrfToken = Uri.EscapeDataString(csrfToken);
+                            //csrfToken = Uri.EscapeDataString(csrfToken);
+                            if (csrfToken.Contains("https://www.linkedin.com"))
+                            {
+                                csrfToken = Utils.getBetween("@@@@@@@" + csrfToken, "@@@@@@@", "\"/></form>");
+                            }
                         }
                         else
                         {
@@ -186,11 +190,18 @@ namespace BaseLib
                         catch
                         {
                         }
+
+                    }
+                    if (string.IsNullOrEmpty(regCsrfParam))
+                    {
+                        regCsrfParam = Utils.getBetween(pageSrcLogin, "loginCsrfParam", "/>");
+                        regCsrfParam = Utils.getBetween(regCsrfParam, "value=\"", "\"");
                     }
 
                 }
                 catch { }
-                 
+
+                
                 postUrl = "https://www.linkedin.com/uas/login-submit";
                 //postdata = "isJsEnabled=true&source_app=&tryCount=&session_key=" + Uri.EscapeDataString(_Username) + "&session_password=" + _Password + "&signin=Sign%20In&session_redirect=&loginCsrfParam=" + regCsrfParam + "&csrfToken=" + csrfToken + "&sourceAlias=" + sourceAlias;
 

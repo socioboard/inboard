@@ -140,7 +140,7 @@ namespace BaseLib
             try
             {
                 string strTable = "tb_LinkedInAccount";
-                string strQuery = "UPDATE tb_LinkedInAccount SET Password='" + password + "', ProxyAddress='" + proxiaddress + "', ProxyPort='" + proxyport + "', ProxyUserName='" + proxyName + "', ProxyPassword='" + proxypassword + "' WHERE UserName='" + Usernaem + "'";
+                string strQuery = "UPDATE tb_LinkedInAccount SET Password='" + password + "', IPAddress='" + proxiaddress + "', IPPort='" + proxyport + "', IPUserName='" + proxyName + "', IPPassword='" + proxypassword + "' WHERE UserName='" + Usernaem + "'";
 
                 DataBaseHandler.UpdateQuery(strQuery, strTable);
             }

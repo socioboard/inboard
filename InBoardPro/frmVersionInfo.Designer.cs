@@ -70,7 +70,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(614, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "* If any suggestion/feedback related to LD Please contact \"facedominatorsupport\" " +
+            this.label1.Text = "* If any suggestion/feedback related to LD Please contact \"socioboard.support\" " +
                 "in skype.";
             // 
             // frmVersionInfo

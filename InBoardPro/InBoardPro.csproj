@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>inboard.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -518,6 +518,7 @@
     <None Include="Images\Account_creator.png" />
     <Content Include="Images\off.png" />
     <Content Include="Images\on.png" />
+    <Content Include="inboard.ico" />
     <Content Include="Resources\AcceptInvitation.png" />
     <Content Include="Resources\Account Verification.png" />
     <Content Include="Resources\account_creation_using_ie.png" />
@@ -595,8 +596,10 @@
     <Content Include="Resources\like.png" />
     <Content Include="Resources\likeonly.png" />
     <Content Include="Resources\linked In Scrape.jpg" />
-    <Content Include="Resources\linkedin_prescraper.png" />
+    <Content Include="Resources\linkedin_getData.png" />
     <Content Include="Resources\linkedin_search.png" />
+    <None Include="Resources\linkedLogoHD.png" />
+    <Content Include="Resources\linkedLogoHD - Copy.png" />
     <Content Include="Resources\load_accounts.png" />
     <Content Include="Resources\logo.png" />
     <Content Include="Resources\logo1.png" />
@@ -655,6 +658,7 @@
     <Content Include="Resources\send_message.png" />
     <Content Include="Resources\send_update.png" />
     <Content Include="Resources\setting.png" />
+    <Content Include="Resources\share_btns.png" />
     <Content Include="Resources\Shedule For Later.png" />
     <Content Include="Resources\SHOW-CAMPAIGN.png" />
     <Content Include="Resources\start.png" />

@@ -31,13 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label2 = new System.Windows.Forms.Label();
             this.pictureBoxLd = new System.Windows.Forms.PictureBox();
             this.pictureBoxHeader = new System.Windows.Forms.PictureBox();
             this.menuMain = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.downloadRequiredFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dBCSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blackListedUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -412,6 +410,8 @@
             this.gbComposeMsgLogger = new System.Windows.Forms.GroupBox();
             this.LstComposeMsg = new System.Windows.Forms.ListBox();
             this.gbComposeMsgToSendMsg = new System.Windows.Forms.GroupBox();
+            this.txt_search_member_for_message_sending = new System.Windows.Forms.TextBox();
+            this.chk_select_member_for_message_sending = new System.Windows.Forms.CheckBox();
             this.btnBrowseWithExcelInputCmpMsg = new System.Windows.Forms.Button();
             this.txtExcelinputpathCmpMsg = new System.Windows.Forms.TextBox();
             this.chkWithExcelInputCmpMsg = new System.Windows.Forms.CheckBox();
@@ -439,6 +439,8 @@
             this.rbchkPreventMsgHaveAllreadysentWithoutGroup = new System.Windows.Forms.RadioButton();
             this.rbPreventMsgHaveAllreadysentWithGroup = new System.Windows.Forms.RadioButton();
             this.gbGrpMesMemDetails = new System.Windows.Forms.GroupBox();
+            this.txtNoofAcctobrchecked = new System.Windows.Forms.TextBox();
+            this.label136 = new System.Windows.Forms.Label();
             this.txtExcelInputPath = new System.Windows.Forms.TextBox();
             this.btnBrowseExcelInput = new System.Windows.Forms.Button();
             this.chkWithExcelInput = new System.Windows.Forms.CheckBox();
@@ -721,7 +723,6 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(126)))), ((int)(((byte)(75)))));
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBoxLd);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBoxHeader);
             this.splitContainer1.Panel1.Controls.Add(this.menuMain);
@@ -735,23 +736,12 @@
             this.splitContainer1.SplitterDistance = 128;
             this.splitContainer1.TabIndex = 0;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Gabriola", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(63, 66);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(125, 29);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "A SocioBoard Product";
-            // 
             // pictureBoxLd
             // 
             this.pictureBoxLd.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxLd.BackgroundImage = global::InBoardPro.Properties.Resources.ld_img;
             this.pictureBoxLd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBoxLd.Location = new System.Drawing.Point(444, 61);
+            this.pictureBoxLd.Location = new System.Drawing.Point(973, 55);
             this.pictureBoxLd.Name = "pictureBoxLd";
             this.pictureBoxLd.Size = new System.Drawing.Size(248, 43);
             this.pictureBoxLd.TabIndex = 4;
@@ -761,7 +751,7 @@
             // 
             this.pictureBoxHeader.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxHeader.Image = global::InBoardPro.Properties.Resources.add_connection;
-            this.pictureBoxHeader.Location = new System.Drawing.Point(444, 12);
+            this.pictureBoxHeader.Location = new System.Drawing.Point(973, 6);
             this.pictureBoxHeader.Name = "pictureBoxHeader";
             this.pictureBoxHeader.Size = new System.Drawing.Size(248, 43);
             this.pictureBoxHeader.TabIndex = 3;
@@ -784,6 +774,7 @@
             this.menuMain.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.menuMain.Size = new System.Drawing.Size(444, 24);
             this.menuMain.TabIndex = 2;
+            this.menuMain.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuMain_ItemClicked);
             // 
             // toolStripMenuItem1
             // 
@@ -800,7 +791,6 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.downloadRequiredFilesToolStripMenuItem,
             this.dBCSettingsToolStripMenuItem,
             this.blackListedUserToolStripMenuItem});
             this.settingsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
@@ -809,26 +799,18 @@
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
-            // downloadRequiredFilesToolStripMenuItem
-            // 
-            this.downloadRequiredFilesToolStripMenuItem.Image = global::InBoardPro.Properties.Resources.menu_download;
-            this.downloadRequiredFilesToolStripMenuItem.Name = "downloadRequiredFilesToolStripMenuItem";
-            this.downloadRequiredFilesToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.downloadRequiredFilesToolStripMenuItem.Text = "Download Required Files";
-            this.downloadRequiredFilesToolStripMenuItem.Click += new System.EventHandler(this.downloadRequiredFilesToolStripMenuItem_Click);
-            // 
             // dBCSettingsToolStripMenuItem
             // 
             this.dBCSettingsToolStripMenuItem.Image = global::InBoardPro.Properties.Resources.menu_captcha_setting;
             this.dBCSettingsToolStripMenuItem.Name = "dBCSettingsToolStripMenuItem";
-            this.dBCSettingsToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.dBCSettingsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.dBCSettingsToolStripMenuItem.Text = "DBC Settings";
             this.dBCSettingsToolStripMenuItem.Click += new System.EventHandler(this.dBCSettingsToolStripMenuItem_Click);
             // 
             // blackListedUserToolStripMenuItem
             // 
             this.blackListedUserToolStripMenuItem.Name = "blackListedUserToolStripMenuItem";
-            this.blackListedUserToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.blackListedUserToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.blackListedUserToolStripMenuItem.Text = "BlackListed User";
             this.blackListedUserToolStripMenuItem.Click += new System.EventHandler(this.blackListedUserToolStripMenuItem_Click);
             // 
@@ -975,10 +957,12 @@
             // 
             // acceptToolStripMenuItem
             // 
+            this.acceptToolStripMenuItem.CheckOnClick = true;
             this.acceptToolStripMenuItem.Image = global::InBoardPro.Properties.Resources.Menu_Accept_Invitation;
             this.acceptToolStripMenuItem.Name = "acceptToolStripMenuItem";
             this.acceptToolStripMenuItem.Size = new System.Drawing.Size(337, 22);
             this.acceptToolStripMenuItem.Text = "Accept Invitations";
+            this.acceptToolStripMenuItem.Click += new System.EventHandler(this.acceptToolStripMenuItem_Click);
             // 
             // campaignToolStripMenuItem
             // 
@@ -1065,10 +1049,10 @@
             // 
             this.PictureBoxLogo.BackColor = System.Drawing.Color.Transparent;
             this.PictureBoxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.PictureBoxLogo.Image = global::InBoardPro.Properties.Resources.inboard_logo_1;
-            this.PictureBoxLogo.Location = new System.Drawing.Point(8, 6);
+            this.PictureBoxLogo.Image = global::InBoardPro.Properties.Resources.linkedLogoHD___Copy;
+            this.PictureBoxLogo.Location = new System.Drawing.Point(8, 10);
             this.PictureBoxLogo.Name = "PictureBoxLogo";
-            this.PictureBoxLogo.Size = new System.Drawing.Size(363, 72);
+            this.PictureBoxLogo.Size = new System.Drawing.Size(403, 80);
             this.PictureBoxLogo.TabIndex = 1;
             this.PictureBoxLogo.TabStop = false;
             // 
@@ -1798,6 +1782,7 @@
             this.gbOtherScpFeature.TabIndex = 127;
             this.gbOtherScpFeature.TabStop = false;
             this.gbOtherScpFeature.Text = "Other Scraper Features";
+            this.gbOtherScpFeature.Visible = false;
             // 
             // linkbtnScrapeinMultipleExcelInput
             // 
@@ -1806,10 +1791,10 @@
             this.linkbtnScrapeinMultipleExcelInput.LinkVisited = true;
             this.linkbtnScrapeinMultipleExcelInput.Location = new System.Drawing.Point(422, 27);
             this.linkbtnScrapeinMultipleExcelInput.Name = "linkbtnScrapeinMultipleExcelInput";
-            this.linkbtnScrapeinMultipleExcelInput.Size = new System.Drawing.Size(293, 13);
+            this.linkbtnScrapeinMultipleExcelInput.Size = new System.Drawing.Size(295, 13);
             this.linkbtnScrapeinMultipleExcelInput.TabIndex = 126;
             this.linkbtnScrapeinMultipleExcelInput.TabStop = true;
-            this.linkbtnScrapeinMultipleExcelInput.Text = "2. LinkedIn Scraper Using Multiple Excel Input File";
+            this.linkbtnScrapeinMultipleExcelInput.Text = "2. LinkedIn GetData Using Multiple Excel Input File";
             this.linkbtnScrapeinMultipleExcelInput.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkbtnScrapeinMultipleExcelInput_LinkClicked);
             // 
             // linkbtncompanySearch
@@ -1832,10 +1817,10 @@
             this.linkbtnScrapeinExcelInput.LinkVisited = true;
             this.linkbtnScrapeinExcelInput.Location = new System.Drawing.Point(151, 27);
             this.linkbtnScrapeinExcelInput.Name = "linkbtnScrapeinExcelInput";
-            this.linkbtnScrapeinExcelInput.Size = new System.Drawing.Size(246, 13);
+            this.linkbtnScrapeinExcelInput.Size = new System.Drawing.Size(248, 13);
             this.linkbtnScrapeinExcelInput.TabIndex = 124;
             this.linkbtnScrapeinExcelInput.TabStop = true;
-            this.linkbtnScrapeinExcelInput.Text = "1. LinkedIn Scraper Using Excel Input File";
+            this.linkbtnScrapeinExcelInput.Text = "1. LinkedIn GetData Using Excel Input File";
             this.linkbtnScrapeinExcelInput.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkbtnScrapeinExcelInput_LinkClicked);
             // 
             // groupBox27
@@ -1878,7 +1863,7 @@
             this.gbScrpWithSearchOption.Size = new System.Drawing.Size(1029, 234);
             this.gbScrpWithSearchOption.TabIndex = 0;
             this.gbScrpWithSearchOption.TabStop = false;
-            this.gbScrpWithSearchOption.Text = "Linkedin Scrapper with Search Option";
+            this.gbScrpWithSearchOption.Text = "Linkedin GetData with Search Option";
             // 
             // gbSelectionOptioninSearhScp
             // 
@@ -1904,9 +1889,9 @@
             this.chkBoxScrapeWithoutLoggingIn.AutoSize = true;
             this.chkBoxScrapeWithoutLoggingIn.Location = new System.Drawing.Point(131, 158);
             this.chkBoxScrapeWithoutLoggingIn.Name = "chkBoxScrapeWithoutLoggingIn";
-            this.chkBoxScrapeWithoutLoggingIn.Size = new System.Drawing.Size(284, 17);
+            this.chkBoxScrapeWithoutLoggingIn.Size = new System.Drawing.Size(291, 17);
             this.chkBoxScrapeWithoutLoggingIn.TabIndex = 123;
-            this.chkBoxScrapeWithoutLoggingIn.Text = "Scrape Based on Url Without Logging In";
+            this.chkBoxScrapeWithoutLoggingIn.Text = "GetData Based on Url Without Logging In";
             this.chkBoxScrapeWithoutLoggingIn.UseVisualStyleBackColor = true;
             this.chkBoxScrapeWithoutLoggingIn.Visible = false;
             this.chkBoxScrapeWithoutLoggingIn.CheckedChanged += new System.EventHandler(this.chkBoxScrapeWithoutLoggingIn_CheckedChanged);
@@ -2656,7 +2641,7 @@
             this.gbScraperInputs.Size = new System.Drawing.Size(693, 247);
             this.gbScraperInputs.TabIndex = 92;
             this.gbScraperInputs.TabStop = false;
-            this.gbScraperInputs.Text = "Linkedin Scraper Inputs";
+            this.gbScraperInputs.Text = "Linkedin GetData Inputs";
             // 
             // btnBrowseLocationArea
             // 
@@ -5382,6 +5367,8 @@
             // gbComposeMsgToSendMsg
             // 
             this.gbComposeMsgToSendMsg.BackColor = System.Drawing.Color.Transparent;
+            this.gbComposeMsgToSendMsg.Controls.Add(this.txt_search_member_for_message_sending);
+            this.gbComposeMsgToSendMsg.Controls.Add(this.chk_select_member_for_message_sending);
             this.gbComposeMsgToSendMsg.Controls.Add(this.btnBrowseWithExcelInputCmpMsg);
             this.gbComposeMsgToSendMsg.Controls.Add(this.txtExcelinputpathCmpMsg);
             this.gbComposeMsgToSendMsg.Controls.Add(this.chkWithExcelInputCmpMsg);
@@ -5403,6 +5390,26 @@
             this.gbComposeMsgToSendMsg.TabIndex = 59;
             this.gbComposeMsgToSendMsg.TabStop = false;
             this.gbComposeMsgToSendMsg.Text = "Get Members to Send Message";
+            // 
+            // txt_search_member_for_message_sending
+            // 
+            this.txt_search_member_for_message_sending.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_search_member_for_message_sending.Location = new System.Drawing.Point(9, 240);
+            this.txt_search_member_for_message_sending.Name = "txt_search_member_for_message_sending";
+            this.txt_search_member_for_message_sending.Size = new System.Drawing.Size(114, 21);
+            this.txt_search_member_for_message_sending.TabIndex = 139;
+            // 
+            // chk_select_member_for_message_sending
+            // 
+            this.chk_select_member_for_message_sending.AutoSize = true;
+            this.chk_select_member_for_message_sending.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_select_member_for_message_sending.Location = new System.Drawing.Point(9, 222);
+            this.chk_select_member_for_message_sending.Name = "chk_select_member_for_message_sending";
+            this.chk_select_member_for_message_sending.Size = new System.Drawing.Size(95, 17);
+            this.chk_select_member_for_message_sending.TabIndex = 138;
+            this.chk_select_member_for_message_sending.Text = "With Search";
+            this.chk_select_member_for_message_sending.UseVisualStyleBackColor = true;
+            this.chk_select_member_for_message_sending.CheckedChanged += new System.EventHandler(this.chk_select_member_for_message_sending_CheckedChanged);
             // 
             // btnBrowseWithExcelInputCmpMsg
             // 
@@ -5720,6 +5727,8 @@
             // 
             // gbGrpMesMemDetails
             // 
+            this.gbGrpMesMemDetails.Controls.Add(this.txtNoofAcctobrchecked);
+            this.gbGrpMesMemDetails.Controls.Add(this.label136);
             this.gbGrpMesMemDetails.Controls.Add(this.txtExcelInputPath);
             this.gbGrpMesMemDetails.Controls.Add(this.btnBrowseExcelInput);
             this.gbGrpMesMemDetails.Controls.Add(this.chkWithExcelInput);
@@ -5743,11 +5752,27 @@
             this.gbGrpMesMemDetails.TabStop = false;
             this.gbGrpMesMemDetails.Text = "Group Members Detail";
             // 
+            // txtNoofAcctobrchecked
+            // 
+            this.txtNoofAcctobrchecked.Location = new System.Drawing.Point(21, 185);
+            this.txtNoofAcctobrchecked.Name = "txtNoofAcctobrchecked";
+            this.txtNoofAcctobrchecked.Size = new System.Drawing.Size(71, 21);
+            this.txtNoofAcctobrchecked.TabIndex = 141;
+            // 
+            // label136
+            // 
+            this.label136.AutoSize = true;
+            this.label136.Location = new System.Drawing.Point(19, 166);
+            this.label136.Name = "label136";
+            this.label136.Size = new System.Drawing.Size(63, 13);
+            this.label136.TabIndex = 140;
+            this.label136.Text = "Enter No";
+            // 
             // txtExcelInputPath
             // 
             this.txtExcelInputPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtExcelInputPath.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtExcelInputPath.Location = new System.Drawing.Point(15, 129);
+            this.txtExcelInputPath.Location = new System.Drawing.Point(15, 114);
             this.txtExcelInputPath.Name = "txtExcelInputPath";
             this.txtExcelInputPath.Size = new System.Drawing.Size(130, 21);
             this.txtExcelInputPath.TabIndex = 137;
@@ -5761,7 +5786,7 @@
             this.btnBrowseExcelInput.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBrowseExcelInput.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnBrowseExcelInput.ForeColor = System.Drawing.Color.Black;
-            this.btnBrowseExcelInput.Location = new System.Drawing.Point(15, 153);
+            this.btnBrowseExcelInput.Location = new System.Drawing.Point(15, 136);
             this.btnBrowseExcelInput.Name = "btnBrowseExcelInput";
             this.btnBrowseExcelInput.Size = new System.Drawing.Size(77, 27);
             this.btnBrowseExcelInput.TabIndex = 136;
@@ -5773,7 +5798,7 @@
             // 
             this.chkWithExcelInput.AutoSize = true;
             this.chkWithExcelInput.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkWithExcelInput.Location = new System.Drawing.Point(15, 107);
+            this.chkWithExcelInput.Location = new System.Drawing.Point(15, 92);
             this.chkWithExcelInput.Name = "chkWithExcelInput";
             this.chkWithExcelInput.Size = new System.Drawing.Size(119, 17);
             this.chkWithExcelInput.TabIndex = 135;
@@ -5819,7 +5844,7 @@
             // 
             this.chkWithCsv.AutoSize = true;
             this.chkWithCsv.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkWithCsv.Location = new System.Drawing.Point(65, 228);
+            this.chkWithCsv.Location = new System.Drawing.Point(65, 231);
             this.chkWithCsv.Name = "chkWithCsv";
             this.chkWithCsv.Size = new System.Drawing.Size(80, 17);
             this.chkWithCsv.TabIndex = 127;
@@ -5839,6 +5864,7 @@
             this.linkbtnScrapGroupMem.TabIndex = 126;
             this.linkbtnScrapGroupMem.TabStop = true;
             this.linkbtnScrapGroupMem.Text = "Scrape Group Members (New Feature)";
+            this.linkbtnScrapGroupMem.Visible = false;
             this.linkbtnScrapGroupMem.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkbtnScrapGroupMem_LinkClicked);
             // 
             // chk3rdConn
@@ -5858,7 +5884,7 @@
             this.lblTotMemList.AutoSize = true;
             this.lblTotMemList.BackColor = System.Drawing.Color.Transparent;
             this.lblTotMemList.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotMemList.Location = new System.Drawing.Point(75, 202);
+            this.lblTotMemList.Location = new System.Drawing.Point(99, 207);
             this.lblTotMemList.Name = "lblTotMemList";
             this.lblTotMemList.Size = new System.Drawing.Size(24, 13);
             this.lblTotMemList.TabIndex = 128;
@@ -6416,7 +6442,7 @@
             this.tabProxySetting.Padding = new System.Windows.Forms.Padding(3);
             this.tabProxySetting.Size = new System.Drawing.Size(1744, 556);
             this.tabProxySetting.TabIndex = 22;
-            this.tabProxySetting.Text = "Proxy Setting";
+            this.tabProxySetting.Text = "IP Setting";
             this.tabProxySetting.Paint += new System.Windows.Forms.PaintEventHandler(this.tabProxySetting_Paint);
             // 
             // gbAccountsProxy
@@ -6432,7 +6458,7 @@
             this.gbAccountsProxy.Size = new System.Drawing.Size(1034, 70);
             this.gbAccountsProxy.TabIndex = 85;
             this.gbAccountsProxy.TabStop = false;
-            this.gbAccountsProxy.Text = "Accounts/Proxy (For Public and Private)";
+            this.gbAccountsProxy.Text = "Accounts/IP (For Public and Private)";
             // 
             // label74
             // 
@@ -6442,9 +6468,9 @@
             this.label74.ForeColor = System.Drawing.Color.Black;
             this.label74.Location = new System.Drawing.Point(486, 35);
             this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(365, 13);
+            this.label74.Size = new System.Drawing.Size(320, 13);
             this.label74.TabIndex = 56;
-            this.label74.Text = "NOTE : Accounts Per Proxy For both Public and Private Proxies";
+            this.label74.Text = "NOTE : Accounts Per IP For both Public and Private IPs";
             // 
             // lblRequestThreads
             // 
@@ -6454,9 +6480,9 @@
             this.lblRequestThreads.ForeColor = System.Drawing.Color.Black;
             this.lblRequestThreads.Location = new System.Drawing.Point(133, 35);
             this.lblRequestThreads.Name = "lblRequestThreads";
-            this.lblRequestThreads.Size = new System.Drawing.Size(162, 13);
+            this.lblRequestThreads.Size = new System.Drawing.Size(141, 13);
             this.lblRequestThreads.TabIndex = 55;
-            this.lblRequestThreads.Text = "No. Of accounts per proxy:";
+            this.lblRequestThreads.Text = "No. Of accounts per IP:";
             // 
             // txtAccountsPerProxy
             // 
@@ -6494,7 +6520,7 @@
             this.gbPrivateProxy.Size = new System.Drawing.Size(1030, 136);
             this.gbPrivateProxy.TabIndex = 83;
             this.gbPrivateProxy.TabStop = false;
-            this.gbPrivateProxy.Text = "Private Proxy";
+            this.gbPrivateProxy.Text = "Private IP";
             // 
             // btnStopPrivateProxy
             // 
@@ -6529,9 +6555,9 @@
             this.label58.ForeColor = System.Drawing.Color.Black;
             this.label58.Location = new System.Drawing.Point(285, 116);
             this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(327, 13);
+            this.label58.Size = new System.Drawing.Size(303, 13);
             this.label58.TabIndex = 58;
-            this.label58.Text = "NOTE: Clear Proxies From DataBase Not From Accounts";
+            this.label58.Text = "NOTE: Clear IPs From DataBase Not From Accounts";
             this.label58.UseWaitCursor = true;
             // 
             // btnClearPrivateProxies
@@ -6632,9 +6658,9 @@
             this.label41.ForeColor = System.Drawing.Color.Black;
             this.label41.Location = new System.Drawing.Point(6, 35);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(112, 13);
+            this.label41.Size = new System.Drawing.Size(91, 13);
             this.label41.TabIndex = 2;
-            this.label41.Text = "Private Proxy File:";
+            this.label41.Text = "Private IP File:";
             this.label41.UseWaitCursor = true;
             // 
             // label42
@@ -6645,9 +6671,9 @@
             this.label42.ForeColor = System.Drawing.Color.Black;
             this.label42.Location = new System.Drawing.Point(128, 58);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(269, 13);
+            this.label42.Size = new System.Drawing.Size(227, 13);
             this.label42.TabIndex = 1;
-            this.label42.Text = "ProxyAddress:ProxyPort:Username:Password";
+            this.label42.Text = "IPAddress:IPPort:Username:Password";
             this.label42.UseWaitCursor = true;
             this.label42.Visible = false;
             // 
@@ -6694,9 +6720,9 @@
             this.lbltotalworkingproxies.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.lbltotalworkingproxies.Location = new System.Drawing.Point(6, 130);
             this.lbltotalworkingproxies.Name = "lbltotalworkingproxies";
-            this.lbltotalworkingproxies.Size = new System.Drawing.Size(145, 13);
+            this.lbltotalworkingproxies.Size = new System.Drawing.Size(121, 13);
             this.lbltotalworkingproxies.TabIndex = 70;
-            this.lbltotalworkingproxies.Text = "Total Working Proxies : ";
+            this.lbltotalworkingproxies.Text = "Total Working IPs : ";
             this.lbltotalworkingproxies.UseWaitCursor = true;
             // 
             // gbPublicProxy
@@ -6719,7 +6745,7 @@
             this.gbPublicProxy.Size = new System.Drawing.Size(1029, 143);
             this.gbPublicProxy.TabIndex = 1;
             this.gbPublicProxy.TabStop = false;
-            this.gbPublicProxy.Text = "Public Proxy";
+            this.gbPublicProxy.Text = "Public IP";
             // 
             // btnStopPublicProxy
             // 
@@ -6770,9 +6796,9 @@
             this.label46.ForeColor = System.Drawing.Color.Black;
             this.label46.Location = new System.Drawing.Point(136, 61);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(192, 13);
+            this.label46.Size = new System.Drawing.Size(171, 13);
             this.label46.TabIndex = 78;
-            this.label46.Text = "No. Of Proxy Checking Threads:";
+            this.label46.Text = "No. Of IP Checking Threads:";
             this.label46.UseWaitCursor = true;
             // 
             // txtNumberOfProxyThreads
@@ -6848,9 +6874,9 @@
             this.label34.ForeColor = System.Drawing.Color.Black;
             this.label34.Location = new System.Drawing.Point(6, 32);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(105, 13);
+            this.label34.Size = new System.Drawing.Size(84, 13);
             this.label34.TabIndex = 0;
-            this.label34.Text = "Public Proxy File:";
+            this.label34.Text = "Public IP File:";
             this.label34.UseWaitCursor = true;
             // 
             // tabEndorse
@@ -7331,6 +7357,7 @@
             this.grpUrlJobScraper.TabIndex = 119;
             this.grpUrlJobScraper.TabStop = false;
             this.grpUrlJobScraper.Text = "Job Scraper ";
+            this.grpUrlJobScraper.Visible = false;
             // 
             // label130
             // 
@@ -7375,6 +7402,7 @@
             this.grpJobScraper.TabIndex = 118;
             this.grpJobScraper.TabStop = false;
             this.grpJobScraper.Text = "Job Scraper Submit Action";
+            this.grpJobScraper.Visible = false;
             // 
             // btnJobScraperStart
             // 
@@ -7944,7 +7972,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.MenuStrip menuMain;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.PictureBox pictureBoxLd;
         private System.Windows.Forms.PictureBox pictureBoxHeader;
         private System.Windows.Forms.TextBox txtBoxGroupCount;
         private System.Windows.Forms.Label label50;
@@ -8112,7 +8139,6 @@
         private System.Windows.Forms.Label label75;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItemAccountCreator;
-        private System.Windows.Forms.ToolStripMenuItem downloadRequiredFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dBCSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem accountVerificationToolStripMenuItem;
         private System.Windows.Forms.GroupBox gbGroupMesSetting;
@@ -8386,7 +8412,11 @@
         private System.Windows.Forms.GroupBox grpJobScraper;
         private System.Windows.Forms.Button btnJobScraperStart;
         private System.Windows.Forms.Button btnJobScraperStop;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBoxLd;
+        private System.Windows.Forms.TextBox txt_search_member_for_message_sending;
+        private System.Windows.Forms.CheckBox chk_select_member_for_message_sending;
+        private System.Windows.Forms.TextBox txtNoofAcctobrchecked;
+        private System.Windows.Forms.Label label136;
     }
 }
 

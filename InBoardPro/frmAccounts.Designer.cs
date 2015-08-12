@@ -177,9 +177,9 @@
             this.lblRequestThreads.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRequestThreads.Location = new System.Drawing.Point(12, 305);
             this.lblRequestThreads.Name = "lblRequestThreads";
-            this.lblRequestThreads.Size = new System.Drawing.Size(157, 13);
+            this.lblRequestThreads.Size = new System.Drawing.Size(136, 13);
             this.lblRequestThreads.TabIndex = 55;
-            this.lblRequestThreads.Text = "No. Of accounts per proxy";
+            this.lblRequestThreads.Text = "No. Of accounts per IP";
             // 
             // btnAssignProxy
             // 

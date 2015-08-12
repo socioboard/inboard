@@ -308,7 +308,7 @@ namespace InBoardPro
             {
                 frmCampaignScraper.CampaignStopLogevents.addToLogger += new EventHandler(CampaignnameLog);
                 GroupStatus.loggerFriendsGroup.addToLogger += new EventHandler(loggerGroupStatusEvent);
-                CheckVersion();
+                //CheckVersion();
                 CopyFolder();
                 CopyDatabase();
 
@@ -440,7 +440,7 @@ namespace InBoardPro
 
         #endregion
 
-
+       
         #region check version
 
         #region Checking OS
@@ -7480,6 +7480,14 @@ namespace InBoardPro
                         cmbMsgFrom.Items.Clear();
                         btnMsgFrom.Cursor = Cursors.AppStarting;
 
+                        try
+                        {
+                            GroupStatus.checkKeywordSearch = chk_select_member_for_message_sending.Checked;
+                            GroupStatus.searchKeyword = txt_search_member_for_message_sending.Text;
+                        }
+                        catch { };
+
+
                         new Thread(() =>
                         {
                             LinkdinAddFromID();
@@ -7504,6 +7512,7 @@ namespace InBoardPro
                 AddLoggerComposeMessage("[ " + DateTime.Now + " ] => [ Your Internet Connection is disabled ! or not working, Please Check Your Internet Connection... ]");
             }
         }
+
 
         #endregion
 
@@ -7541,7 +7550,9 @@ namespace InBoardPro
 
                             ThreadPool.QueueUserWorkItem(new WaitCallback(StartDMMultiThreadedComposeMessage), new object[] { item });
 
-                            Thread.Sleep(2*1000);
+                            // StartDMMultiThreadedComposeMessage( new object[] { item });
+
+                            Thread.Sleep(1000);
                         }
                         catch (Exception ex)
                         {
@@ -7560,6 +7571,7 @@ namespace InBoardPro
             {
             }
         }
+
 
         #endregion
 
@@ -7633,7 +7645,7 @@ namespace InBoardPro
                             chkMessageTo.Invoke(new MethodInvoker(delegate
                             {
                                 chkMessageTo.Items.Clear();
-                                MessageContacts.Clear();
+                                //MessageContacts.Clear();
                             }));
 
                             Dictionary<string, string> Result = MemberScrape.PostaddMembersWithExcelInput(ref HttpHelper, Login.accountUser);
@@ -7644,7 +7656,7 @@ namespace InBoardPro
                             chkMessageTo.Invoke(new MethodInvoker(delegate
                             {
                                 chkMessageTo.Items.Clear();
-                                MessageContacts.Clear();
+                                //MessageContacts.Clear();
                             }));
 
                             GroupStatus.moduleLog = "composemsg";
@@ -11519,11 +11531,11 @@ namespace InBoardPro
         private void tabMai_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            //if (tabMain.SelectedTab.Name == "tabPageAccountCreator")
-            //{
-            //    GroupStatus.ManageTabGroupStatus = false;
-            //    pictureBoxHeader.Image = InBoardPro.Properties.Resources.Account_creator;
-            //}
+            if (tabMain.SelectedTab.Name == "LinkedinSearchScp")
+            {
+              //  GroupStatus.ManageTabGroupStatus = false;
+                pictureBoxHeader.Image = InBoardPro.Properties.Resources.linkedin_search;
+            }
             if (tabMain.SelectedTab.Name == "LinkedinSearch")
             {
                 try
@@ -11543,11 +11555,11 @@ namespace InBoardPro
                 catch
                 {
                 }
-            }
+            }            
             else if (tabMain.SelectedTab.Name == "LinkedInpreScraper")
             {
                 GroupStatus.ManageTabGroupStatus = false;
-                pictureBoxHeader.Image = Properties.Resources.linkedin_prescrapper;
+                pictureBoxHeader.Image = Properties.Resources.linkedin_getData;
 
                 Thread obj_BindData_LinkedinSearch_cmbEmailId = new Thread(BindData_LinkedinSearch_cmbEmailId);
                 obj_BindData_LinkedinSearch_cmbEmailId.Start(new object[] { "LinkedInpreScraper", comboBoxemail });
@@ -11555,7 +11567,6 @@ namespace InBoardPro
 
                 if (SearchCriteria.loginREsponce.Contains("premium-member"))
                 {
-
                     txtScraperMinDelay.Visible = true;
                     checkedListBoxFortune1000.Enabled = true;
                     checkedListBoxCompanySize.Enabled = true;
@@ -11564,9 +11575,28 @@ namespace InBoardPro
                     checkedListBoxRecentlyJoined.Enabled = true;
                     GetDataForPrimiumAccount.Enabled = true;
                     checkedListFunction.Enabled = true;
-
                 }
+            }
+            else if (tabMain.SelectedTab.Name == "LinkedInpreScraper")
+            {
+                GroupStatus.ManageTabGroupStatus = false;
+                pictureBoxHeader.Image = Properties.Resources.linkedin_getData;
 
+                Thread obj_BindData_LinkedinSearch_cmbEmailId = new Thread(BindData_LinkedinSearch_cmbEmailId);
+                obj_BindData_LinkedinSearch_cmbEmailId.Start(new object[] { "LinkedInpreScraper", comboBoxemail });
+
+
+                if (SearchCriteria.loginREsponce.Contains("premium-member"))
+                {
+                    txtScraperMinDelay.Visible = true;
+                    checkedListBoxFortune1000.Enabled = true;
+                    checkedListBoxCompanySize.Enabled = true;
+                    checkedListBoxInterestedIN.Enabled = true;
+                    checkedListBoxSeniorlevel.Enabled = true;
+                    checkedListBoxRecentlyJoined.Enabled = true;
+                    GetDataForPrimiumAccount.Enabled = true;
+                    checkedListFunction.Enabled = true;
+                }
             }
             else if (tabMain.SelectedTab.Name == "tabViewProfileRank")
             {
@@ -11580,7 +11610,7 @@ namespace InBoardPro
             else if (tabMain.SelectedTab.Name == "tabShare")
             {
                 GroupStatus.ManageTabGroupStatus = false;
-                //pictureBoxHeader.Image = Properties.Resources.Share_Link;
+                pictureBoxHeader.Image = Properties.Resources.share_btns;
 
                 Thread obj_BindData_LinkedinSearch_cmbEmailId = new Thread(BindData_LinkedinSearch_cmbEmailId);
                 obj_BindData_LinkedinSearch_cmbEmailId.Start(new object[] { "LinkedInpreScraper", cmbSelAccountShare });
@@ -12325,6 +12355,22 @@ namespace InBoardPro
 
         private void btnAddMember_Click(object sender, EventArgs e)
         {
+
+
+            if (!string.IsNullOrEmpty(txtNoofAcctobrchecked.Text))
+            {
+                try
+                {
+                    string str = txtNoofAcctobrchecked.Text;
+                    int i = Convert.ToInt32(str);
+                    Globals.no_of_accounts_to_be_checked = i;
+                }
+                catch
+                {
+                }
+            }
+
+
             CheckNetConn = System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
 
             if (CheckNetConn)
@@ -12593,16 +12639,28 @@ namespace InBoardPro
                         }
 
 
-
                         if (chkListGroupMembers.InvokeRequired)
                         {
                             new Thread(() =>
                             {
                                 chkListGroupMembers.Invoke(new MethodInvoker(delegate
                                 {
+                                    int count = 0;
+                                    // Globals.no_of_accounts_to_be_checked;
+
                                     foreach (var itemM in GroupMemData)
                                     {
-                                        chkListGroupMembers.Items.Add(itemM.Value);
+
+                                        if (count < Globals.no_of_accounts_to_be_checked)
+                                        {
+                                            chkListGroupMembers.Items.Add(itemM.Value, true);
+                                            count++;
+                                        }
+                                        else
+                                        {
+                                            chkListGroupMembers.Items.Add(itemM.Value, false);
+
+                                        }
                                     }
                                 }));
                             }).Start();
@@ -12979,9 +13037,13 @@ namespace InBoardPro
 
                         if (chkUseSpintax_GroupMessage.Checked)
                         {
+                            string MemSubjectSpintxt = GlobusSpinHelper.spinLargeText(new Random(), txtBody.Text);
+
                             msg_spintaxt = true;
                             GrpMemSubjectlist = SpinnedListGenerator.GetSpinnedList(new List<string> { txtSubject.Text });
                             GrpMemMessagelist = SpinnedListGenerator.GetSpinnedList(new List<string> { txtBody.Text });
+
+                            string value = MemSubjectSpintxt;
                         }
                         else
                         {
@@ -13024,6 +13086,7 @@ namespace InBoardPro
                 AddLoggerGroupMemMessage("[ " + DateTime.Now + " ] => [ Your Internet Connection is disabled ! or not working, Please Check Your Internet Connection... ]");
             }
         }
+
 
         #endregion
 
@@ -13257,6 +13320,7 @@ namespace InBoardPro
             }
         }
 
+
         #endregion
 
         #region PostFinalMsgGroupMember
@@ -13430,7 +13494,7 @@ namespace InBoardPro
         #region frmMain_FormClosing
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult dialogresult = MessageBox.Show("Sure you want to exit LinkedDominator App !", "LinkedDominator", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult dialogresult = MessageBox.Show("Sure you want to exit InboardPro App !", "InboardPro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (dialogresult == DialogResult.Yes)
             {
@@ -13441,7 +13505,7 @@ namespace InBoardPro
                     {
                         try
                         {
-                            if (item.ProcessName.Contains("LD_LicensingManager"))
+                            if (item.ProcessName.Contains("InboardPro_LicensingManager"))
                             {
                                 item.Kill();
                             }
@@ -13460,7 +13524,7 @@ namespace InBoardPro
                     {
                         try
                         {
-                            if (item.ProcessName.Contains("LD_LicensingManager"))
+                            if (item.ProcessName.Contains("InboardPro_LicensingManager"))
                             {
                                 item.Kill();
                             }
@@ -15556,7 +15620,8 @@ namespace InBoardPro
         #region acceptToolStripMenuItem_Click
         private void acceptToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FrmAcceptInvitations Obj_AcceptInvitations = new FrmAcceptInvitations();
+            Obj_AcceptInvitations.Show();
         }
         #endregion
 
@@ -17138,6 +17203,23 @@ namespace InBoardPro
         {
 
         }
+
+        #region clearToolStripMenuItem_Click
+        private void clearToolStripMenuItemAccountCreator_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //lstBoxAccountsLogs.Items.Clear();
+                FrmAcceptInvitations objformAcceptinvitation = new FrmAcceptInvitations();
+                objformAcceptinvitation.Show();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error >>> " + ex.StackTrace);
+            }
+        }
+        #endregion
 
         private void chkWithExcelInputCmpMsg_CheckedChanged(object sender, EventArgs e)
         {
@@ -19046,6 +19128,24 @@ namespace InBoardPro
             catch (Exception ex)
             {
             }
+        }
+
+        private void chk_select_member_for_message_sending_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_select_member_for_message_sending.Checked == true)
+            {
+                Globals.is_Searched_Compose_msg = true;
+                txt_search_member_for_message_sending.Visible = true;
+            }
+            else
+            {
+                txt_search_member_for_message_sending.Visible = false;
+            }
+        }
+
+        private void menuMain_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
 
         

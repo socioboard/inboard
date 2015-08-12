@@ -40,7 +40,7 @@ namespace InBoardPro
             {
                 //("[ " + DateTime.Now + " ] => [ Select The Email Id From The Dropdown and Fill All Mandatory (*) Fields ]");
                 Pagination(ref objHttpHelper, mainUrl);
-                ScrapeProfileDetails(ref objHttpHelper);
+                //ScrapeProfileDetails(ref objHttpHelper);
                 try
                 {
                     string[] profileUrls = lstProfileUrls.ToArray();
@@ -48,12 +48,12 @@ namespace InBoardPro
                 }
                 catch
                 { }
-            } 
+            }
             catch
             { }
         }
 
-        public void Pagination(ref GlobusHttpHelper objHttpHelper,string mainUrl)
+        public void Pagination(ref GlobusHttpHelper objHttpHelper, string mainUrl)
         {
             try
             {
@@ -64,13 +64,23 @@ namespace InBoardPro
                 do
                 {
                     //mainUrl = mainUrl.Replace("replaceVariableCounter", paginationCounter.ToString());
-                    
+
                     if (SalesNavigatorGlobals.isStop)
                     {
                         return;
                     }
-                    mainPageResponse = objHttpHelper.getHtmlfromUrl(new Uri(mainUrl.Replace("replaceVariableCounter", paginationCounter.ToString())));                  
-                    
+
+                    ///string hoMEuRL = "https://www.linkedin.com/sales/search/?facet=N&facet.N=O&facet=G&facet.G=in:7350&facet=I&facet.I=96&facet=FA&facet.FA=12&defaultSelection=false&start=0&count=10&searchHistoryId=1540160093&keywords=ITIL&trk=lss-search-tab";
+
+                    mainPageResponse = objHttpHelper.getHtmlfromUrl(new Uri(mainUrl.Replace("replaceVariableCounter", paginationCounter.ToString())));
+
+                    //if (mainPageResponse.Contains("We'll be back soon.")&&(mainPageResponse.Contains("We're getting things cleaned up.")))
+                    //{
+                    //    string unwatedStr = "https://www.linkedin.com/sales/search/?facet=N&facet.N=O&facet=G&facet.G=in:7350&facet=I&facet.I=96&facet=FA&facet.FA=12&defaultSelection=false&start=0&count=10&searchHistoryId=1540160093&keywords="+""+"&trk=lss-search-tab";// "&countryCode=" + Utils.getBetween(mainUrl, "&countryCode=", "&");
+                    //    mainPageResponse = objHttpHelper.getHtmlfromUrl(new Uri(mainUrl.Replace(unwatedStr, paginationCounter.ToString())));
+                    //}
+
+
                     if (string.IsNullOrEmpty(mainPageResponse))
                     {
                         if (string.IsNullOrEmpty(mainPageResponse))
@@ -80,7 +90,7 @@ namespace InBoardPro
                         }
                         Thread.Sleep(2000);
                         mainPageResponse = objHttpHelper.getHtmlfromUrl(new Uri(mainUrl.Replace("replaceVariableCounter", paginationCounter.ToString())));
-                        
+
                     }
                     try
                     {
@@ -96,6 +106,7 @@ namespace InBoardPro
                     { }
                     int checkCountUrls = 0;
                     string[] profileUrl_Split = Regex.Split(mainPageResponse, "\"profileUrl\"");
+                    List<string> ProfileList = new List<string>();
                     foreach (string profileUrlItem in profileUrl_Split)
                     {
                         if (!profileUrlItem.Contains("<!DOCTYPE"))
@@ -103,12 +114,14 @@ namespace InBoardPro
                             checkCountUrls++;
                             string profileUrl = Utils.getBetween(profileUrlItem, ":\"", "\",\"");
                             lstProfileUrls.Add(profileUrl);
-                            AddToLogger("[ " + DateTime.Now + " ] => [ Scraped Url : " + profileUrl +" ] ");
-                            
-                        }                        
+                            AddToLogger("[ " + DateTime.Now + " ] => [ Scraped Url : " + profileUrl + " ] ");
+                            ProfileList.Add(profileUrl);
+
+                        }
                     }
-                    
-                    paginationCounter = paginationCounter + 100; 
+                    Thread.Sleep(1000);
+                    ScrapeProfileDetails(ref objHttpHelper, ProfileList);
+                    paginationCounter = paginationCounter + 100;
                 } while (mainPageResponse.Contains("\"profileUrl\":\""));
             }
             catch (Exception ex)
@@ -116,10 +129,11 @@ namespace InBoardPro
             }
         }
 
-        public void ScrapeProfileDetails(ref GlobusHttpHelper objHttpHelper)
+        public void ScrapeProfileDetails(ref GlobusHttpHelper objHttpHelper, List<string> ProfileUrls)
         {
-            
-            foreach (string profileURL in lstProfileUrls)
+
+
+            foreach (string profileURL in ProfileUrls)
             {
                 string name = string.Empty;
                 string memberID = string.Empty;
@@ -247,6 +261,7 @@ namespace InBoardPro
                 catch (Exception ex)
                 {
                 }
+                lstProfileUrls.Remove(profileURL);
 
                 WriteDataToCSV(name, profileURL, memberID, connection, location, industry, headlineTitle, currentTitle, pastTitles, currentCompany, pastCompanies, skills, numberOfConnections, education, email, phoneNumber);
             }
@@ -453,7 +468,7 @@ namespace InBoardPro
             string skills = string.Empty;
             try
             {
-                 skills = Utils.getBetween(source, "skills\":[\"", "\"],").Replace("\",\"", ":");
+                skills = Utils.getBetween(source, "skills\":[\"", "\"],").Replace("\",\"", ":");
             }
             catch (Exception ex)
             {
@@ -548,8 +563,8 @@ namespace InBoardPro
                 if (email.Trim() == string.Empty) email = "--";
                 if (phoneNumber.Trim() == string.Empty) phoneNumber = "--";
 
-                
-                string Header = "Profile name" + "," + "Profile URL" + "," + "Member ID" + "," + "Degree of connection" + "," + "Location" + "," + "Industry" + "," + "Headline title" + "," + "Current title" + "," + "Past titles" + "," + "Current company" + "," + "Past company" + "," + "Skills" + "," + "Number of connections" + "," + "Education" + "," + "Email" + "," + "Phone number" + "," +  "Account Used" + ",";
+
+                string Header = "Profile name" + "," + "Profile URL" + "," + "Member ID" + "," + "Degree of connection" + "," + "Location" + "," + "Industry" + "," + "Headline title" + "," + "Current title" + "," + "Past titles" + "," + "Current company" + "," + "Past company" + "," + "Skills" + "," + "Number of connections" + "," + "Education" + "," + "Email" + "," + "Phone number" + "," + "Account Used" + ",";
                 string LDS_FinalData = name.Replace(",", ";") + "," + profileUrl.Replace(",", ";") + "," + memberID.Replace(",", ";") + "," + connection.Replace(",", ";") + "," + location.Replace(",", ";") + "," + industry.Replace(",", ";") + "," + headlineTitle.Replace(",", ";") + "," + currentTitle.Replace(",", ";") + "," + pastTitles.Replace(",", ";") + "," + currentCompany.Replace(",", ";") + "," + pastCompany.Replace(",", ";") + "," + skills.Replace(",", ";") + "," + numberOfConnections.Replace(",", ";") + "," + education.Replace(",", ";") + "," + email.Replace(",", ";") + "," + phoneNumber.Replace(",", ";") + "," + SalesNavigatorGlobals.loginId.Replace(",", ";");
                 string FileName = "SalesNavigatorScraper";
                 AppFileHelper.SalesNavigatorScraperWriteToCSV(LDS_FinalData, Header, FileName);
